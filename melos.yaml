@@ -1,0 +1,17 @@
+name: achieve
+
+packages:
+    - packages/**
+
+# Define command configurations
+command:
+    bootstrap:
+        usePubspecOverrides: true
+
+# Define scripts for various commands
+scripts:
+#    prod_run: "flutter run --target lib/main_production.dart --flavor production --release"
+#    release_apk: "flutter build apk --target lib/main_production.dart --flavor production --release --obfuscate --split-debug-info=raindrop_erp"
+    build: "dart run build_runner build -d"
+    watch: "dart run build_runner watch -d"
+    mkfclass: "mason make model_freezed_json --name"

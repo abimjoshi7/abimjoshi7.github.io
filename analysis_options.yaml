@@ -1,0 +1,31 @@
+include: package:lint/strict.yaml
+
+linter:
+  rules:
+    avoid_dynamic_calls: true
+    missing_return: error
+    invalid_annotation_target: false # for freezed and json serializable compatibility
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.gr.dart"
+    - "**/*.freezed.dart"
+    - "**/*.mocks.dart"
+    - "test/.test_coverage.dart"
+    - "bin/cache/**"
+    - "lib/generated_plugin_registrant.dart"
+
+  plugins:
+    - custom_lint
+
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+
+  errors:
+    invalid_annotation_target: ignore
+
+
+  

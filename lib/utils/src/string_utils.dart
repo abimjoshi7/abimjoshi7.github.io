@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart';
+part of utils;
 
 /// Extension on [String] to provide various string manipulation functionalities.
 extension StringCasingExtension on String {
@@ -85,7 +85,6 @@ extension StringToId on String {
     return hash.toInt(); // Convert BigInt back to int
   }
 }
-
 
 extension ParseDateString on String {
   /// Converts a string representing a date into a [DateTime] object.

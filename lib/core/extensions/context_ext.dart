@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+
 import '../../style/style.dart';
 
 /// Extension on [BuildContext] to provide utility methods for accessing media query information,
@@ -40,80 +41,6 @@ extension BuildContextEntension<T> on BuildContext {
 
   /// Returns the size of the media (screen or window).
   Size get size => MediaQuery.of(this).size;
-
-  // * Text styles
-  TextStyle? get displayLarge => Theme.of(this).textTheme.displayLarge;
-
-  TextStyle? get displayMedium => Theme.of(this).textTheme.displayMedium;
-
-  TextStyle? get displaySmall => Theme.of(this).textTheme.displaySmall;
-
-  TextStyle? get headlineLarge => Theme.of(this).textTheme.headlineLarge;
-
-  TextStyle? get headlineMedium => Theme.of(this).textTheme.headlineMedium;
-
-  TextStyle? get headlineSmall => Theme.of(this).textTheme.headlineSmall;
-
-  TextStyle? get titleLarge => Theme.of(this).textTheme.titleLarge;
-
-  TextStyle? get titleMedium => Theme.of(this).textTheme.titleMedium;
-
-  TextStyle? get titleSmall => Theme.of(this).textTheme.titleSmall;
-
-  TextStyle? get bodyLarge => Theme.of(this).textTheme.bodyLarge;
-
-  TextStyle? get bodyMedium => Theme.of(this).textTheme.bodyMedium;
-
-  TextStyle? get bodySmall => Theme.of(this).textTheme.bodySmall;
-
-  TextStyle? get labelLarge => Theme.of(this).textTheme.labelLarge;
-
-  TextStyle? get labelMedium => Theme.of(this).textTheme.labelMedium;
-
-  TextStyle? get labelSmall => Theme.of(this).textTheme.labelSmall;
-
-  TextStyle? get labelSmallDisabled => this.labelSmall?.copyWith(
-        color: this.disabledColor,
-      );
-
-  // * Colors
-  Color get primaryColor => Theme.of(this).primaryColor;
-
-  Color get primaryColorDark => Theme.of(this).primaryColorDark;
-
-  Color get primaryColorLight => Theme.of(this).primaryColorLight;
-
-  Color get primary => Theme.of(this).colorScheme.primary;
-
-  Color get onPrimary => Theme.of(this).colorScheme.onPrimary;
-
-  Color get secondary => Theme.of(this).colorScheme.secondary;
-
-  Color get onSecondary => Theme.of(this).colorScheme.onSecondary;
-
-  Color get tertiary => Theme.of(this).colorScheme.tertiary;
-
-  Color get onTertiary => Theme.of(this).colorScheme.onTertiary;
-
-  Color get canvasColor => Theme.of(this).canvasColor;
-
-  Color get cardColor => Theme.of(this).cardColor;
-
-  Color get disabledColor => Theme.of(this).disabledColor;
-
-  Color get focusColor => Theme.of(this).focusColor;
-
-  Color get highlightColor => Theme.of(this).highlightColor;
-
-  Color get hintColor => Theme.of(this).hintColor;
-
-  Color get indicatorColor => Theme.of(this).indicatorColor;
-
-  Color get errorColor => Theme.of(this).colorScheme.error;
-
-  Color get background => Theme.of(this).colorScheme.background;
-
-  Color get unselectedWidgetColor => Theme.of(this).unselectedWidgetColor;
 
   // * Popups
   /// Shows a modal bottom sheet with the given [child] widget.
@@ -194,9 +121,11 @@ extension BuildContextEntension<T> on BuildContext {
                   isSuccessful
                       ? Icons.done_rounded
                       : Icons.warning_amber_rounded,
-                  color: isSuccessful ? Palette.brightGreen : Palette.coralRed,
+                  color: isSuccessful ? Palette.seaGreen : Palette.imperialRed,
                 ),
-                SizedBox(width: 16,),
+                SizedBox(
+                  width: 16,
+                ),
                 Flexible(
                   child: Text(
                     message,

@@ -10,7 +10,6 @@ import 'core/core.dart';
 import 'features/auth/shared/providers.dart';
 import 'style/style.dart';
 
-
 final initializationProvider = FutureProvider<Unit>((ref) async {
   ref.read(dioProvider)
     ..options = BaseOptions(
@@ -25,9 +24,9 @@ final initializationProvider = FutureProvider<Unit>((ref) async {
 
   if (!BuildConfig.isProduction) {
     ref.read(dioProvider).interceptors.add(PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-    ));
+          requestHeader: true,
+          requestBody: true,
+        ));
   }
 
   final authNotifier = ref.read(authNotifierProvider.notifier);

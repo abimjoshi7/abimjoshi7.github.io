@@ -4,13 +4,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'route_notifier.dart';
 
 final routerProvider = Provider<GoRouter>(
-      (ref) {
+  (ref) {
     final router = RouterNotifier(ref);
     return GoRouter(
       refreshListenable: router,
-      redirect: router.redirectLogic,
+      // redirect: router.redirectLogic,
       routes: router.routes,
-
     );
   },
 );

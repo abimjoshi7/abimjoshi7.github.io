@@ -1,6 +1,11 @@
-class Strings {
-  Strings._();
+class AppStrings {
+  AppStrings._();
 
-  static const String kAppName = "app-name";
+  // * App Details
+  static const String kAppName = "Achieve";
   static const String kTitle = "user";
+
+  // * Flutter Secure Storage
+  static const String kIsFirstUse = "isFirstUse";
+  static const String kIsRememberLogin = "isRememberLogin";
 }

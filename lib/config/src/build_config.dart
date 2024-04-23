@@ -62,25 +62,25 @@ class BuildConfig {
         _instance = const BuildConfig._release();
         break;
     }
-    _initLog();
+    // _initLog();
   }
 
   static BuildConfig get() {
     return _instance;
   }
 
-  static Future<void> _initLog() async {
-    await Log.init();
-    switch (_instance.flavor) {
-      case Flavor.development:
-      case Flavor.staging:
-        Log.setLevel(Level.ALL);
-        break;
-      case Flavor.release:
-        Log.setLevel(Level.OFF);
-        break;
-    }
-  }
+  // static Future<void> _initLog() async {
+  //   await Log.init();
+  //   switch (_instance.flavor) {
+  //     case Flavor.development:
+  //     case Flavor.staging:
+  //       Log.setLevel(Level.ALL);
+  //       break;
+  //     case Flavor.release:
+  //       Log.setLevel(Level.OFF);
+  //       break;
+  //   }
+  // }
 
   final String baseUrl;
   final String socketUrl;

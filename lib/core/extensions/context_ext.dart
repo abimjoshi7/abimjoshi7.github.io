@@ -1,8 +1,7 @@
 import 'dart:async';
 
+import 'package:app_essentials/app_essentials.dart';
 import 'package:flutter/material.dart';
-
-import '../../style/style.dart';
 
 /// Extension on [BuildContext] to provide utility methods for accessing media query information,
 /// text styles, colors, and showing bottom sheets and snack bars.

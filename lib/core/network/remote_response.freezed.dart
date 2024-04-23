@@ -15,46 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$RemoteResponse<T> {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(T data) withNewData,
-    required TResult Function(int? errorCode, String? message) failure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(T data)? withNewData,
-    TResult? Function(int? errorCode, String? message)? failure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(T data)? withNewData,
-    TResult Function(int? errorCode, String? message)? failure,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_WithNewData<T> value) withNewData,
-    required TResult Function(_Failure<T> value) failure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_WithNewData<T> value)? withNewData,
-    TResult? Function(_Failure<T> value)? failure,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_WithNewData<T> value)? withNewData,
-    TResult Function(_Failure<T> value)? failure,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-}
+mixin _$RemoteResponse<T> {}
 
 /// @nodoc
 abstract class $RemoteResponseCopyWith<T, $Res> {
@@ -136,68 +97,6 @@ class _$WithNewDataImpl<T> extends _WithNewData<T> {
   _$$WithNewDataImplCopyWith<T, _$WithNewDataImpl<T>> get copyWith =>
       __$$WithNewDataImplCopyWithImpl<T, _$WithNewDataImpl<T>>(
           this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(T data) withNewData,
-    required TResult Function(int? errorCode, String? message) failure,
-  }) {
-    return withNewData(data);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(T data)? withNewData,
-    TResult? Function(int? errorCode, String? message)? failure,
-  }) {
-    return withNewData?.call(data);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(T data)? withNewData,
-    TResult Function(int? errorCode, String? message)? failure,
-    required TResult orElse(),
-  }) {
-    if (withNewData != null) {
-      return withNewData(data);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_WithNewData<T> value) withNewData,
-    required TResult Function(_Failure<T> value) failure,
-  }) {
-    return withNewData(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_WithNewData<T> value)? withNewData,
-    TResult? Function(_Failure<T> value)? failure,
-  }) {
-    return withNewData?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_WithNewData<T> value)? withNewData,
-    TResult Function(_Failure<T> value)? failure,
-    required TResult orElse(),
-  }) {
-    if (withNewData != null) {
-      return withNewData(this);
-    }
-    return orElse();
-  }
 }
 
 abstract class _WithNewData<T> extends RemoteResponse<T> {
@@ -279,68 +178,6 @@ class _$FailureImpl<T> extends _Failure<T> {
   @pragma('vm:prefer-inline')
   _$$FailureImplCopyWith<T, _$FailureImpl<T>> get copyWith =>
       __$$FailureImplCopyWithImpl<T, _$FailureImpl<T>>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(T data) withNewData,
-    required TResult Function(int? errorCode, String? message) failure,
-  }) {
-    return failure(errorCode, message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(T data)? withNewData,
-    TResult? Function(int? errorCode, String? message)? failure,
-  }) {
-    return failure?.call(errorCode, message);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(T data)? withNewData,
-    TResult Function(int? errorCode, String? message)? failure,
-    required TResult orElse(),
-  }) {
-    if (failure != null) {
-      return failure(errorCode, message);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_WithNewData<T> value) withNewData,
-    required TResult Function(_Failure<T> value) failure,
-  }) {
-    return failure(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_WithNewData<T> value)? withNewData,
-    TResult? Function(_Failure<T> value)? failure,
-  }) {
-    return failure?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_WithNewData<T> value)? withNewData,
-    TResult Function(_Failure<T> value)? failure,
-    required TResult orElse(),
-  }) {
-    if (failure != null) {
-      return failure(this);
-    }
-    return orElse();
-  }
 }
 
 abstract class _Failure<T> extends RemoteResponse<T> {

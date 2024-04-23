@@ -16,7 +16,7 @@ abstract class Env {
 
       BuildConfig.init(flavor: const String.fromEnvironment('flavor'));
 
-      Themes.initUiOverlayStyle();
+      AppTheme.initUiOverlayStyle();
 
       usePathUrlStrategy();
 
@@ -24,7 +24,10 @@ abstract class Env {
       final supabaseUrl = dotenv.get('SUPABASE_URL');
       final supabaseKey = dotenv.get('SUPABASE_KEY');
 
-      await Supabase.initialize(url: supabaseUrl, anonKey: supabaseKey,);
+      await Supabase.initialize(
+        url: supabaseUrl,
+        anonKey: supabaseKey,
+      );
       final app = await onCreate();
 
       runApp(

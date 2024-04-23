@@ -1,9 +1,9 @@
+import 'package:app_essentials/app_essentials.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../../../core/routes/app_routes.dart';
-import '../../../../auth/shared/providers.dart';
 import '../../shared/providers.dart';
 
 class HomeScaffold extends HookConsumerWidget {
@@ -17,8 +17,7 @@ class HomeScaffold extends HookConsumerWidget {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () =>
-                ref.read(signOutNotifierProvider.notifier).signOut(),
+            onPressed: () {},
             icon: const Icon(Icons.logout),
           ),
           // IconButton(
@@ -98,7 +97,9 @@ class HomeScaffold extends HookConsumerWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.goNamed(AppRoutes.counterNameRoute),
+        onPressed: () => context.goNamed(
+          AppRoutes.counterRoute.removeSymbols(),
+        ),
         child: const Icon(Icons.chevron_right),
       ),
     );

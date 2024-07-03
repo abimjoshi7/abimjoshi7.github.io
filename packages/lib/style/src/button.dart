@@ -12,15 +12,15 @@ class CustomButtonStyles {
             // color: appTheme.black900.withOpacity(0.5),
             spreadRadius: 2.h,
             blurRadius: 2.h,
-            offset: Offset(
+            offset: const Offset(
               0,
               8,
             ),
           ),
         ],
         gradient: LinearGradient(
-          begin: Alignment(0.5, 1),
-          end: Alignment(0.5, 0),
+          begin: const Alignment(0.5, 1),
+          end: const Alignment(0.5, 0),
           colors: [
             Palette.secondaryColor.withOpacity(0.25),
             Palette.scaffoldBackgroundColor.withOpacity(0.25),
@@ -28,25 +28,26 @@ class CustomButtonStyles {
         ),
       );
 
+  // Elevated button style
+  static ButtonStyle get elevated => ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+          side: const BorderSide(
+            color: Palette.mystic,
+          ),
+        ),
+      );
   // Outline button style
-  static ButtonStyle get outline => OutlinedButton.styleFrom(
+  static ButtonStyle get outlined => OutlinedButton.styleFrom(
+        side: const BorderSide(color: Palette.bittersweet),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24.h),
-        ),
-      );
-  static ButtonStyle get outlineTL16 => OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.h),
-        ),
-      );
-  static ButtonStyle get outlineTL24 => OutlinedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24.h),
+          borderRadius: BorderRadius.circular(4),
         ),
       );
   // text button style
   static ButtonStyle get none => ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(Colors.transparent),
+        foregroundColor: MaterialStateProperty.all<Color>(Palette.zaffre),
         elevation: MaterialStateProperty.all<double>(0),
       );
 }

@@ -20,8 +20,14 @@ class AppWidget extends HookConsumerWidget {
       title: AppStrings.kAppName,
       // localizationsDelegates: AppLocalizations.localizationsDelegates,
       // supportedLocales: AppLocalizations.supportedLocales,
-      theme: AppTheme.lightTheme(context),
-      darkTheme: AppTheme.darkTheme(context),
+      theme: AppTheme.lightTheme(
+        context,
+        Palette.lightColorScheme,
+      ),
+      darkTheme: AppTheme.darkTheme(
+        context,
+        Palette.darkColorScheme,
+      ),
       // themeMode: ThemeMode.light,
     );
   }

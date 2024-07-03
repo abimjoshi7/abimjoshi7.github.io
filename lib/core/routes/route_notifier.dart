@@ -1,4 +1,7 @@
 import 'package:achieve/core/core.dart';
+import 'package:achieve/features/analytics/analytics_screen.dart';
+import 'package:achieve/features/auth/presentation/pages/register_page.dart';
+import 'package:achieve/features/homepage_new_habit_screen/homepage_new_habit_screen.dart';
 import 'package:achieve/features/splash/presentation/pages/splash_page.dart';
 import 'package:app_essentials/app_essentials.dart';
 import 'package:flutter/widgets.dart';
@@ -42,11 +45,28 @@ class RouterNotifier extends ChangeNotifier {
         name: AppRoutes.signInRoute.removeSymbols(),
         path: AppRoutes.signInRoute,
         builder: (context, state) => const SignInPage(),
+        routes: [
+          GoRoute(
+            name: AppRoutes.homepageNewHabitScreen.removeSymbols(),
+            path: AppRoutes.homepageNewHabitScreen.removeSymbols(),
+            builder: (context, state) => const HomepageNewHabitScreen(),
+          ),
+          GoRoute(
+            name: AppRoutes.analyticsScreen.removeSymbols(),
+            path: AppRoutes.analyticsScreen.removeSymbols(),
+            builder: (context, state) => const AnalyticsScreen(),
+          ),
+        ],
       ),
       GoRoute(
         name: AppRoutes.signUpRoute.removeSymbols(),
         path: AppRoutes.signUpRoute,
         builder: (context, state) => const SignUpPage(),
+      ),
+      GoRoute(
+        name: AppRoutes.registerRoute.removeSymbols(),
+        path: AppRoutes.registerRoute,
+        builder: (context, state) => const RegisterWidget(),
       ),
       GoRoute(
         name: AppRoutes.homeRoute.removeSymbols(),
@@ -55,7 +75,7 @@ class RouterNotifier extends ChangeNotifier {
         routes: [
           GoRoute(
             name: AppRoutes.counterRoute.removeSymbols(),
-            path: AppRoutes.counterRoute,
+            path: AppRoutes.counterRoute.removeSymbols(),
             builder: (context, state) => const CounterPage(),
           ),
         ],

@@ -25,7 +25,7 @@ class HomepageNewHabitScreenState
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Palette.orange5002,
+        backgroundColor: Palette.scaffoldDarkBackgroundColor,
         resizeToAvoidBottomInset: false,
         appBar: _buildAppBar(context),
         body: SizedBox(

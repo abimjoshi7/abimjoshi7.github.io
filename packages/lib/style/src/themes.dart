@@ -31,19 +31,13 @@ class AppTheme {
   static ThemeData setThemeData([ColorScheme? colorScheme]) => ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
         elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            foregroundColor: Palette.mystic,
-          ),
+          style: CustomButtonStyles.elevated,
         ),
         outlinedButtonTheme: OutlinedButtonThemeData(
-          style: OutlinedButton.styleFrom(
-            foregroundColor: Palette.mystic,
-          ),
+          style: CustomButtonStyles.outlined,
         ),
         textButtonTheme: TextButtonThemeData(
-          style: TextButton.styleFrom(
-            foregroundColor: Palette.mystic,
-          ),
+          style: CustomButtonStyles.none,
         ),
         colorScheme: colorScheme,
         textTheme: AppTypography.textTheme(colorScheme),

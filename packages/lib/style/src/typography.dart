@@ -4,14 +4,71 @@ class AppTypography {
   AppTypography._();
 
   static TextTheme textTheme([ColorScheme? colorScheme]) => TextTheme(
-        bodyLarge: TextStyle(
+        displayLarge: TextStyle(
+          color: Palette.orangeA20001,
+          fontSize: 36.fSize,
+          fontFamily: 'Klasik',
+          fontWeight: FontWeight.w400,
+        ),
+        displayMedium: TextStyle(
+          color: Palette.imperialRed,
+          fontSize: 36.fSize,
+          fontFamily: 'Klasik',
+          fontWeight: FontWeight.w400,
+        ),
+        displaySmall: TextStyle(
           color: Palette.gray800,
+          fontSize: 36.fSize,
+          fontFamily: 'Klasik',
+          fontWeight: FontWeight.w400,
+        ),
+        headlineLarge: TextStyle(
+          color: Palette.orange50,
+          fontSize: 24.fSize,
+          fontFamily: 'Klasik',
+          fontWeight: FontWeight.w400,
+        ),
+        headlineMedium: TextStyle(
+          color: Palette.blueGray400,
+          fontSize: 24.fSize,
+          fontFamily: 'Klasik',
+          fontWeight: FontWeight.w400,
+        ),
+        headlineSmall: TextStyle(
+          color: Palette.deepOrange100,
+          fontSize: 24.fSize,
+          fontFamily: 'Klasik',
+          fontWeight: FontWeight.w400,
+        ),
+        titleLarge: TextStyle(
+          color: Palette.orange5001,
+          fontSize: 20.fSize,
+          fontFamily: 'Manrope',
+          fontWeight: FontWeight.w700,
+        ),
+        // Dropdown text style
+        titleMedium: TextStyle(
+          color: Palette.zaffre,
+          fontSize: 16.fSize,
+          fontFamily: 'Manrope',
+          fontWeight: FontWeight.w500,
+        ),
+        titleSmall: TextStyle(
+          color: Palette.gray800,
+          fontSize: 14.fSize,
+          fontFamily: 'Manrope',
+          fontWeight: FontWeight.w700,
+        ),
+        // Textfield textstyle
+        bodyLarge: TextStyle(
+          color: Palette.cyan,
           fontSize: 16.fSize,
           fontFamily: 'Manrope',
           fontWeight: FontWeight.w100,
         ),
+        // text textstyle
         bodyMedium: TextStyle(
-          color: Palette.gray800,
+          color: Palette.seaGreen,
           fontSize: 14.fSize,
           fontFamily: 'Manrope',
           fontWeight: FontWeight.w100,
@@ -22,18 +79,6 @@ class AppTypography {
           fontFamily: 'Manrope',
           fontWeight: FontWeight.w100,
         ),
-        displaySmall: TextStyle(
-          color: Palette.gray800,
-          fontSize: 36.fSize,
-          fontFamily: 'Klasik',
-          fontWeight: FontWeight.w400,
-        ),
-        headlineSmall: TextStyle(
-          color: Palette.gray800,
-          fontSize: 24.fSize,
-          fontFamily: 'Klasik',
-          fontWeight: FontWeight.w400,
-        ),
         labelLarge: TextStyle(
           color: Palette.gray800.withOpacity(0.53),
           fontSize: 12.fSize,
@@ -41,26 +86,14 @@ class AppTypography {
           fontWeight: FontWeight.w500,
         ),
         labelMedium: TextStyle(
-          color: colorScheme?.primary,
+          color: Palette.bittersweet,
           fontSize: 10.fSize,
           fontFamily: 'Manrope',
           fontWeight: FontWeight.w700,
         ),
-        titleLarge: TextStyle(
-          color: colorScheme?.primary,
-          fontSize: 20.fSize,
-          fontFamily: 'Manrope',
-          fontWeight: FontWeight.w700,
-        ),
-        titleMedium: TextStyle(
-          color: Palette.gray800,
-          fontSize: 16.fSize,
-          fontFamily: 'Manrope',
-          fontWeight: FontWeight.w500,
-        ),
-        titleSmall: TextStyle(
-          color: Palette.gray800,
-          fontSize: 14.fSize,
+        labelSmall: TextStyle(
+          color: Palette.imperialRed,
+          fontSize: 10.fSize,
           fontFamily: 'Manrope',
           fontWeight: FontWeight.w700,
         ),

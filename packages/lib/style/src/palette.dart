@@ -31,9 +31,9 @@ class Palette {
   static const gray800 = Color(0xff573353);
 // Orange
   static const orange100 = Color(0xffFFDEC1);
-  static const orange50 = Color(0xffFBEADB);
-  static const orange5001 = Color(0xffFFF3E9);
-  static const orange5002 = Color(0xffFFF3E8);
+  static const orange50 = Color.fromARGB(62, 234, 219, 251);
+  static const orange5001 = Color(0xff12E2A2);
+  static const orange5002 = Color(0xffbbE792);
   static const orangeA20001 = Color(0xffFC9D45);
 // Red
   static const red400 = Color(0xffF65B4E);
@@ -47,8 +47,10 @@ class Palette {
 
   static const darkColorScheme = ColorScheme.dark(
     primary: primaryDarkColor,
-    onPrimary: zaffre,
-    onPrimaryContainer: scaffoldBackgroundColor,
-    onSecondaryContainer: secondaryDarkColor,
+    // secondary: zaffre,
+    // tertiary: cyan,
+    // onPrimary: zaffre,
+    // onPrimaryContainer: zaffre,
+    // onSecondaryContainer: secondaryDarkColor,
   );
 }

@@ -20,9 +20,72 @@ class SignInPage extends HookConsumerWidget {
     var kSignUp = "Sign Up";
     var kSubmit = "Submit";
     return Scaffold(
+      appBar: AppBar(
+        title: Text("Sign In"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.help_outline),
+            onPressed: () {},
+          ),
+        ],
+      ),
       body: Column(
         children: [
-          Placeholder(),
+          Text("Hello world"),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Placeholder(
+                fallbackHeight: 100,
+              ),
+            ),
+          ),
+          DropdownButtonFormField<int>(
+            items: [
+              DropdownMenuItem(
+                value: 1,
+                child: Text("1"),
+              ),
+              DropdownMenuItem(
+                value: 2,
+                child: Text("2"),
+              ),
+              DropdownMenuItem(
+                value: 3,
+                child: Text("3"),
+              ),
+            ],
+            onChanged: (value) {},
+          ),
+          Card(
+            child: ListTile(
+              title: Text("data"),
+              trailing: Icon(
+                Icons.dangerous,
+              ),
+            ),
+          ),
+          Row(
+            children: [
+              FilterChip(
+                label: Text("12"),
+                onSelected: (value) {},
+              ),
+              ChoiceChip(label: Text("data123"), selected: true),
+              ActionChip.elevated(
+                label: Text("data"),
+                labelStyle: TextStyle(color: Palette.zaffre),
+              ),
+            ],
+          ),
+          ExpansionTile(
+            title: Text("data"),
+            children: [
+              Text("data"),
+              Text("data"),
+              Text("data"),
+            ],
+          ),
           Padding(
             padding: const EdgeInsets.all(24),
             child: Column(
@@ -33,31 +96,74 @@ class SignInPage extends HookConsumerWidget {
                 TextFormField(
                   controller: _password,
                 ),
+                CheckboxListTile.adaptive(
+                  value: true,
+                  onChanged: (value) {},
+                  title: Text("123xzc"),
+                ),
+                RadioListTile(
+                  value: 1,
+                  groupValue: 1,
+                  onChanged: (value) {},
+                  title: Text("zxczxc"),
+                ),
               ],
             ),
           ),
           Spacer(
             flex: 5,
           ),
-          ElevatedButton(
-            onPressed: () => supabase.auth.signInWithPassword(
-              password: _password.text,
-              email: _email.text,
-            ),
-            child: Text(
-              kSubmit,
-            ),
+          Row(
+            children: [
+              ElevatedButton(
+                onPressed: () => supabase.auth
+                    .signInWithPassword(
+                      password: _password.text,
+                      email: _email.text,
+                    )
+                    .whenComplete(
+                      () => context.pushNamed(
+                        AppRoutes.homepageNewHabitScreen.removeSymbols(),
+                      ),
+                    ),
+                child: Text(
+                  kSubmit,
+                ),
+              ),
+              OutlinedButton(
+                onPressed: () => supabase.auth
+                    .signInWithPassword(
+                      password: _password.text,
+                      email: _email.text,
+                    )
+                    .whenComplete(
+                      () => context.pushNamed(
+                        AppRoutes.homepageNewHabitScreen.removeSymbols(),
+                      ),
+                    ),
+                child: Text(
+                  kSubmit,
+                ),
+              ),
+            ],
           ),
           Spacer(),
           TextButton(
             onPressed: () => context.goNamed(
-              AppRoutes.signUpRoute.removeSymbols(),
+              AppRoutes.registerRoute.removeSymbols(),
             ),
             child: Text(
               kSignUp,
             ),
           ),
           Spacer(),
+          OutlinedButton.icon(
+            onPressed: () {},
+            icon: Icon(Icons.safety_check),
+            label: Text(
+              "data",
+            ),
+          ),
         ],
       ),
     );

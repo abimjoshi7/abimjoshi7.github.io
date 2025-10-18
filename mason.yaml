@@ -1,7 +1,0 @@
-bricks:
-  model_freezed_json: ^0.1.0+1
-  clean_architecture_folders: ^0.1.0+3
-  starter:
-    git:
-      url: "git@github.com:abimjoshi7/mason_bricks.git"
-      path: starter

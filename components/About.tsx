@@ -9,7 +9,7 @@ const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [typedText, setTypedText] = useState('');
-  const fullText = 'Passionate developer specializing in mobile & web applications...';
+  const fullText = 'Seasoned software engineer with 5+ years in hybrid app development, focusing on user satisfaction and seamless performance...';
 
   useEffect(() => {
     if (isInView && typedText.length < fullText.length) {
@@ -40,27 +40,27 @@ const About = () => {
   const highlights = [
     {
       icon: HiDeviceMobile,
-      title: 'Mobile Dev',
-      description: 'Expert in React Native, Flutter, and native development',
-      command: 'mobile_skills.sh',
+      title: 'Flutter Expert',
+      description: 'Production-ready Flutter apps with Bloc pattern & SOLID principles',
+      command: 'flutter_skills.sh',
     },
     {
       icon: HiCode,
-      title: 'Clean Code',
-      description: 'Maintainable, scalable code following best practices',
-      command: 'code_quality.sh',
+      title: 'Clean Architecture',
+      description: 'Separation of concerns with maintainable, testable code',
+      command: 'architecture.sh',
     },
     {
       icon: HiLightningBolt,
       title: 'Performance',
-      description: 'Optimizing for speed and smooth user experiences',
-      command: 'performance.sh',
+      description: 'Improved retention by 15% and user engagement by 20%',
+      command: 'analytics.sh',
     },
     {
       icon: HiUserGroup,
-      title: 'Collaboration',
-      description: 'Team player with agile methodology experience',
-      command: 'team_work.sh',
+      title: 'User-Centric',
+      description: 'Improved app ratings by 1.5 stars through feedback integration',
+      command: 'user_focus.sh',
     },
   ];
 
@@ -164,9 +164,9 @@ const About = () => {
             {/* Stats Terminal */}
             <div className="grid grid-cols-3 gap-4">
               {[
-                { label: 'PROJECTS', value: '50+', color: '#00ff41' },
+                { label: 'PROJECTS', value: '15+', color: '#00ff41' },
                 { label: 'EXPERIENCE', value: '5 YRS', color: '#00d9ff' },
-                { label: 'CLIENTS', value: '30+', color: '#b877db' },
+                { label: 'CLIENTS', value: '10+', color: '#b877db' },
               ].map((stat) => (
                 <motion.div
                   key={stat.label}

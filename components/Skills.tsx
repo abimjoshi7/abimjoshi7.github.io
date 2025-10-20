@@ -5,23 +5,18 @@ import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { HiTerminal } from 'react-icons/hi';
 import {
-  SiReact,
   SiFlutter,
-  SiTypescript,
-  SiJavascript,
-  SiPython,
   SiDart,
-  SiNodedotjs,
-  SiMongodb,
-  SiPostgresql,
+  SiKotlin,
   SiFirebase,
-  SiGit,
-  SiDocker,
+  SiPostgresql,
   SiFigma,
-  SiTailwindcss,
-  SiNextdotjs,
-  SiRedux,
+  SiGit,
+  SiSwagger,
+  SiGithubactions,
 } from 'react-icons/si';
+import { FaJava } from 'react-icons/fa';
+import { SiIsar } from 'react-icons/si';
 
 const Skills = () => {
   const ref = useRef(null);
@@ -32,38 +27,46 @@ const Skills = () => {
     {
       title: 'Mobile Development',
       skills: [
-        { name: 'React Native', icon: SiReact, level: 95, color: '#61DAFB' },
-        { name: 'Flutter', icon: SiFlutter, level: 90, color: '#02569B' },
-        { name: 'Dart', icon: SiDart, level: 85, color: '#0175C2' },
+        { name: 'Flutter', icon: SiFlutter, level: 95, color: '#02569B' },
+        { name: 'Dart', icon: SiDart, level: 95, color: '#0175C2' },
+        { name: 'Kotlin', icon: SiKotlin, level: 85, color: '#7F52FF' },
+        { name: 'Java', icon: FaJava, level: 85, color: '#007396' },
+        { name: 'Kotlin Multiplatform', icon: SiKotlin, level: 80, color: '#B125EA' },
       ],
     },
     {
-      title: 'Web Development',
+      title: 'State Management & Architecture',
       skills: [
-        { name: 'React', icon: SiReact, level: 95, color: '#61DAFB' },
-        { name: 'Next.js', icon: SiNextdotjs, level: 90, color: '#000000' },
-        { name: 'TypeScript', icon: SiTypescript, level: 90, color: '#3178C6' },
-        { name: 'JavaScript', icon: SiJavascript, level: 95, color: '#F7DF1E' },
-        { name: 'Tailwind CSS', icon: SiTailwindcss, level: 90, color: '#06B6D4' },
+        { name: 'Bloc Pattern', icon: SiFlutter, level: 95, color: '#02569B' },
+        { name: 'SOLID Principles', icon: HiTerminal, level: 90, color: '#00ff41' },
       ],
     },
     {
-      title: 'Backend & Database',
+      title: 'Database & Backend',
       skills: [
-        { name: 'Node.js', icon: SiNodedotjs, level: 85, color: '#339933' },
-        { name: 'Python', icon: SiPython, level: 80, color: '#3776AB' },
-        { name: 'MongoDB', icon: SiMongodb, level: 85, color: '#47A248' },
-        { name: 'PostgreSQL', icon: SiPostgresql, level: 80, color: '#4169E1' },
-        { name: 'Firebase', icon: SiFirebase, level: 90, color: '#FFCA28' },
+        { name: 'PostgreSQL', icon: SiPostgresql, level: 90, color: '#4169E1' },
+        { name: 'Firestore', icon: SiFirebase, level: 90, color: '#FFCA28' },
+        { name: 'Drift', icon: HiTerminal, level: 85, color: '#00d9ff' },
+        { name: 'Isar', icon: HiTerminal, level: 85, color: '#00ff41' },
+        { name: 'Room', icon: HiTerminal, level: 85, color: '#7F52FF' },
       ],
     },
     {
-      title: 'Tools & Others',
+      title: 'Native Android & Tools',
       skills: [
-        { name: 'Git', icon: SiGit, level: 90, color: '#F05032' },
-        { name: 'Docker', icon: SiDocker, level: 75, color: '#2496ED' },
-        { name: 'Redux', icon: SiRedux, level: 85, color: '#764ABC' },
-        { name: 'Figma', icon: SiFigma, level: 80, color: '#F24E1E' },
+        { name: 'Ktor', icon: SiKotlin, level: 80, color: '#7F52FF' },
+        { name: 'WorkManager', icon: HiTerminal, level: 85, color: '#00d9ff' },
+        { name: 'Retrofit', icon: HiTerminal, level: 90, color: '#00ff41' },
+      ],
+    },
+    {
+      title: 'DevOps & Design',
+      skills: [
+        { name: 'Figma', icon: SiFigma, level: 85, color: '#F24E1E' },
+        { name: 'Postman', icon: HiTerminal, level: 90, color: '#FF6C37' },
+        { name: 'Swagger', icon: SiSwagger, level: 85, color: '#85EA2D' },
+        { name: 'GitHub Actions', icon: SiGithubactions, level: 85, color: '#2088FF' },
+        { name: 'Git', icon: SiGit, level: 95, color: '#F05032' },
       ],
     },
   ];

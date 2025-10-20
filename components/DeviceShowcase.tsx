@@ -1,7 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import { ReactNode } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 
 interface DeviceShowcaseProps {
   deviceType: 'iphone' | 'android' | 'tablet';
@@ -13,6 +13,52 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
   const isIPhone = deviceType === 'iphone';
   const isAndroid = deviceType === 'android';
   const isTablet = deviceType === 'tablet';
+
+  const [tabletTime, setTabletTime] = useState<string>('');
+  const [tabletDate, setTabletDate] = useState<string>('');
+  const [statusBarTime, setStatusBarTime] = useState<string>('');
+
+  useEffect(() => {
+    const updateKathmanduTime = () => {
+      const now = new Date();
+
+      // Format time with AM/PM for tablet status bar
+      const timeString = now.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Kathmandu',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+      });
+
+      // Format time for iPhone/Android status bars (24-hour format, just time)
+      const statusTime = now.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Kathmandu',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: false,
+      });
+
+      // Format date as "Weekday, Mon Day" for tablet
+      const dateString = now.toLocaleDateString('en-US', {
+        timeZone: 'Asia/Kathmandu',
+        weekday: 'long',
+        month: 'short',
+        day: 'numeric',
+      });
+
+      setTabletTime(timeString);
+      setTabletDate(dateString);
+      setStatusBarTime(statusTime);
+    };
+
+    // Update immediately
+    updateKathmanduTime();
+
+    // Update every minute
+    const interval = setInterval(updateKathmanduTime, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <AnimatePresence mode="wait">
@@ -60,7 +106,7 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
                 <div className="absolute top-0 left-0 right-0 h-[54px] z-10 flex items-end justify-between px-8 pb-2">
                   {/* Left side - Time */}
                   <div className="text-white text-[15px] font-semibold tracking-tight" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif' }}>
-                    9:41
+                    {statusBarTime || '9:41'}
                   </div>
                   {/* Right side - Status icons */}
                   <div className="flex items-center gap-1.5">
@@ -133,7 +179,7 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
                   {/* Left side - Time */}
                   <div className="flex items-center gap-3">
                     <div className="text-white text-[14px] font-medium tracking-tight" style={{ fontFamily: 'Roboto, system-ui, sans-serif' }}>
-                      9:41
+                      {statusBarTime || '9:41'}
                     </div>
                     {/* Notification icons */}
                     <div className="flex items-center gap-1">
@@ -224,10 +270,10 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
                   {/* Left side - Time and date */}
                   <div className="flex items-center gap-4">
                     <div className="text-white text-[15px] font-semibold tracking-tight" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif' }}>
-                      Friday, Oct 18
+                      {tabletDate || 'Friday, Oct 18'}
                     </div>
                     <div className="text-white text-[15px] font-semibold tracking-tight">
-                      9:41 AM
+                      {tabletTime || '9:41 AM'}
                     </div>
                   </div>
 

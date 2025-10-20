@@ -56,31 +56,29 @@ const Contact = () => {
     {
       icon: HiMail,
       title: 'Email',
-      value: 'john.doe@example.com',
-      link: 'mailto:john.doe@example.com',
+      value: 'abimjoshi7@gmail.com',
+      link: 'mailto:abimjoshi7@gmail.com',
       nativeAction: 'email',
     },
     {
       icon: HiPhone,
       title: 'Phone',
-      value: '+1 (555) 123-4567',
-      link: 'tel:+15551234567',
+      value: '+977 9860920006',
+      link: 'tel:+9779860920006',
       nativeAction: 'call',
     },
     {
       icon: HiLocationMarker,
       title: 'Location',
-      value: 'San Francisco, CA',
+      value: 'Shankhamul, Kathmandu 44600',
       link: null,
       nativeAction: null,
     },
   ];
 
   const socialLinks = [
-    { icon: FaGithub, href: 'https://github.com', label: 'GitHub' },
-    { icon: FaLinkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
-    { icon: FaTwitter, href: 'https://twitter.com', label: 'Twitter' },
-    { icon: FaDribbble, href: 'https://dribbble.com', label: 'Dribbble' },
+    { icon: FaGithub, href: 'https://github.com/abimjoshi7', label: 'GitHub' },
+    { icon: FaLinkedin, href: 'https://linkedin.com/in/abimjoshi7', label: 'LinkedIn' },
   ];
 
   const containerVariants = {

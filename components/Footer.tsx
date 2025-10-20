@@ -12,9 +12,8 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: FaGithub, href: 'https://github.com', label: 'GitHub', cmd: 'git clone' },
-    { icon: FaLinkedin, href: 'https://linkedin.com', label: 'LinkedIn', cmd: 'curl -L' },
-    { icon: FaTwitter, href: 'https://twitter.com', label: 'Twitter', cmd: 'wget -O' },
+    { icon: FaGithub, href: 'https://github.com/abimjoshi7', label: 'GitHub', cmd: 'git clone' },
+    { icon: FaLinkedin, href: 'https://linkedin.com/in/abimjoshi7', label: 'LinkedIn', cmd: 'curl -L' },
   ];
 
   const quickLinks = [
@@ -51,12 +50,12 @@ const Footer = () => {
             <div className="font-mono text-sm space-y-3">
               <div className="flex items-center gap-2">
                 <HiTerminal className="text-[#00ff41]" size={20} />
-                <span className="text-[#00ff41] text-xl font-bold terminal-glow">John Doe</span>
+                <span className="text-[#00ff41] text-xl font-bold terminal-glow">Abim Joshi</span>
               </div>
               <div className="text-[#00d9ff] text-xs leading-relaxed opacity-90">
                 <span className="text-[#00ff41]">$</span> echo $ROLE
                 <div className="pl-4 text-white opacity-80 mt-1">
-                  Mobile & Software Engineer passionate about creating beautiful, performant applications.
+                  Senior Software Engineer - Mobile Technologies with 5+ years crafting production-ready apps. Specializing in Flutter, KMP, and native Android development.
                 </div>
               </div>
             </div>
@@ -112,15 +111,15 @@ const Footer = () => {
               <div className="space-y-2 pl-2">
                 <div className="flex items-start gap-2">
                   <span className="text-[#00d9ff]">"email":</span>
-                  <span className="text-white opacity-80">"john.doe@example.com"</span>
+                  <span className="text-white opacity-80">"abimjoshi7@gmail.com"</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="text-[#00d9ff]">"phone":</span>
-                  <span className="text-white opacity-80">"+1 (555) 123-4567"</span>
+                  <span className="text-white opacity-80">"+977 9860920006"</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="text-[#00d9ff]">"location":</span>
-                  <span className="text-white opacity-80">"San Francisco, CA"</span>
+                  <span className="text-white opacity-80">"Kathmandu, Nepal"</span>
                 </div>
               </div>
 
@@ -161,13 +160,13 @@ const Footer = () => {
             <div className="font-mono text-xs text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <span className="text-[#00ff41]">$</span>
-                <span className="text-[#00d9ff]">echo "© {currentYear} John Doe. All rights reserved."</span>
+                <span className="text-[#00d9ff]">echo "© {currentYear} Abim Joshi. All rights reserved."</span>
               </div>
               <div className="text-white opacity-70">
-                © {currentYear} John Doe. All rights reserved.
+                © {currentYear} Abim Joshi. All rights reserved.
               </div>
               <div className="mt-3 text-[#00d9ff] opacity-60">
-                <span className="text-[#00ff41]">// </span>Built with Next.js, TypeScript & Terminal Love
+                <span className="text-[#00ff41]">// </span>Built with Next.js, TypeScript & Flutter Spirit
                 <motion.span
                   className="inline-block ml-1"
                   animate={{ opacity: [1, 0] }}

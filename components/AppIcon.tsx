@@ -16,10 +16,10 @@ const AppIcon = ({ name, icon, gradient, onClick, isSelected = false }: AppIconP
       onClick={onClick}
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.92 }}
-      className="flex flex-col items-center gap-2 w-20 cursor-pointer group"
+      className="flex flex-col items-center gap-1.5 w-full cursor-pointer group"
     >
       <motion.div
-        className={`relative w-16 h-16 rounded-[14px] bg-gradient-to-br ${gradient} shadow-[0_4px_12px_rgba(0,0,0,0.3)] flex items-center justify-center text-3xl overflow-hidden border border-black/10`}
+        className={`relative w-14 h-14 rounded-[14px] bg-gradient-to-br ${gradient} shadow-[0_4px_12px_rgba(0,0,0,0.3)] flex items-center justify-center text-2xl overflow-hidden border border-black/10`}
         animate={{
           scale: isSelected ? [1, 1.08, 1] : 1,
         }}
@@ -63,7 +63,7 @@ const AppIcon = ({ name, icon, gradient, onClick, isSelected = false }: AppIconP
 
       {/* iOS-style app label with better shadow */}
       <span
-        className="text-white text-xs font-medium text-center leading-tight max-w-[80px] drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
+        className="text-white text-[11px] font-medium text-center leading-tight w-full truncate drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
         style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", Roboto, system-ui, sans-serif' }}
       >
         {name}

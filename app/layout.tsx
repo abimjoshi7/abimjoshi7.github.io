@@ -13,19 +13,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "John Doe - Mobile & Software Engineer Portfolio",
-  description: "Portfolio of John Doe, a passionate Mobile and Software Engineer specializing in React Native, Flutter, and modern web technologies. Explore my projects and experience.",
-  keywords: ["Mobile Developer", "Software Engineer", "React Native", "Flutter", "Web Development", "Portfolio"],
-  authors: [{ name: "John Doe" }],
+  title: "Abim Joshi - Senior Software Engineer - Mobile Technologies",
+  description: "Portfolio of Abim Joshi, Senior Software Engineer specializing in Flutter, Kotlin Multiplatform (KMP), and native Android development. 5+ years of mobile app development experience.",
+  keywords: ["Mobile Developer", "Software Engineer", "Flutter", "Kotlin", "KMP", "Android", "iOS", "Kotlin Multiplatform", "Room", "Ktor", "WorkManager"],
+  authors: [{ name: "Abim Joshi" }],
   openGraph: {
-    title: "John Doe - Mobile & Software Engineer Portfolio",
-    description: "Portfolio showcasing mobile and web development projects",
+    title: "Abim Joshi - Senior Software Engineer - Mobile Technologies",
+    description: "Portfolio showcasing mobile development projects with Flutter, KMP, and native Android",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "John Doe - Mobile & Software Engineer",
-    description: "Portfolio showcasing mobile and web development projects",
+    title: "Abim Joshi - Senior Software Engineer - Mobile Technologies",
+    description: "Portfolio showcasing mobile development projects with Flutter, KMP, and native Android",
   },
 };
 

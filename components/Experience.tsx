@@ -12,58 +12,64 @@ const Experience = () => {
   const experiences = [
     {
       type: 'work',
-      title: 'Senior Mobile Developer',
-      company: 'Tech Innovations Inc.',
-      period: '2022 - Present',
+      title: 'Senior Software Engineer - Mobile Technologies',
+      company: 'Raindrop Inc.',
+      location: 'Pepsicola, Kathmandu',
+      period: 'October 2023 - Present',
       hash: 'a7f3c9e',
       branch: 'main',
-      description: 'Leading mobile development team, architecting and building cross-platform applications using React Native and Flutter.',
+      description: 'Leading mobile development specializing in Flutter, Kotlin Multiplatform, and native Android technologies for financial applications with focus on real-time analytics, offline sync, and compliance monitoring.',
       achievements: [
-        'Led development of 5+ mobile apps with 500K+ downloads',
-        'Reduced app load time by 40% through optimization',
-        'Mentored junior developers and established code review practices',
+        'Developed automated workflows reducing processing times for account management',
+        'Implemented real-time analytics dashboards providing instant financial insights',
+        'Engineered offline data synchronization for low-connectivity environments',
+        'Integrated compliance monitoring features ensuring regulatory adherence',
       ],
     },
     {
       type: 'work',
-      title: 'Mobile Developer',
-      company: 'Digital Solutions Ltd.',
-      period: '2020 - 2022',
+      title: 'Software Engineer - Mobile Technologies',
+      company: 'Podamibe Nepal',
+      location: 'Tripureshwor, Kathmandu',
+      period: 'May 2022 - October 2023',
       hash: '4d8b2f1',
       branch: 'develop',
-      description: 'Developed and maintained mobile applications for iOS and Android platforms, collaborating with cross-functional teams.',
+      description: 'Developed production-ready mobile applications specializing in Flutter and native Android with focus on user engagement and performance optimization.',
       achievements: [
-        'Built 10+ production-ready mobile applications',
-        'Implemented CI/CD pipeline reducing deployment time by 60%',
-        'Improved app performance and user ratings to 4.5+ stars',
+        'Analyzed user engagement using Web-Engage analytics, improving retention by 15%',
+        'Enhanced user engagement by 20% through push notifications and location-based services',
+        'Improved app store ratings by 1.5 stars through continuous feedback integration',
       ],
     },
     {
       type: 'work',
-      title: 'Junior Software Developer',
-      company: 'StartUp Ventures',
-      period: '2019 - 2020',
+      title: 'Software Developer',
+      company: 'Incube Technologies Pvt Ltd',
+      location: 'Patan, Kathmandu',
+      period: 'June 2020 - April 2022',
       hash: '9e1c7a3',
       branch: 'feature',
-      description: 'Contributed to full-stack development projects, focusing on mobile and web application development.',
+      description: 'Built scalable mobile applications applying best practices and modern architecture patterns.',
       achievements: [
-        'Developed responsive web applications using React',
-        'Created REST APIs using Node.js and Express',
-        'Participated in agile development processes',
+        'Implemented Bloc pattern for clear separation of business logic from UI',
+        'Applied SOLID principles improving code maintainability and scalability',
+        'Fixed application bugs using Crashlytics and Sentry',
+        'Kept up with mobile technology trends and applied them to projects',
       ],
     },
     {
       type: 'education',
-      title: 'Bachelor of Computer Science',
-      company: 'University of Technology',
-      period: '2015 - 2019',
+      title: 'Bachelor of Engineering in Information Technology',
+      company: 'Maharashtra Institute of Technology',
+      location: 'Pune, India',
+      period: '2013 - 2019',
       hash: 'f2b5d8c',
       branch: 'education',
-      description: 'Focused on software engineering, mobile development, and data structures.',
+      description: 'Comprehensive engineering program focused on software development, mobile technologies, and information systems.',
       achievements: [
-        'Graduated with First Class Honors',
-        'Published research paper on mobile app optimization',
-        'President of Computer Science Society',
+        'Completed 6-year engineering program',
+        'Strong foundation in computer science fundamentals',
+        'Gained expertise in mobile app development',
       ],
     },
   ];
@@ -165,46 +171,52 @@ const Experience = () => {
                     <span className="text-[#00d9ff]">Author:</span>
                     <span className="text-[#b877db]">{exp.company}</span>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <span className="text-[#00d9ff]">Date:</span>
-                    <span className="text-white opacity-80">{exp.period}</span>
-                  </div>
-                </div>
-
-                {/* Commit Description */}
-                <div className="pl-4 pt-2 border-l-2 border-[#30363d]">
-                  <p className="text-[#00d9ff] opacity-90 mb-4 leading-relaxed">
-                    {exp.description}
-                  </p>
-
-                  {/* Changes/Achievements */}
-                  <div className="space-y-2">
-                    <div className="text-[#00ff41] text-xs font-bold mb-2">
-                      Changes committed:
+                  {exp.type === 'work' && (
+                    <div className="flex items-start gap-2">
+                      <span className="text-[#00d9ff]">Date:</span>
+                      <span className="text-white opacity-80">{exp.period}</span>
                     </div>
-                    {exp.achievements.map((achievement, i) => (
-                      <div key={i} className="flex items-start gap-2 text-xs">
-                        <span className="text-[#00ff41]">+</span>
-                        <span className="text-white opacity-80">{achievement}</span>
-                      </div>
-                    ))}
-                  </div>
+                  )}
                 </div>
 
-                {/* Stats Footer */}
-                <div className="pt-3 mt-3 border-t border-[#30363d] flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-4">
-                    <span className="text-[#00ff41]">
-                      {exp.achievements.length} changes
-                    </span>
-                    <span className="text-[#00d9ff]">
-                      +{exp.achievements.length * 100} lines
-                    </span>
+                {/* Commit Description - Only for work experience */}
+                {exp.type === 'work' && (
+                  <div className="pl-4 pt-2 border-l-2 border-[#30363d]">
+                    <p className="text-[#00d9ff] opacity-90 mb-4 leading-relaxed">
+                      {exp.description}
+                    </p>
+
+                    {/* Changes/Achievements */}
+                    <div className="space-y-2">
+                      <div className="text-[#00ff41] text-xs font-bold mb-2">
+                        Changes committed:
+                      </div>
+                      {exp.achievements.map((achievement, i) => (
+                        <div key={i} className="flex items-start gap-2 text-xs">
+                          <span className="text-[#00ff41]">+</span>
+                          <span className="text-white opacity-80">{achievement}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="text-[#b877db] opacity-70">
-                    {index === 0 ? '(HEAD)' : `~${index} commits behind HEAD`}
+                )}
+
+                {/* Stats Footer - Only for work experience */}
+                {exp.type === 'work' && (
+                  <div className="pt-3 mt-3 border-t border-[#30363d] flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-4">
+                      <span className="text-[#00ff41]">
+                        {exp.achievements.length} changes
+                      </span>
+                      <span className="text-[#00d9ff]">
+                        +{exp.achievements.length * 100} lines
+                      </span>
+                    </div>
+                    <div className="text-[#b877db] opacity-70">
+                      {index === 0 ? '(HEAD)' : `~${index} commits behind HEAD`}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </motion.div>
           ))}

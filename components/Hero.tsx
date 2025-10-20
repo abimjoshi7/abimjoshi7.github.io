@@ -11,11 +11,11 @@ const Hero = () => {
 
   const terminalLines = [
     { text: '$ whoami', color: '#00ff41', delay: 0 },
-    { text: '> Software Engineer | Mobile Developer', color: '#00d9ff', delay: 1000 },
+    { text: '> Abim Joshi | Senior Software Engineer - Mobile', color: '#00d9ff', delay: 1000 },
     { text: '$ cat skills.txt', color: '#00ff41', delay: 2500 },
-    { text: '> React Native | Flutter | Next.js | TypeScript', color: '#b877db', delay: 3500 },
+    { text: '> Flutter | KMP | Kotlin | Room | Ktor | WorkManager', color: '#b877db', delay: 3500 },
     { text: '$ echo $MISSION', color: '#00ff41', delay: 5000 },
-    { text: '> Building innovative solutions with elegant code', color: '#00d9ff', delay: 6000 },
+    { text: '> Crafting production-ready apps with 5+ years of expertise', color: '#00d9ff', delay: 6000 },
   ];
 
   const containerVariants = {
@@ -89,9 +89,9 @@ const Hero = () => {
               className="text-[#00ff41] text-sm sm:text-base mb-6 terminal-glow"
             >
               <pre className="overflow-x-auto">
-{`╔═══════════════════════════════════════╗
-║   SOFTWARE ENGINEER / DEV PORTFOLIO   ║
-╚═══════════════════════════════════════╝`}
+{`╔═══════════════════════════════════════════════════╗
+║   ABIM JOSHI / SOFTWARE ENGINEER - MOBILE TECH    ║
+╚═══════════════════════════════════════════════════╝`}
               </pre>
             </motion.div>
 
@@ -102,10 +102,13 @@ const Hero = () => {
                 <div>
                   <div className="text-[#00ff41] mb-1">$ whoami</div>
                   <div className="text-[#00d9ff] pl-4">
-                    &gt; Full-Stack Software Engineer
+                    &gt; Abim Joshi - Senior Software Engineer - Mobile Technologies
                   </div>
                   <div className="text-[#b877db] pl-4">
-                    &gt; Mobile & Web Application Developer
+                    &gt; 5+ Years of Mobile App Development
+                  </div>
+                  <div className="text-[#00d9ff] pl-4">
+                    &gt; Location: Kathmandu, Nepal
                   </div>
                 </div>
               </div>
@@ -115,9 +118,11 @@ const Hero = () => {
                 <div>
                   <div className="text-[#00ff41] mb-1">$ cat expertise.txt</div>
                   <div className="text-[#00d9ff] pl-4 space-y-1">
-                    <div>&gt; React Native | Flutter | Swift | Kotlin</div>
-                    <div>&gt; Next.js | TypeScript | Node.js</div>
-                    <div>&gt; Firebase | PostgreSQL | MongoDB</div>
+                    <div>&gt; Flutter | Dart | Kotlin | Java | KMP</div>
+                    <div>&gt; Room | Ktor | WorkManager | Retrofit</div>
+                    <div>&gt; Bloc Pattern | SOLID Principles</div>
+                    <div>&gt; PostgreSQL | Firestore | Drift | Isar</div>
+                    <div>&gt; GitHub Actions | Figma | Postman</div>
                   </div>
                 </div>
               </div>
@@ -127,10 +132,13 @@ const Hero = () => {
                 <div className="w-full">
                   <div className="text-[#00ff41] mb-1">$ echo $MISSION</div>
                   <div className="text-[#00d9ff] pl-4">
-                    &gt; Crafting innovative mobile and web solutions
+                    &gt; Delivering on time, meeting client expectations
                   </div>
                   <div className="text-[#00d9ff] pl-4">
-                    &gt; with elegant, performant code
+                    &gt; Writing clean, maintainable code
+                  </div>
+                  <div className="text-[#b877db] pl-4">
+                    &gt; Creating production-ready apps with seamless performance
                   </div>
                 </div>
               </div>
@@ -179,8 +187,8 @@ const Hero = () => {
           </motion.button>
 
           <motion.a
-            href="/resume.pdf"
-            download
+            href="/Resume.pdf"
+            download="Abim_Joshi_Resume.pdf"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-8 py-3 border-2 border-[#00d9ff] text-[#00d9ff] font-mono hover:bg-[#00d9ff] hover:text-[#0d1117] transition-all"
@@ -195,9 +203,8 @@ const Hero = () => {
             <div className="flex items-center gap-6">
               <span className="text-[#00d9ff] font-mono text-sm">~/social/</span>
               {[
-                { Icon: FaGithub, href: 'https://github.com', label: 'GitHub', color: '#00ff41' },
-                { Icon: FaLinkedin, href: 'https://linkedin.com', label: 'LinkedIn', color: '#00d9ff' },
-                { Icon: FaTwitter, href: 'https://twitter.com', label: 'Twitter', color: '#b877db' },
+                { Icon: FaGithub, href: 'https://github.com/abimjoshi7', label: 'GitHub', color: '#00ff41' },
+                { Icon: FaLinkedin, href: 'https://linkedin.com/in/abimjoshi7', label: 'LinkedIn', color: '#00d9ff' },
               ].map(({ Icon, href, label, color }) => (
                 <motion.a
                   key={label}
@@ -221,9 +228,9 @@ const Hero = () => {
         {/* System Stats */}
         <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
-            { label: 'PROJECTS', value: '50+', color: '#00ff41' },
+            { label: 'PROJECTS', value: '15+', color: '#00ff41' },
             { label: 'EXPERIENCE', value: '5+ YRS', color: '#00d9ff' },
-            { label: 'CLIENTS', value: '30+', color: '#b877db' },
+            { label: 'CLIENTS', value: '10+', color: '#b877db' },
             { label: 'UPTIME', value: '99.9%', color: '#ffff00' },
           ].map((stat) => (
             <div key={stat.label} className="terminal-window p-4 text-center">

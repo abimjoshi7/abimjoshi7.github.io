@@ -1,8 +1,18 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AppIcon from './AppIcon';
+import {
+  IOSPhoneIcon,
+  IOSMessagesIcon,
+  IOSSafariIcon,
+  IOSMusicIcon,
+  AndroidPhoneIcon,
+  AndroidMessagesIcon,
+  AndroidChromeIcon,
+  AndroidMusicIcon,
+} from './NativeIcons';
 
 interface App {
   id: string;
@@ -23,6 +33,41 @@ interface PhoneScreenProps {
 
 const PhoneScreen = ({ apps, onAppSelect, deviceType }: PhoneScreenProps) => {
   const [selectedApp, setSelectedApp] = useState<string | null>(null);
+  const [currentTime, setCurrentTime] = useState<string>('');
+  const [currentDate, setCurrentDate] = useState<string>('');
+
+  useEffect(() => {
+    const updateKathmanduTime = () => {
+      const now = new Date();
+
+      // Format time for Kathmandu timezone (Asia/Kathmandu - UTC+5:45)
+      const timeString = now.toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Kathmandu',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: false,
+      });
+
+      // Format date for Kathmandu timezone
+      const dateString = now.toLocaleDateString('en-US', {
+        timeZone: 'Asia/Kathmandu',
+        weekday: 'long',
+        month: 'long',
+        day: 'numeric',
+      });
+
+      setCurrentTime(timeString);
+      setCurrentDate(dateString);
+    };
+
+    // Update immediately
+    updateKathmanduTime();
+
+    // Update every minute
+    const interval = setInterval(updateKathmanduTime, 60000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleAppClick = (app: App) => {
     setSelectedApp(app.id);
@@ -80,7 +125,7 @@ const PhoneScreen = ({ apps, onAppSelect, deviceType }: PhoneScreenProps) => {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative h-full overflow-y-auto overflow-x-hidden px-6 py-4 scrollbar-hide"
+        className="relative h-full overflow-y-auto overflow-x-hidden px-4 py-4 scrollbar-hide"
       >
         {/* Native OS Widgets */}
         {isIOS ? (
@@ -93,10 +138,10 @@ const PhoneScreen = ({ apps, onAppSelect, deviceType }: PhoneScreenProps) => {
               className="mb-8 text-center"
             >
               <div className="text-white text-6xl font-extralight tracking-tight mb-2" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif' }}>
-                9:41
+                {currentTime || '9:41'}
               </div>
               <div className="text-white/80 text-base font-medium tracking-wide" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif' }}>
-                Friday, October 18
+                {currentDate || 'Friday, October 18'}
               </div>
             </motion.div>
 
@@ -128,10 +173,10 @@ const PhoneScreen = ({ apps, onAppSelect, deviceType }: PhoneScreenProps) => {
             >
               <div className="bg-white/8 backdrop-blur-xl rounded-[28px] p-5 border border-white/10 shadow-2xl">
                 <div className="text-white text-5xl font-light tracking-tight mb-2" style={{ fontFamily: 'Roboto, system-ui, sans-serif' }}>
-                  9:41
+                  {currentTime || '9:41'}
                 </div>
                 <div className="text-white/70 text-sm font-medium" style={{ fontFamily: 'Roboto, system-ui, sans-serif' }}>
-                  Friday, October 18
+                  {currentDate || 'Friday, October 18'}
                 </div>
               </div>
             </motion.div>
@@ -156,7 +201,7 @@ const PhoneScreen = ({ apps, onAppSelect, deviceType }: PhoneScreenProps) => {
         )}
 
         {/* Apps Grid */}
-        <div className={`grid ${gridCols} gap-4 pb-6`}>
+        <div className={`grid ${gridCols} gap-3 pb-6 place-items-center`}>
           {apps.map((app, index) => (
             <motion.div
               key={app.id}
@@ -168,6 +213,7 @@ const PhoneScreen = ({ apps, onAppSelect, deviceType }: PhoneScreenProps) => {
                 stiffness: 260,
                 damping: 20,
               }}
+              className="w-full flex justify-center"
             >
               <AppIcon
                 name={app.name}
@@ -198,54 +244,82 @@ const PhoneScreen = ({ apps, onAppSelect, deviceType }: PhoneScreenProps) => {
         >
           {isIOS ? (
             // iOS Dock with translucent background
-            <div className="bg-white/20 backdrop-blur-2xl rounded-[26px] p-3.5 mx-auto max-w-fit shadow-[0_8px_32px_rgba(0,0,0,0.4)] border border-white/20">
-              <div className="flex gap-5 items-center justify-center">
-                {/* iOS-style dock apps */}
-                <div className="w-[60px] h-[60px] rounded-[14px] bg-gradient-to-br from-blue-500 to-blue-600 shadow-[0_4px_12px_rgba(59,130,246,0.4)] flex items-center justify-center text-2xl border border-blue-400/20">
-                  📱
-                </div>
-                <div className="w-[60px] h-[60px] rounded-[14px] bg-gradient-to-br from-green-500 to-green-600 shadow-[0_4px_12px_rgba(34,197,94,0.4)] flex items-center justify-center text-2xl border border-green-400/20">
-                  💬
-                </div>
-                <div className="w-[60px] h-[60px] rounded-[14px] bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 shadow-[0_4px_12px_rgba(96,165,250,0.4)] flex items-center justify-center text-2xl border border-blue-300/20">
-                  🌐
-                </div>
-                <div className="w-[60px] h-[60px] rounded-[14px] bg-gradient-to-br from-red-500 via-pink-500 to-red-600 shadow-[0_4px_12px_rgba(239,68,68,0.4)] flex items-center justify-center text-2xl border border-red-400/20">
-                  🎵
-                </div>
+            <div className="bg-white/20 backdrop-blur-2xl rounded-[26px] p-2.5 mx-auto max-w-fit shadow-[0_8px_32px_rgba(0,0,0,0.4)] border border-white/20">
+              <div className="flex gap-3 items-center justify-center">
+                {/* Native iOS dock apps with authentic icons */}
+                <motion.button
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.92 }}
+                  className="relative group"
+                >
+                  <IOSPhoneIcon className="w-[52px] h-[52px] drop-shadow-[0_4px_12px_rgba(52,199,89,0.5)]" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[13px] pointer-events-none" />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.92 }}
+                  className="relative group"
+                >
+                  <IOSMessagesIcon className="w-[52px] h-[52px] drop-shadow-[0_4px_12px_rgba(52,199,89,0.5)]" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[13px] pointer-events-none" />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.92 }}
+                  className="relative group"
+                >
+                  <IOSSafariIcon className="w-[52px] h-[52px] drop-shadow-[0_4px_12px_rgba(10,132,255,0.5)]" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[13px] pointer-events-none" />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.92 }}
+                  className="relative group"
+                >
+                  <IOSMusicIcon className="w-[52px] h-[52px] drop-shadow-[0_4px_12px_rgba(255,59,48,0.5)]" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[13px] pointer-events-none" />
+                </motion.button>
               </div>
             </div>
           ) : (
             // Material You dock (app tray indicator)
             <div className="bg-white/10 backdrop-blur-xl rounded-full p-2 mx-auto max-w-fit shadow-lg border border-white/10">
-              <div className="flex gap-4 items-center justify-center px-3">
-                {/* Material Design dock apps */}
-                <div className="w-[56px] h-[56px] rounded-[18px] bg-gradient-to-br from-blue-500 to-blue-600 shadow-[0_2px_8px_rgba(59,130,246,0.5)] flex items-center justify-center text-2xl">
-                  📱
-                </div>
-                <div className="w-[56px] h-[56px] rounded-[18px] bg-gradient-to-br from-green-500 to-green-600 shadow-[0_2px_8px_rgba(34,197,94,0.5)] flex items-center justify-center text-2xl">
-                  💬
-                </div>
-                <div className="w-[56px] h-[56px] rounded-[18px] bg-gradient-to-br from-indigo-500 to-purple-600 shadow-[0_2px_8px_rgba(99,102,241,0.5)] flex items-center justify-center text-2xl">
-                  🌐
-                </div>
-                <div className="w-[56px] h-[56px] rounded-[18px] bg-gradient-to-br from-orange-500 to-red-500 shadow-[0_2px_8px_rgba(249,115,22,0.5)] flex items-center justify-center text-2xl">
-                  🎵
-                </div>
+              <div className="flex gap-3 items-center justify-center px-2">
+                {/* Native Android dock apps with Material Design icons */}
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.92 }}
+                  className="relative"
+                >
+                  <AndroidPhoneIcon className="w-[50px] h-[50px] drop-shadow-[0_2px_8px_rgba(76,175,80,0.6)]" />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.92 }}
+                  className="relative"
+                >
+                  <AndroidMessagesIcon className="w-[50px] h-[50px] drop-shadow-[0_2px_8px_rgba(30,136,229,0.6)]" />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.92 }}
+                  className="relative"
+                >
+                  <AndroidChromeIcon className="w-[50px] h-[50px] drop-shadow-[0_2px_8px_rgba(66,133,244,0.6)]" />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.92 }}
+                  className="relative"
+                >
+                  <AndroidMusicIcon className="w-[50px] h-[50px] drop-shadow-[0_2px_8px_rgba(255,111,0,0.6)]" />
+                </motion.button>
               </div>
             </div>
           )}
         </motion.div>
       </motion.div>
 
-      {/* Page Indicator Dots */}
-      {isIOS && (
-        <div className="absolute bottom-[88px] left-0 right-0 flex justify-center gap-2.5">
-          <div className="w-2 h-2 rounded-full bg-white shadow-sm" />
-          <div className="w-2 h-2 rounded-full bg-white/40" />
-          <div className="w-2 h-2 rounded-full bg-white/40" />
-        </div>
-      )}
     </div>
   );
 };

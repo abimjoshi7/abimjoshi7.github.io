@@ -16,7 +16,6 @@ import {
   SiGithubactions,
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
-import { SiIsar } from 'react-icons/si';
 
 const Skills = () => {
   const ref = useRef(null);
@@ -150,7 +149,7 @@ const Skills = () => {
               <div className="mb-4">
                 <div className="flex items-center gap-2 font-mono text-sm">
                   <span className="text-[#00ff41]">❯</span>
-                  <span className="text-[#00d9ff]">echo "${category.title}"</span>
+                  <span className="text-[#00d9ff]">echo &quot;{category.title}&quot;</span>
                 </div>
                 <h3 className="text-xl font-bold font-mono text-[#00ff41] mt-2 terminal-glow">
                   {category.title}

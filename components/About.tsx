@@ -129,7 +129,7 @@ const About = () => {
                       modern cross-platform frameworks like React Native and Flutter.
                     </p>
                     <p>
-                      I'm passionate about user experience, performance optimization, and staying
+                      I&apos;m passionate about user experience, performance optimization, and staying
                       current with emerging technologies.
                     </p>
                   </div>
@@ -190,7 +190,7 @@ const About = () => {
 
           {/* Right Side - Highlights */}
           <motion.div variants={itemVariants} className="space-y-4">
-            {highlights.map(({ icon: Icon, title, description, command }, index) => (
+            {highlights.map(({ icon: Icon, title, description, command }) => (
               <motion.div
                 key={title}
                 variants={itemVariants}

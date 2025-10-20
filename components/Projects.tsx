@@ -8,11 +8,25 @@ import { HiTerminal } from 'react-icons/hi';
 import DeviceShowcase from './DeviceShowcase';
 import PhoneScreen from './PhoneScreen';
 
+interface App {
+  id: string;
+  name: string;
+  icon: string;
+  gradient: string;
+  category: string;
+  description: string;
+  platform: string;
+  tech: string[];
+  github: string;
+  appStore?: string;
+  playStore?: string;
+}
+
 const Projects = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [deviceType, setDeviceType] = useState<'iphone' | 'android' | 'tablet'>('iphone');
-  const [selectedApp, setSelectedApp] = useState<typeof projects[0] | null>(null);
+  const [selectedApp, setSelectedApp] = useState<App | null>(null);
 
   const projects = [
     {
@@ -277,7 +291,7 @@ const Projects = () => {
                 <div className="font-mono text-sm text-[#00d9ff] py-12 text-center">
                   <div className="text-4xl mb-4">👆</div>
                   <div className="opacity-70">
-                    <span className="text-[#00ff41]">$</span> echo "Tap any app icon to view details"
+                    <span className="text-[#00ff41]">$</span> echo &quot;Tap any app icon to view details&quot;
                     <motion.span
                       className="inline-block ml-1"
                       animate={{ opacity: [1, 0] }}

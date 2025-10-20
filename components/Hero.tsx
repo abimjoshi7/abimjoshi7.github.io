@@ -2,21 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { HiTerminal } from 'react-icons/hi';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
-import { useState, useEffect } from 'react';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 const Hero = () => {
-  const [displayText, setDisplayText] = useState('');
-  const [currentLine, setCurrentLine] = useState(0);
-
-  const terminalLines = [
-    { text: '$ whoami', color: '#00ff41', delay: 0 },
-    { text: '> Abim Joshi | Senior Software Engineer - Mobile', color: '#00d9ff', delay: 1000 },
-    { text: '$ cat skills.txt', color: '#00ff41', delay: 2500 },
-    { text: '> Flutter | KMP | Kotlin | Room | Ktor | WorkManager', color: '#b877db', delay: 3500 },
-    { text: '$ echo $MISSION', color: '#00ff41', delay: 5000 },
-    { text: '> Crafting production-ready apps with 5+ years of expertise', color: '#00d9ff', delay: 6000 },
-  ];
 
   const containerVariants = {
     hidden: { opacity: 0 },

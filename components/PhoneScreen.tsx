@@ -23,6 +23,9 @@ interface App {
   description: string;
   platform: string;
   tech: string[];
+  github: string;
+  appStore?: string;
+  playStore?: string;
 }
 
 interface PhoneScreenProps {

@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { HiArrowUp, HiTerminal } from 'react-icons/hi';
 
 const Footer = () => {
@@ -110,16 +110,16 @@ const Footer = () => {
               </div>
               <div className="space-y-2 pl-2">
                 <div className="flex items-start gap-2">
-                  <span className="text-[#00d9ff]">"email":</span>
-                  <span className="text-white opacity-80">"abimjoshi7@gmail.com"</span>
+                  <span className="text-[#00d9ff]">&quot;email&quot;:</span>
+                  <span className="text-white opacity-80">&quot;abimjoshi7@gmail.com&quot;</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-[#00d9ff]">"phone":</span>
-                  <span className="text-white opacity-80">"+977 9860920006"</span>
+                  <span className="text-[#00d9ff]">&quot;phone&quot;:</span>
+                  <span className="text-white opacity-80">&quot;+977 9860920006&quot;</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-[#00d9ff]">"location":</span>
-                  <span className="text-white opacity-80">"Kathmandu, Nepal"</span>
+                  <span className="text-[#00d9ff]">&quot;location&quot;:</span>
+                  <span className="text-white opacity-80">&quot;Kathmandu, Nepal&quot;</span>
                 </div>
               </div>
 
@@ -160,13 +160,13 @@ const Footer = () => {
             <div className="font-mono text-xs text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <span className="text-[#00ff41]">$</span>
-                <span className="text-[#00d9ff]">echo "© {currentYear} Abim Joshi. All rights reserved."</span>
+                <span className="text-[#00d9ff]">echo &quot;© {currentYear} Abim Joshi. All rights reserved.&quot;</span>
               </div>
               <div className="text-white opacity-70">
                 © {currentYear} Abim Joshi. All rights reserved.
               </div>
               <div className="mt-3 text-[#00d9ff] opacity-60">
-                <span className="text-[#00ff41]">// </span>Built with Next.js, TypeScript & Flutter Spirit
+                <span className="text-[#00ff41]">&#47;&#47; </span>Built with Next.js, TypeScript & Flutter Spirit
                 <motion.span
                   className="inline-block ml-1"
                   animate={{ opacity: [1, 0] }}

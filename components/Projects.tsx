@@ -32,7 +32,8 @@ const projects: App[] = [
       'School management app connecting students, teachers and parents — attendance tracking, grade management, assignment submission and real-time notifications.',
     platform: 'iOS · Android',
     tech: ['Flutter', 'Dart', 'Firebase', 'Bloc'],
-    playStore: 'https://play.google.com/store/apps/details?id=com.meroschool',
+    playStore: 'https://play.google.com/store/apps/details?id=school.mero.lms',
+    appStore: 'https://apps.apple.com/np/app/mero-school/id1581089279',
   },
   {
     id: 'merolagani',
@@ -44,7 +45,8 @@ const projects: App[] = [
       "Nepal's stock market and investment app. Real-time analytics dashboards, portfolio tracking and compliance monitoring.",
     platform: 'iOS · Android',
     tech: ['Flutter', 'Dart', 'PostgreSQL', 'Bloc', 'Retrofit'],
-    playStore: 'https://play.google.com/store/apps/details?id=com.merolagani',
+    playStore: 'https://play.google.com/store/apps/details?id=com.podamibe.merolagani&hl=en-US',
+    appStore: 'https://apps.apple.com/us/app/merolagani-nepse-app/id1583525414',
   },
   {
     id: 'merohealthcare',
@@ -56,7 +58,7 @@ const projects: App[] = [
       'Healthcare management platform with offline data sync, appointment scheduling and medical records management.',
     platform: 'Android',
     tech: ['Flutter', 'Dart', 'Drift', 'Firestore'],
-    playStore: 'https://play.google.com/store/apps/details?id=com.merohealthcare',
+    playStore: 'https://play.google.com/store/apps/details?id=com.merohealth&hl=en',
   },
   {
     id: 'homaale',
@@ -68,7 +70,7 @@ const projects: App[] = [
       'Property listing and management app with location-based services, push notifications and personalised content for buyers and sellers.',
     platform: 'Android',
     tech: ['Flutter', 'Dart', 'Firestore', 'Bloc'],
-    playStore: 'https://play.google.com/store/apps/details?id=com.homaale',
+    playStore: 'https://play.google.com/store/apps/details?id=com.cagtu.cipher&hl=en_US',
   },
   {
     id: 'onecorner',
@@ -80,7 +82,8 @@ const projects: App[] = [
       'E-commerce platform with push notifications, engagement analytics and a streamlined checkout flow.',
     platform: 'iOS · Android',
     tech: ['Flutter', 'Dart', 'Isar', 'Retrofit', 'WebEngage'],
-    playStore: 'https://play.google.com/store/apps/details?id=com.onecorner',
+    playStore: 'https://play.google.com/store/apps/details?id=com.onecorner.orderapp',
+    appStore: 'https://apps.apple.com/us/app/one-corner-hospitality/id1580080019',
   },
 ];
 

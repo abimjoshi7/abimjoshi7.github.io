@@ -16,7 +16,7 @@ export const siteConfig = {
   employer: "Raindrop Inc.",
   socials: [
     "https://github.com/abimjoshi7",
-    "https://linkedin.com/in/abimjoshi7",
+    "https://www.linkedin.com/in/abim-joshi-011a77181/",
   ],
   knowsAbout: [
     "Flutter",
@@ -56,7 +56,7 @@ export const featuredApps = [
     platform: "iOS, Android",
     description:
       "School management app connecting students, teachers, and parents with attendance tracking, grade management, and real-time notifications.",
-    url: "https://play.google.com/store/apps/details?id=com.meroschool",
+    url: "https://play.google.com/store/apps/details?id=school.mero.lms",
   },
   {
     name: "Mero Lagani",
@@ -64,7 +64,7 @@ export const featuredApps = [
     platform: "iOS, Android",
     description:
       "Nepal's stock market and investment app with real-time analytics dashboards, portfolio tracking, and compliance monitoring.",
-    url: "https://play.google.com/store/apps/details?id=com.merolagani",
+    url: "https://play.google.com/store/apps/details?id=com.podamibe.merolagani&hl=en-US",
   },
   {
     name: "Mero Health Care",
@@ -72,7 +72,7 @@ export const featuredApps = [
     platform: "Android",
     description:
       "Healthcare management platform with offline data sync, appointment scheduling, and medical records management.",
-    url: "https://play.google.com/store/apps/details?id=com.merohealthcare",
+    url: "https://play.google.com/store/apps/details?id=com.merohealth&hl=en",
   },
   {
     name: "Homaale",
@@ -80,7 +80,7 @@ export const featuredApps = [
     platform: "Android",
     description:
       "Property listing and management app with location-based services and personalized content for buyers and sellers in Nepal.",
-    url: "https://play.google.com/store/apps/details?id=com.homaale",
+    url: "https://play.google.com/store/apps/details?id=com.cagtu.cipher&hl=en_US",
   },
   {
     name: "One Corner",
@@ -88,7 +88,7 @@ export const featuredApps = [
     platform: "iOS, Android",
     description:
       "E-commerce platform with push notifications, user engagement analytics, and a streamlined shopping experience.",
-    url: "https://play.google.com/store/apps/details?id=com.onecorner",
+    url: "https://play.google.com/store/apps/details?id=com.onecorner.orderapp",
   },
 ] as const;
 
@@ -108,7 +108,7 @@ export const contact = {
   phoneHref: "tel:+9779860920006",
   location: "Shankhamul, Kathmandu 44600",
   github: "https://github.com/abimjoshi7",
-  linkedin: "https://linkedin.com/in/abimjoshi7",
+  linkedin: "https://www.linkedin.com/in/abim-joshi-011a77181/",
 } as const;
 
 /** Headline numbers. Shown once, in the hero — not repeated per section. */

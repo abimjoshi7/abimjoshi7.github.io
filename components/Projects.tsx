@@ -54,10 +54,10 @@ const Projects = () => {
           id="projects-heading"
           command="ls projects/"
           title="Projects"
-          subtitle="Full-stack web platforms, plus the apps I've shipped to the stores."
+          subtitle="Web platforms I built end to end, plus the apps I've shipped to the stores."
         />
 
-        {/* Full-stack web work leads the section. */}
+        {/* Web platforms lead the section. */}
         <motion.ul
           variants={stagger(0.08)}
           className="grid sm:grid-cols-2 gap-4 sm:gap-5 mb-14 sm:mb-20"

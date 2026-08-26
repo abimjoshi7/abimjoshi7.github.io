@@ -41,7 +41,7 @@ const Hero = () => {
           <div className="p-4 sm:p-6 lg:p-8 font-mono">
             <h1 className="mb-6">
               <span className="sr-only">
-                Abim Joshi — Software Engineer, full-stack and mobile
+                Abim Joshi — Full-stack Software Engineer
               </span>
               {/* Banner scales with the viewport instead of forcing a horizontal scroll. */}
               <pre
@@ -49,7 +49,7 @@ const Hero = () => {
                 className="text-[#00ff41] leading-tight text-[clamp(0.44rem,2.35vw,0.95rem)]"
               >
 {`╔══════════════════════════════════════╗
-║   ABIM JOSHI  ·  SOFTWARE ENGINEER   ║
+║  ABIM JOSHI · FULL-STACK ENGINEER    ║
 ╚══════════════════════════════════════╝`}
               </pre>
             </h1>
@@ -58,11 +58,11 @@ const Hero = () => {
               <div>
                 <p className="text-[#00ff41]">$ whoami</p>
                 <div className="pl-4 mt-1 space-y-1 text-[var(--terminal-text)]">
-                  <p>Software Engineer · Full-stack &amp; Mobile</p>
+                  <p>Full-stack Software Engineer</p>
                   <p className="text-[var(--terminal-text-dim)]">
-                    6+ years building full-stack web platforms with Next.js, Rust
-                    and Spring Boot, and production-grade apps in Flutter, Jetpack
-                    Compose and SwiftUI. Based in Kathmandu, Nepal.
+                    6+ years shipping production software end to end — Next.js,
+                    Rust, Spring Boot, Flutter, Jetpack Compose and SwiftUI. Based
+                    in Kathmandu, Nepal.
                   </p>
                 </div>
               </div>

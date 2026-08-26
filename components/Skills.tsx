@@ -27,12 +27,12 @@ import { spokenLanguages } from '@/lib/site';
 import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
 
 /**
- * Grouped as the résumé groups them, but ordered so the full-stack web and
- * backend work reads before the mobile stack.
+ * Grouped as the résumé groups them, ordered so the web and backend layers
+ * read before the client layer.
  */
 const skillCategories = [
   {
-    title: 'Full-stack & backend',
+    title: 'Web & backend',
     skills: [
       { name: 'Next.js', icon: SiNextdotjs, color: '#ffffff' },
       { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
@@ -44,7 +44,7 @@ const skillCategories = [
     ],
   },
   {
-    title: 'Mobile',
+    title: 'Mobile clients',
     skills: [
       { name: 'Flutter', icon: SiFlutter, color: '#47C5FB' },
       { name: 'Dart', icon: SiDart, color: '#0175C2' },

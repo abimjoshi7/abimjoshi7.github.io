@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Abim Joshi - Software Engineer";
+export const alt = "Abim Joshi - Software Engineer, full-stack and mobile";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -52,7 +52,7 @@ export default async function Image() {
             display: "flex",
           }}
         >
-          Flutter · Dart · Kotlin · Java
+          Next.js · Rust · Flutter · Compose · SwiftUI
         </div>
       </div>
     ),

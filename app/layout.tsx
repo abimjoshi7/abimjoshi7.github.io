@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SITE_URL, siteConfig, featuredApps } from "@/lib/site";
+import { SITE_URL, siteConfig, publishedApps, webProjects } from "@/lib/site";
 import MotionProvider from "@/components/MotionProvider";
 
 const geistSans = Geist({
@@ -116,20 +116,40 @@ const jsonLd = {
     {
       "@type": "ItemList",
       "@id": `${SITE_URL}/#projects`,
-      name: "Mobile applications by Abim Joshi",
-      itemListElement: featuredApps.map((app, index) => ({
-        "@type": "ListItem",
-        position: index + 1,
-        item: {
-          "@type": "SoftwareApplication",
-          name: app.name,
-          applicationCategory: app.category,
-          operatingSystem: app.platform,
-          description: app.description,
-          url: app.url,
-          author: { "@id": `${SITE_URL}/#person` },
-        },
-      })),
+      name: "Applications and projects by Abim Joshi",
+      itemListElement: [
+        ...publishedApps.map((app, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "SoftwareApplication",
+            name: app.name,
+            applicationCategory: app.schemaCategory,
+            operatingSystem: [
+              app.playStore ? "Android" : null,
+              app.appStore ? "iOS" : null,
+            ]
+              .filter(Boolean)
+              .join(", "),
+            description: app.description,
+            url: app.appStore ?? app.playStore,
+            author: { "@id": `${SITE_URL}/#person` },
+          },
+        })),
+        ...webProjects.map((project, index) => ({
+          "@type": "ListItem",
+          position: publishedApps.length + index + 1,
+          item: {
+            "@type": "WebApplication",
+            name: project.name,
+            applicationCategory: "BusinessApplication",
+            operatingSystem: "Web",
+            description: project.description,
+            url: project.url,
+            author: { "@id": `${SITE_URL}/#person` },
+          },
+        })),
+      ],
     },
   ],
 };

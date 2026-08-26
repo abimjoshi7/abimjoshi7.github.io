@@ -26,8 +26,8 @@ const Footer = () => {
               <span className="text-[#00d9ff]">~/</span>abim
             </p>
             <p className="text-sm text-[var(--terminal-text-dim)] leading-relaxed max-w-sm">
-              {siteConfig.jobTitle} in Kathmandu. Hybrid mobile apps with Flutter,
-              Dart, Kotlin and Java.
+              {siteConfig.jobTitle} in Kathmandu. Full-stack web with Next.js and
+              Rust; mobile with Flutter, Jetpack Compose and SwiftUI.
             </p>
             <div className="flex gap-2 mt-4">
               {socialLinks.map(({ icon: Icon, href, label }) => (

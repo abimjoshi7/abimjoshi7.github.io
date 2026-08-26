@@ -5,7 +5,7 @@ import { ReactNode, useState, useEffect } from 'react';
 import DeviceFrame from './DeviceFrame';
 
 interface DeviceShowcaseProps {
-  deviceType: 'iphone' | 'android' | 'tablet';
+  deviceType: 'iphone' | 'android';
   children: ReactNode;
   className?: string;
 }
@@ -13,25 +13,15 @@ interface DeviceShowcaseProps {
 const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcaseProps) => {
   const isIPhone = deviceType === 'iphone';
   const isAndroid = deviceType === 'android';
-  const isTablet = deviceType === 'tablet';
 
   const reduceMotion = useReducedMotion();
 
-  const [tabletTime, setTabletTime] = useState<string>('');
-  const [tabletDate, setTabletDate] = useState<string>('');
   const [statusBarTime, setStatusBarTime] = useState<string>('');
 
   useEffect(() => {
     const updateKathmanduTime = () => {
       const now = new Date();
 
-      // Format time with AM/PM for tablet status bar
-      const timeString = now.toLocaleTimeString('en-US', {
-        timeZone: 'Asia/Kathmandu',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true,
-      });
 
       // Format time for iPhone/Android status bars (24-hour format, just time)
       const statusTime = now.toLocaleTimeString('en-US', {
@@ -41,16 +31,7 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
         hour12: false,
       });
 
-      // Format date as "Weekday, Mon Day" for tablet
-      const dateString = now.toLocaleDateString('en-US', {
-        timeZone: 'Asia/Kathmandu',
-        weekday: 'long',
-        month: 'short',
-        day: 'numeric',
-      });
 
-      setTabletTime(timeString);
-      setTabletDate(dateString);
       setStatusBarTime(statusTime);
     };
 
@@ -64,9 +45,7 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
   }, []);
 
   // The intrinsic canvas each mockup is drawn against; DeviceFrame scales it to fit.
-  const intrinsic = isTablet
-    ? { width: 500, height: 650 }
-    : { width: 320, height: 650 };
+  const intrinsic = { width: 320, height: 650 };
 
   return (
     <AnimatePresence mode="wait">
@@ -258,91 +237,6 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
           </div>
         )}
 
-        {/* Tablet - iPadOS Design */}
-        {isTablet && (
-          <div className="relative mx-auto w-[500px] h-[650px]">
-            {/* Advanced shadow system */}
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-800/35 to-slate-950/55 rounded-[42px] blur-3xl transform translate-y-6 scale-95" />
-
-            {/* Premium iPad body - Aluminum unibody */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#1c1c1e] via-[#2a2a2c] to-[#1c1c1e] rounded-[42px] shadow-[0_28px_90px_rgba(0,0,0,0.95),0_0_3px_rgba(255,255,255,0.18)_inset,0_1px_0_rgba(255,255,255,0.12)_inset] border-[16px] border-[#0a0a0a]">
-              {/* Anodized aluminum finish */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-white/3 to-transparent rounded-[42px] pointer-events-none opacity-70" />
-
-              {/* Liquid Retina XDR Display */}
-              <div className="absolute inset-0 bg-black rounded-[28px] overflow-hidden shadow-[inset_0_0_50px_rgba(0,0,0,0.95)]">
-                {/* ProMotion display coating */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-black/30 pointer-events-none z-30" />
-
-                {/* iPadOS Status Bar */}
-                <div className="absolute top-0 left-0 right-0 h-[44px] z-10 flex items-center justify-between px-10">
-                  {/* Left side - Time and date */}
-                  <div className="flex items-center gap-4">
-                    <div className="text-white text-[15px] font-semibold tracking-tight" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif' }}>
-                      {tabletDate || 'Friday, Oct 18'}
-                    </div>
-                    <div className="text-white text-[15px] font-semibold tracking-tight">
-                      {tabletTime || '9:41 AM'}
-                    </div>
-                  </div>
-
-                  {/* Right side - Status icons */}
-                  <div className="flex items-center gap-2">
-                    {/* WiFi */}
-                    <svg className="w-[18px] h-[13px]" fill="white" viewBox="0 0 20 15">
-                      <path d="M10 13a2 2 0 100 4 2 2 0 000-4zm0-3a5 5 0 00-3.5 1.5l1.4 1.4A3 3 0 0110 12a3 3 0 012.1.9l1.4-1.4A5 5 0 0010 10zm0-3a8 8 0 00-5.7 2.3l1.4 1.4A6 6 0 0110 9a6 6 0 014.3 1.7l1.4-1.4A8 8 0 0010 7z"/>
-                    </svg>
-                    {/* Cellular (iPad with cellular) */}
-                    <svg className="w-[19px] h-[13px]" fill="white" viewBox="0 0 24 14">
-                      <circle cx="2.5" cy="11.5" r="2" />
-                      <circle cx="8" cy="9" r="2.5" />
-                      <circle cx="14" cy="6" r="3" />
-                      <circle cx="20.5" cy="2.5" r="3.5" />
-                    </svg>
-                    {/* Battery percentage */}
-                    <div className="text-white text-[14px] font-medium">100%</div>
-                    {/* Battery icon */}
-                    <div className="flex items-center gap-0.5">
-                      <div className="w-[26px] h-[12px] border-[2px] border-white rounded-[3.5px] flex items-center px-[1.5px] relative">
-                        <div className="w-full h-[6px] bg-white rounded-[1.5px]" />
-                        {/* Battery terminal */}
-                        <div className="absolute -right-[3.5px] top-1/2 -translate-y-1/2 w-[2px] h-[6px] bg-white rounded-r-[1px]" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Content Area */}
-                <div className="relative h-full pt-[44px] pb-[24px]">
-                  {children}
-                </div>
-              </div>
-
-              {/* Front-facing camera - TrueDepth system */}
-              <div className="absolute top-[12px] left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
-                {/* IR camera */}
-                <div className="w-[7px] h-[7px] bg-gradient-radial from-slate-700 via-slate-900 to-black rounded-full border-[0.5px] border-slate-700/30" />
-                {/* Flood illuminator */}
-                <div className="w-[5px] h-[5px] bg-gradient-radial from-red-900/30 to-black rounded-full" />
-                {/* Front camera */}
-                <div className="w-[10px] h-[10px] bg-gradient-radial from-slate-800 via-slate-900 to-black rounded-full border border-slate-700/40 shadow-inner relative">
-                  <div className="absolute inset-[2px] bg-gradient-to-br from-blue-500/12 via-transparent to-transparent rounded-full" />
-                </div>
-              </div>
-
-              {/* Side buttons - iPad Pro style */}
-              {/* Volume Up */}
-              <div className="absolute -right-[4px] top-[130px] w-[5px] h-[55px] bg-gradient-to-l from-[#141414] via-[#2a2a2a] to-[#1c1c1e] rounded-r shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)]" />
-              {/* Volume Down */}
-              <div className="absolute -right-[4px] top-[195px] w-[5px] h-[55px] bg-gradient-to-l from-[#141414] via-[#2a2a2a] to-[#1c1c1e] rounded-r shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)]" />
-              {/* Power button (top edge on iPad Pro) */}
-              <div className="absolute top-[-4px] right-[80px] h-[5px] w-[60px] bg-gradient-to-b from-[#141414] via-[#2a2a2a] to-[#1c1c1e] rounded-t shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)]" />
-            </div>
-
-            {/* Premium ambient reflection */}
-            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[380px] h-[50px] bg-gradient-radial from-slate-300/25 via-slate-500/12 to-transparent blur-3xl rounded-full" />
-          </div>
-        )}
         </DeviceFrame>
       </motion.div>
     </AnimatePresence>

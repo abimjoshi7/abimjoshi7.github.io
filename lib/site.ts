@@ -7,88 +7,76 @@ export const siteConfig = {
   title: "Abim Joshi - Software Engineer",
   shortTitle: "Abim Joshi",
   description:
-    "Portfolio of Abim Joshi, Software Engineer and Senior Flutter Developer. Five-plus years building production-ready hybrid mobile apps with Flutter, Dart, Kotlin and Java.",
+    "Portfolio of Abim Joshi, Software Engineer with 6+ years building full-stack web and production-grade mobile apps — Next.js, Rust (Axum), Spring Boot, Flutter, Jetpack Compose and SwiftUI.",
   socialDescription:
-    "Portfolio showcasing production Flutter apps built with Dart, Kotlin and Java",
+    "Full-stack and mobile engineer — Next.js, Rust, Spring Boot, Flutter, Jetpack Compose, SwiftUI",
   email: "abimjoshi7@gmail.com",
+  phone: "+977-9860920006",
   locality: "Kathmandu",
   country: "NP",
-  employer: "Raindrop Inc.",
+  employer: "Shrig Solutions",
   socials: [
     "https://github.com/abimjoshi7",
-    "https://www.linkedin.com/in/abim-joshi-011a77181/",
+    "https://www.linkedin.com/in/abimjoshi7",
   ],
   knowsAbout: [
+    "Next.js",
+    "TypeScript",
+    "Rust",
+    "Axum",
+    "Spring Boot",
+    "SQL",
     "Flutter",
     "Dart",
     "Kotlin",
+    "Jetpack Compose",
+    "Swift",
+    "SwiftUI",
     "Java",
-    "Bash",
-    "SQL",
-    "PostgreSQL",
-    "Firestore",
-    "Drift",
-    "Isar",
-    "Bloc Pattern",
+    "Clean Architecture",
     "SOLID Principles",
+    "CI/CD",
   ],
   keywords: [
     "Abim Joshi",
-    "Flutter Developer",
-    "Mobile Developer",
     "Software Engineer",
+    "Full Stack Developer",
+    "Next.js",
+    "TypeScript",
+    "Rust",
+    "Axum",
+    "Spring Boot",
     "Flutter",
-    "Dart",
+    "Jetpack Compose",
+    "SwiftUI",
     "Kotlin",
-    "Java",
-    "Android",
-    "iOS",
-    "PostgreSQL",
-    "Firestore",
+    "Kathmandu",
   ],
 } as const;
 
-/** Apps shipped by Abim, surfaced as SoftwareApplication structured data. */
-export const featuredApps = [
+/** Full-stack web work. Listed before the mobile showcase. */
+export const webProjects = [
   {
-    name: "Mero School",
-    category: "EducationalApplication",
-    platform: "iOS, Android",
+    id: "ghumtibags",
+    name: "Ghumti Bags",
+    icon: "🎒",
+    gradient: "from-amber-500 via-orange-500 to-red-500",
+    category: "E-commerce",
     description:
-      "School management app connecting students, teachers, and parents with attendance tracking, grade management, and real-time notifications.",
-    url: "https://play.google.com/store/apps/details?id=school.mero.lms",
+      "Full-stack e-commerce platform for a Nepali bag brand — product catalogue, cart and checkout, order management and an admin dashboard.",
+    url: "https://www.ghumtibags.com",
+    appsComingSoon: true,
   },
   {
-    name: "Mero Lagani",
-    category: "FinanceApplication",
-    platform: "iOS, Android",
+    id: "erpesque",
+    name: "Erpesque",
+    icon: "📊",
+    gradient: "from-sky-500 via-blue-600 to-indigo-600",
+    category: "ERP",
     description:
-      "Nepal's stock market and investment app with real-time analytics dashboards, portfolio tracking, and compliance monitoring.",
-    url: "https://play.google.com/store/apps/details?id=com.podamibe.merolagani&hl=en-US",
-  },
-  {
-    name: "Mero Health Care",
-    category: "HealthApplication",
-    platform: "Android",
-    description:
-      "Healthcare management platform with offline data sync, appointment scheduling, and medical records management.",
-    url: "https://play.google.com/store/apps/details?id=com.merohealth&hl=en",
-  },
-  {
-    name: "Homaale",
-    category: "BusinessApplication",
-    platform: "Android",
-    description:
-      "Property listing and management app with location-based services and personalized content for buyers and sellers in Nepal.",
-    url: "https://play.google.com/store/apps/details?id=com.cagtu.cipher&hl=en_US",
-  },
-  {
-    name: "One Corner",
-    category: "ShoppingApplication",
-    platform: "iOS, Android",
-    description:
-      "E-commerce platform with push notifications, user engagement analytics, and a streamlined shopping experience.",
-    url: "https://play.google.com/store/apps/details?id=com.onecorner.orderapp",
+      "Full-stack ERP platform covering accounting, inventory and multi-branch reporting, built for SMEs with complex operational workflows.",
+    url: "https://erpesque.web.app",
+    appsComingSoon: true,
   },
 ] as const;
 
@@ -104,19 +92,134 @@ export const navItems = [
 
 export const contact = {
   email: "abimjoshi7@gmail.com",
-  phone: "+977 9860920006",
+  phone: "+977-9860920006",
   phoneHref: "tel:+9779860920006",
-  location: "Shankhamul, Kathmandu 44600",
+  location: "Shankhamul-31, Kathmandu",
   github: "https://github.com/abimjoshi7",
-  linkedin: "https://www.linkedin.com/in/abim-joshi-011a77181/",
+  linkedin: "https://www.linkedin.com/in/abimjoshi7",
 } as const;
 
-/** Headline numbers. Shown once, in the hero — not repeated per section. */
+/** Headline numbers, all backed by the résumé. */
 export const stats = [
-  { label: "YEARS", value: "5+" },
-  { label: "PRODUCTION APPS", value: "5" },
-  { label: "COMPANIES", value: "3" },
+  { label: "YEARS", value: "6+" },
+  { label: "PUBLISHED APPS", value: "7" },
+  { label: "COMPANIES", value: "4" },
 ] as const;
 
-/** Spoken languages, from the résumé sidebar. */
 export const spokenLanguages = ["Nepali", "English", "Hindi"] as const;
+
+export interface PublishedApp {
+  id: string;
+  name: string;
+  icon: string;
+  gradient: string;
+  category: string;
+  /** schema.org applicationCategory */
+  schemaCategory: string;
+  description: string;
+  tech: string[];
+  playStore?: string;
+  appStore?: string;
+}
+
+/**
+ * The published applications from the résumé. Single source for both the phone
+ * showcase and the SoftwareApplication structured data, so the two cannot drift.
+ * Store URLs are taken verbatim from the résumé's embedded links.
+ */
+export const publishedApps: PublishedApp[] = [
+  {
+    id: "fishtechy",
+    name: "Flytechy / Fishtechy",
+    icon: "🎣",
+    gradient: "from-cyan-500 via-sky-600 to-blue-700",
+    category: "AI · Fishing",
+    schemaCategory: "SportsApplication",
+    description:
+      "AI-powered fishing apps that use computer vision to auto-measure fish dimensions from photos. Competition leaderboards, verified catch logging and community sharing with ethical catch-and-release promotion. Flytechy on Android, Fishtechy on iOS.",
+    tech: ["Flutter", "Jetpack Compose", "SwiftUI", "Computer Vision", "FFmpeg"],
+    playStore: "https://play.google.com/store/apps/details?id=io.futrix.flytechy",
+    appStore: "https://apps.apple.com/us/app/fishtechy/id6466132447",
+  },
+  {
+    id: "aquabuildr",
+    name: "Aquabuildr",
+    icon: "🐠",
+    gradient: "from-teal-400 via-emerald-500 to-green-600",
+    category: "AI · Aquarium",
+    schemaCategory: "LifestyleApplication",
+    description:
+      "AI-driven aquarium management app with a 600+ species compatibility engine, real-time water parameter tracking, maintenance scheduling and integrated AI chat support for fish care advice.",
+    tech: ["Flutter", "Dart", "AI Chat", "WebSocket"],
+    playStore:
+      "https://play.google.com/store/apps/details?id=com.aquabuildr.Aquabuildr",
+    appStore: "https://apps.apple.com/us/app/aquabuildr/id1568234361",
+  },
+  {
+    id: "merolagani",
+    name: "Mero Lagani",
+    icon: "📈",
+    gradient: "from-green-500 via-green-600 to-teal-600",
+    category: "Fintech",
+    schemaCategory: "FinanceApplication",
+    description:
+      "Nepal NEPSE stock market app with live share prices, real-time floor sheet, portfolio tracker, watchlists, price alerts, IPO results and market analytics.",
+    tech: ["Flutter", "Dart", "Web-Engage", "Retrofit"],
+    playStore:
+      "https://play.google.com/store/apps/details?id=com.podamibe.merolagani&hl=en",
+    appStore:
+      "https://apps.apple.com/np/app/merolagani-nepse-app/id1583525414",
+  },
+  {
+    id: "meroschool",
+    name: "Mero School",
+    icon: "🎓",
+    gradient: "from-blue-500 via-blue-600 to-purple-600",
+    category: "Ed-tech",
+    schemaCategory: "EducationalApplication",
+    description:
+      "School management and e-learning platform covering student records, attendance tracking, assignment submission, exam results, fee management and teacher–parent communication.",
+    tech: ["Flutter", "Dart", "Firebase", "Bloc"],
+    playStore: "https://play.google.com/store/apps/details?id=school.mero.lms",
+    appStore: "https://apps.apple.com/np/app/mero-school/id1581089279",
+  },
+  {
+    id: "merohealthcare",
+    name: "Mero Health Care",
+    icon: "🏥",
+    gradient: "from-red-500 via-pink-500 to-red-600",
+    category: "Healthcare",
+    schemaCategory: "HealthApplication",
+    description:
+      "Healthcare platform with doctor discovery, appointment booking, teleconsultation, digital prescriptions, medical history records and pharmacy-to-door delivery.",
+    tech: ["Flutter", "Dart", "Clean Architecture"],
+  },
+  {
+    id: "homaale",
+    name: "Homaale",
+    icon: "🏠",
+    gradient: "from-orange-500 via-amber-500 to-yellow-500",
+    category: "Marketplace",
+    schemaCategory: "BusinessApplication",
+    description:
+      "Home services marketplace connecting customers with local service providers, with location-based discovery and push notifications.",
+    tech: ["Flutter", "Dart", "Firestore", "Bloc"],
+    playStore:
+      "https://play.google.com/store/apps/details?id=com.cagtu.cipher&hl=en_US",
+  },
+  {
+    id: "onecorner",
+    name: "One Corner",
+    icon: "🛍️",
+    gradient: "from-purple-500 via-indigo-500 to-blue-500",
+    category: "Hospitality",
+    schemaCategory: "BusinessApplication",
+    description:
+      "Community and hospitality platform with ordering, push notifications and engagement analytics.",
+    tech: ["Flutter", "Dart", "Isar", "Retrofit"],
+    playStore:
+      "https://play.google.com/store/apps/details?id=com.onecorner.orderapp",
+    appStore:
+      "https://apps.apple.com/us/app/one-corner-hospitality/id1580080019",
+  },
+];

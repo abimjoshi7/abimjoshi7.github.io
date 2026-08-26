@@ -14,27 +14,24 @@ import {
   AndroidMusicIcon,
 } from './NativeIcons';
 
-interface App {
+/**
+ * Only the fields needed to render a home-screen icon. Kept structural rather
+ * than importing the full App type from Projects, which would be circular.
+ */
+interface HomeScreenApp {
   id: string;
   name: string;
   icon: string;
   gradient: string;
-  category: string;
-  description: string;
-  platform: string;
-  tech: string[];
-  github: string;
-  appStore?: string;
-  playStore?: string;
 }
 
-interface PhoneScreenProps {
-  apps: App[];
-  onAppSelect?: (app: App) => void;
+interface PhoneScreenProps<T extends HomeScreenApp> {
+  apps: T[];
+  onAppSelect?: (app: T) => void;
   deviceType: 'iphone' | 'android' | 'tablet';
 }
 
-const PhoneScreen = ({ apps, onAppSelect, deviceType }: PhoneScreenProps) => {
+const PhoneScreen = <T extends HomeScreenApp>({ apps, onAppSelect, deviceType }: PhoneScreenProps<T>) => {
   const [selectedApp, setSelectedApp] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState<string>('');
   const [currentDate, setCurrentDate] = useState<string>('');
@@ -72,7 +69,7 @@ const PhoneScreen = ({ apps, onAppSelect, deviceType }: PhoneScreenProps) => {
     return () => clearInterval(interval);
   }, []);
 
-  const handleAppClick = (app: App) => {
+  const handleAppClick = (app: T) => {
     setSelectedApp(app.id);
     onAppSelect?.(app);
     setTimeout(() => setSelectedApp(null), 1000);
@@ -246,77 +243,46 @@ const PhoneScreen = ({ apps, onAppSelect, deviceType }: PhoneScreenProps) => {
           className="sticky bottom-0 left-0 right-0 mt-8 mb-2"
         >
           {isIOS ? (
-            // iOS Dock with translucent background
-            <div className="bg-white/20 backdrop-blur-2xl rounded-[26px] p-2.5 mx-auto max-w-fit shadow-[0_8px_32px_rgba(0,0,0,0.4)] border border-white/20">
+            // Decorative only: these are OS chrome, not controls, so they stay out
+            // of the tab order and the accessibility tree.
+            <div aria-hidden="true" className="bg-white/20 backdrop-blur-2xl rounded-[26px] p-2.5 mx-auto max-w-fit shadow-[0_8px_32px_rgba(0,0,0,0.4)] border border-white/20">
               <div className="flex gap-3 items-center justify-center">
                 {/* Native iOS dock apps with authentic icons */}
-                <motion.button
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.92 }}
-                  className="relative group"
-                >
+                <span className="relative group block">
                   <IOSPhoneIcon className="w-[52px] h-[52px] drop-shadow-[0_4px_12px_rgba(52,199,89,0.5)]" />
                   <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[13px] pointer-events-none" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.92 }}
-                  className="relative group"
-                >
+                </span>
+                <span className="relative group block">
                   <IOSMessagesIcon className="w-[52px] h-[52px] drop-shadow-[0_4px_12px_rgba(52,199,89,0.5)]" />
                   <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[13px] pointer-events-none" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.92 }}
-                  className="relative group"
-                >
+                </span>
+                <span className="relative group block">
                   <IOSSafariIcon className="w-[52px] h-[52px] drop-shadow-[0_4px_12px_rgba(10,132,255,0.5)]" />
                   <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[13px] pointer-events-none" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.92 }}
-                  className="relative group"
-                >
+                </span>
+                <span className="relative group block">
                   <IOSMusicIcon className="w-[52px] h-[52px] drop-shadow-[0_4px_12px_rgba(255,59,48,0.5)]" />
                   <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-[13px] pointer-events-none" />
-                </motion.button>
+                </span>
               </div>
             </div>
           ) : (
-            // Material You dock (app tray indicator)
-            <div className="bg-white/10 backdrop-blur-xl rounded-full p-2 mx-auto max-w-fit shadow-lg border border-white/10">
+            // Decorative only — see the iOS branch above.
+            <div aria-hidden="true" className="bg-white/10 backdrop-blur-xl rounded-full p-2 mx-auto max-w-fit shadow-lg border border-white/10">
               <div className="flex gap-3 items-center justify-center px-2">
                 {/* Native Android dock apps with Material Design icons */}
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.92 }}
-                  className="relative"
-                >
+                <span className="relative block">
                   <AndroidPhoneIcon className="w-[50px] h-[50px] drop-shadow-[0_2px_8px_rgba(76,175,80,0.6)]" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.92 }}
-                  className="relative"
-                >
+                </span>
+                <span className="relative block">
                   <AndroidMessagesIcon className="w-[50px] h-[50px] drop-shadow-[0_2px_8px_rgba(30,136,229,0.6)]" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.92 }}
-                  className="relative"
-                >
+                </span>
+                <span className="relative block">
                   <AndroidChromeIcon className="w-[50px] h-[50px] drop-shadow-[0_2px_8px_rgba(66,133,244,0.6)]" />
-                </motion.button>
-                <motion.button
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.92 }}
-                  className="relative"
-                >
+                </span>
+                <span className="relative block">
                   <AndroidMusicIcon className="w-[50px] h-[50px] drop-shadow-[0_2px_8px_rgba(255,111,0,0.6)]" />
-                </motion.button>
+                </span>
               </div>
             </div>
           )}

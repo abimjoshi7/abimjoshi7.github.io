@@ -1,128 +1,171 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { HiMenu, HiX, HiTerminal } from 'react-icons/hi';
+import { navItems } from '@/lib/site';
+import { tap } from '@/lib/motion';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('home');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { name: 'home', href: '#home', cmd: 'cd ~/' },
-    { name: 'about', href: '#about', cmd: 'cat about.txt' },
-    { name: 'skills', href: '#skills', cmd: 'ls skills/' },
-    { name: 'projects', href: '#projects', cmd: 'git log' },
-    { name: 'experience', href: '#experience', cmd: 'history' },
-    { name: 'contact', href: '#contact', cmd: 'mail -s' },
-  ];
+  // Highlight whichever section currently owns the upper half of the viewport.
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActiveSection(visible.target.id);
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 1] }
+    );
+
+    navItems.forEach(({ href }) => {
+      const el = document.querySelector(href);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Stop the page scrolling behind the open mobile sheet.
+  useEffect(() => {
+    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMobileMenuOpen(false);
-    }
+    setIsMobileMenuOpen(false);
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-[#0d1117]/98 backdrop-blur-md border-b border-[#30363d] shadow-[0_4px_30px_rgba(0,255,65,0.15)]'
-          : 'bg-[#0d1117]/80 backdrop-blur-sm border-b border-[#30363d]/50'
+      initial={{ y: -64, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        isScrolled || isMobileMenuOpen
+          ? 'bg-[#0d1117]/95 backdrop-blur-md border-b border-[#30363d]'
+          : 'bg-transparent border-b border-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 md:h-20">
-          {/* Logo - Terminal Style */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="flex items-center gap-2 font-mono"
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          <button
+            onClick={() => scrollToSection('#home')}
+            className="flex items-center gap-2 font-mono text-[#00ff41]"
+            aria-label="Back to top"
           >
-            <HiTerminal className="text-[#00ff41] text-2xl terminal-glow" />
-            <span className="text-[#00ff41] text-xl font-bold terminal-glow">
-              <span className="text-[#00d9ff]">~/</span>portfolio
+            <HiTerminal size={20} />
+            <span className="text-base font-bold">
+              <span className="text-[#00d9ff]">~/</span>abim
             </span>
-          </motion.div>
+          </button>
 
-          {/* Desktop Navigation */}
+          {/* Desktop */}
           <div className="hidden md:flex items-center gap-1">
-            {navItems.map((item) => (
-              <motion.button
-                key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                className="group relative px-4 py-2 font-mono text-sm transition-all"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-[#00ff41] opacity-0 group-hover:opacity-100 transition-opacity">
-                    $
-                  </span>
-                  <span className="text-[#00d9ff] group-hover:text-[#00ff41] transition-colors">
-                    {item.name}
-                  </span>
-                </div>
-                {/* Hover Tooltip */}
-                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                  <div className="bg-[#161b22] border border-[#30363d] px-2 py-1 rounded text-xs text-[#00ff41] whitespace-nowrap">
-                    {item.cmd}
-                  </div>
-                </div>
-              </motion.button>
-            ))}
+            {navItems.map((item) => {
+              const isActive = activeSection === item.name;
+              return (
+                <button
+                  key={item.name}
+                  onClick={() => scrollToSection(item.href)}
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`relative px-3 py-2 font-mono text-sm transition-colors ${
+                    isActive
+                      ? 'text-[#00ff41]'
+                      : 'text-[var(--terminal-text-dim)] hover:text-[var(--terminal-text)]'
+                  }`}
+                >
+                  {item.name}
+                  {isActive && (
+                    <motion.span
+                      layoutId="nav-active"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      className="absolute inset-x-2 -bottom-px h-px bg-[#00ff41]"
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-[#00ff41] p-2 hover:bg-[#161b22] rounded transition-colors"
+          {/* Mobile trigger */}
+          <motion.button
+            whileTap={tap}
+            onClick={() => setIsMobileMenuOpen((open) => !open)}
+            className="md:hidden -mr-2 p-2 text-[#00ff41]"
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
           >
-            {isMobileMenuOpen ? <HiX size={28} /> : <HiMenu size={28} />}
-          </button>
+            <motion.span
+              key={isMobileMenuOpen ? 'close' : 'open'}
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              transition={{ duration: 0.18 }}
+              className="block"
+            >
+              {isMobileMenuOpen ? <HiX size={24} /> : <HiMenu size={24} />}
+            </motion.span>
+          </motion.button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          className="md:hidden terminal-window mx-4 mb-4"
-        >
-          <div className="p-4 space-y-2">
-            <div className="text-[#00d9ff] font-mono text-xs mb-3 pb-2 border-b border-[#30363d]">
-              <span className="text-[#00ff41]">$</span> ls navigation/
-            </div>
-            {navItems.map((item) => (
-              <button
-                key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className="flex items-center gap-3 w-full text-left px-3 py-2 text-[#00d9ff] hover:text-[#00ff41] hover:bg-[#161b22] rounded transition-all font-mono text-sm group"
-              >
-                <span className="text-[#00ff41] opacity-60 group-hover:opacity-100">→</span>
-                <span>{item.name}</span>
-                <span className="ml-auto text-xs text-[#30363d] group-hover:text-[#00d9ff]">
-                  {item.cmd}
-                </span>
-              </button>
-            ))}
-          </div>
-        </motion.div>
-      )}
+      {/* Mobile sheet */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            className="md:hidden overflow-hidden border-t border-[#30363d] bg-[#0d1117]"
+          >
+            <motion.ul
+              initial="hidden"
+              animate="visible"
+              variants={{ visible: { transition: { staggerChildren: 0.045 } } }}
+              className="px-4 py-3"
+            >
+              {navItems.map((item) => (
+                <motion.li
+                  key={item.name}
+                  variants={{
+                    hidden: { opacity: 0, x: -12 },
+                    visible: { opacity: 1, x: 0 },
+                  }}
+                >
+                  <button
+                    onClick={() => scrollToSection(item.href)}
+                    className={`flex items-center gap-3 w-full text-left px-2 py-3 font-mono text-sm rounded transition-colors ${
+                      activeSection === item.name
+                        ? 'text-[#00ff41]'
+                        : 'text-[var(--terminal-text-dim)]'
+                    }`}
+                  >
+                    <span className="text-[#00ff41] opacity-70">❯</span>
+                    {item.label}
+                  </button>
+                </motion.li>
+              ))}
+            </motion.ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };

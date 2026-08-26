@@ -101,7 +101,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="contact" aria-labelledby="contact-heading" className="py-20 px-4 sm:px-6 lg:px-8">
       <motion.div
         ref={ref}
         variants={containerVariants}
@@ -126,7 +126,7 @@ const Contact = () => {
               <div className="pl-4 text-[#00ff41]">
                 <div className="flex items-center gap-2">
                   <HiTerminal className="text-[#00d9ff]" />
-                  <h2 className="text-3xl sm:text-4xl font-bold terminal-glow">
+                  <h2 id="contact-heading" className="text-3xl sm:text-4xl font-bold terminal-glow">
                     Get In Touch
                   </h2>
                 </div>

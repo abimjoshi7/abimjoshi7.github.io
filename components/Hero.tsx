@@ -27,7 +27,7 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center pt-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="home" aria-label="Introduction" className="relative min-h-screen flex items-center justify-center pt-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
       {/* Animated Background Grid */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 opacity-10">
@@ -72,16 +72,19 @@ const Hero = () => {
           {/* Terminal Content */}
           <div className="font-mono space-y-3 min-h-[300px]">
             {/* ASCII Art Name */}
-            <motion.div
+            <motion.h1
               variants={itemVariants}
               className="text-[#00ff41] text-sm sm:text-base mb-6 terminal-glow"
             >
-              <pre className="overflow-x-auto">
+              <span className="sr-only">
+                Abim Joshi — Senior Software Engineer, Mobile Technologies
+              </span>
+              <pre className="overflow-x-auto" aria-hidden="true">
 {`╔═══════════════════════════════════════════════════╗
 ║   ABIM JOSHI / SOFTWARE ENGINEER - MOBILE TECH    ║
 ╚═══════════════════════════════════════════════════╝`}
               </pre>
-            </motion.div>
+            </motion.h1>
 
             {/* Typing Effect Lines */}
             <motion.div variants={itemVariants} className="space-y-2 text-sm sm:text-base">

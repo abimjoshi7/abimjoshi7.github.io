@@ -56,10 +56,11 @@ const Hero = () => {
               <div>
                 <p className="text-[#00ff41]">$ whoami</p>
                 <div className="pl-4 mt-1 space-y-1 text-[var(--terminal-text)]">
-                  <p>Software Engineer · Mobile</p>
+                  <p>Software Engineer · Senior Flutter Developer</p>
                   <p className="text-[var(--terminal-text-dim)]">
-                    5+ years shipping Flutter, Kotlin Multiplatform and native Android
-                    to production. Based in Kathmandu, Nepal.
+                    Five-plus years in hybrid app development, shipping
+                    production-ready apps with Flutter, Dart, Kotlin and Java.
+                    Based in Kathmandu, Nepal.
                   </p>
                 </div>
               </div>

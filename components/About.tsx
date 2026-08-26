@@ -8,27 +8,27 @@ import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
 const highlights = [
   {
     icon: HiDeviceMobile,
-    title: 'Cross-platform mobile',
+    title: 'Hybrid app development',
     description:
-      'Flutter and Kotlin Multiplatform apps shipped to both stores from a single codebase.',
+      'Production Flutter apps shipped to Google Play and the App Store from one codebase.',
   },
   {
     icon: HiCode,
-    title: 'Clean architecture',
+    title: 'Clean, maintainable code',
     description:
-      'Bloc for state, SOLID boundaries between layers, and a test surface that survives refactors.',
+      'Bloc to separate business logic from UI, and SOLID principles to keep it easy to scale.',
   },
   {
     icon: HiLightningBolt,
-    title: 'Offline-first & performance',
+    title: 'Offline-first data',
     description:
-      'Local persistence with Drift, Isar and Room, plus background sync built for weak connectivity.',
+      'Drift, Isar, PostgreSQL and Firestore, with sync built for low-connectivity environments.',
   },
   {
     icon: HiUserGroup,
-    title: 'Product sense',
+    title: 'User satisfaction',
     description:
-      'Analytics and store feedback drive what gets built next, not just what was specced.',
+      'Engagement analytics and store feedback drive what gets built next — and it shows in the ratings.',
   },
 ];
 
@@ -57,20 +57,19 @@ const About = () => (
           className="space-y-4 text-sm sm:text-base leading-relaxed text-[var(--terminal-text)]"
         >
           <p>
-            I build mobile applications that people use every day — school portals,
-            trading apps, healthcare records — where correctness and offline
-            resilience matter more than novelty.
+            Seasoned software engineer with more than five years in hybrid app
+            development. I&apos;ve crafted several production-ready apps, focusing on
+            user satisfaction and seamless performance.
           </p>
           <p className="text-[var(--terminal-text-dim)]">
-            I started in native Android with Java and Kotlin, then moved into Flutter
-            and Kotlin Multiplatform as cross-platform tooling matured. Most of my work
-            now sits in that overlap: Dart and Flutter on the surface, Kotlin and
-            platform APIs underneath when a feature needs to go native.
+            I&apos;m all about delivering on time, meeting client expectations and
+            writing clean code — school portals, trading apps and healthcare records,
+            where correctness and offline resilience matter more than novelty.
           </p>
           <p className="text-[var(--terminal-text-dim)]">
-            Currently at Raindrop Inc. in Kathmandu, working on financial applications
-            with real-time analytics, offline synchronisation and compliance
-            requirements.
+            Currently Senior Flutter Developer at Raindrop Inc. in Kathmandu, working
+            on financial applications with real-time analytics, offline
+            synchronisation and compliance monitoring.
           </p>
         </motion.div>
 

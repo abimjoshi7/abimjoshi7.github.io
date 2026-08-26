@@ -20,14 +20,14 @@ interface Entry {
 const experiences: Entry[] = [
   {
     type: 'work',
-    title: 'Software Engineer',
+    title: 'Senior Flutter Developer',
     company: 'Raindrop Inc.',
     location: 'Pepsicola, Kathmandu',
     period: 'Oct 2023 — Present',
     hash: 'a7f3c9e',
     branch: 'main',
     description:
-      'Mobile development across Flutter, Kotlin Multiplatform and native Android for financial applications.',
+      'Flutter development for financial applications — real-time analytics, offline sync and compliance monitoring.',
     achievements: [
       'Built automated workflows that cut account-management processing time',
       'Shipped real-time analytics dashboards for financial insights',
@@ -37,7 +37,7 @@ const experiences: Entry[] = [
   },
   {
     type: 'work',
-    title: 'Software Engineer',
+    title: 'Flutter Developer',
     company: 'Podamibe Nepal',
     location: 'Tripureshwor, Kathmandu',
     period: 'May 2022 — Oct 2023',
@@ -65,11 +65,12 @@ const experiences: Entry[] = [
       'Adopted the Bloc pattern to separate business logic from UI',
       'Applied SOLID principles to improve maintainability',
       'Diagnosed and fixed production issues with Crashlytics and Sentry',
+      'Tracked mobile technology trends and applied them to live projects',
     ],
   },
   {
     type: 'education',
-    title: 'BE, Information Technology',
+    title: 'Bachelor of Engineering in Information Technology',
     company: 'Maharashtra Institute of Technology',
     location: 'Pune, India',
     period: '2013 — 2019',

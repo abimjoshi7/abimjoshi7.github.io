@@ -1,8 +1,9 @@
 'use client';
 
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
-import { ReactNode, useState, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import DeviceFrame from './DeviceFrame';
+import { useKathmanduClock } from '@/lib/useKathmanduClock';
 
 interface DeviceShowcaseProps {
   deviceType: 'iphone' | 'android';
@@ -10,42 +11,28 @@ interface DeviceShowcaseProps {
   className?: string;
 }
 
+/**
+ * Both mockups are drawn on a 320px-wide canvas, scaled from the real bodies so
+ * their proportions stay honest relative to each other:
+ *
+ *   iPhone 17 Pro      150.0 x 71.9 mm  ->  320 x 668 @ 4.45 px/mm
+ *   Galaxy S25 Ultra   162.8 x 77.6 mm  ->  320 x 671 @ 4.12 px/mm
+ *
+ * Rounded to a shared 320x670 so the two frames swap without the surrounding
+ * layout reflowing. The silhouettes still read as different phones because the
+ * corner radii are the real ones: Apple's continuous ~55pt curve against
+ * Samsung's much squarer ~5mm corner.
+ */
+const CANVAS = { width: 320, height: 670 };
+
 const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcaseProps) => {
   const isIPhone = deviceType === 'iphone';
   const isAndroid = deviceType === 'android';
 
   const reduceMotion = useReducedMotion();
 
-  const [statusBarTime, setStatusBarTime] = useState<string>('');
-
-  useEffect(() => {
-    const updateKathmanduTime = () => {
-      const now = new Date();
-
-
-      // Format time for iPhone/Android status bars (24-hour format, just time)
-      const statusTime = now.toLocaleTimeString('en-US', {
-        timeZone: 'Asia/Kathmandu',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: false,
-      });
-
-
-      setStatusBarTime(statusTime);
-    };
-
-    // Update immediately
-    updateKathmanduTime();
-
-    // Update every minute
-    const interval = setInterval(updateKathmanduTime, 60000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // The intrinsic canvas each mockup is drawn against; DeviceFrame scales it to fit.
-  const intrinsic = { width: 320, height: 650 };
+  // Shared with the home-screen widgets so every clock on the mockup agrees.
+  const { time: statusBarTime } = useKathmanduClock();
 
   return (
     <AnimatePresence mode="wait">
@@ -57,47 +44,44 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
         transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
         className={`relative w-full ${className}`}
       >
-        <DeviceFrame width={intrinsic.width} height={intrinsic.height}>
-        {/* iPhone - Native iOS Design */}
+        <DeviceFrame width={CANVAS.width} height={CANVAS.height}>
+        {/* iPhone 17 Pro — aluminium unibody, Deep Blue */}
         {isIPhone && (
-          <div className="relative mx-auto w-[320px] h-[650px]">
-            {/* Advanced shadow with color depth */}
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-800/30 to-slate-950/50 rounded-[50px] blur-3xl transform translate-y-6 scale-95" />
+          <div className="relative mx-auto w-[320px] h-[670px]">
+            {/* Contact shadow */}
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-800/30 to-slate-950/50 rounded-[56px] blur-3xl transform translate-y-6 scale-95" />
 
-            {/* Premium iPhone body - Titanium/Ceramic Shield aesthetic */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#1c1c1e] via-[#2c2c2e] to-[#1c1c1e] rounded-[50px] shadow-[0_25px_80px_rgba(0,0,0,0.9),0_0_2px_rgba(255,255,255,0.15)_inset,0_1px_0_rgba(255,255,255,0.1)_inset] border-[14px] border-[#0a0a0a]">
-              {/* Brushed metal effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/8 via-white/2 to-transparent rounded-[50px] pointer-events-none opacity-60" />
+            {/* Body: the unibody rail. 8px to the glass, matching the ~1.2mm bezel. */}
+            <div className="absolute inset-0 rounded-[56px] bg-gradient-to-br from-[#33455a] via-[#48607a] to-[#26364a] shadow-[0_25px_80px_rgba(0,0,0,0.9)]">
+              {/* Machined rail highlight along the top-left edge */}
+              <div className="absolute inset-0 rounded-[56px] bg-gradient-to-br from-white/25 via-white/5 to-transparent pointer-events-none" />
+              {/* Anodised falloff toward the bottom-right */}
+              <div className="absolute inset-0 rounded-[56px] bg-gradient-to-tl from-black/40 via-transparent to-transparent pointer-events-none" />
+              {/* Antenna band */}
+              <div className="absolute left-0 right-0 top-[124px] h-[1.5px] bg-black/25 pointer-events-none" />
 
-              {/* Dynamic Island (iOS 16+ style) */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[125px] h-[37px] bg-black rounded-b-[30px] z-20 shadow-[0_4px_12px_rgba(0,0,0,0.8)]">
-                {/* Pill shape with live activity */}
-                <div className="absolute top-[8px] left-1/2 -translate-x-1/2 w-[100px] h-[20px] bg-[#1c1c1e] rounded-full flex items-center justify-between px-3">
-                  {/* Face ID sensors */}
-                  <div className="flex items-center gap-2">
-                    <div className="w-[6px] h-[6px] bg-gradient-to-br from-slate-700 to-slate-900 rounded-full" />
-                    <div className="w-[4px] h-[4px] bg-red-900/40 rounded-full animate-pulse" />
-                  </div>
-                  {/* Front camera with lens reflection */}
-                  <div className="w-[9px] h-[9px] bg-gradient-radial from-slate-800 via-slate-900 to-black rounded-full border border-slate-700/50 shadow-inner relative">
-                    <div className="absolute inset-[2px] bg-gradient-to-br from-blue-500/10 via-transparent to-transparent rounded-full" />
+              {/* Ceramic Shield glass, inset by the bezel */}
+              <div className="absolute inset-[8px] bg-black rounded-[48px] overflow-hidden shadow-[inset_0_0_0_1px_rgba(0,0,0,0.9)]">
+                {/* Oleophobic coating sheen */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.05] via-transparent to-black/25 pointer-events-none z-30" />
+
+                {/* Dynamic Island — a floating pill 10px below the glass edge,
+                    not a notch cut into it. 98px is 125pt scaled to this canvas. */}
+                <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-[98px] h-[29px] bg-black rounded-full z-20 flex items-center justify-between px-[9px]">
+                  {/* Face ID dot projector */}
+                  <div className="w-[5px] h-[5px] rounded-full bg-[#101418]" />
+                  {/* Front camera with lens tint */}
+                  <div className="relative w-[9px] h-[9px] rounded-full bg-[#0b0d10] ring-[0.5px] ring-white/10">
+                    <div className="absolute inset-[1.5px] rounded-full bg-gradient-to-br from-[#1b3a5c]/70 via-transparent to-transparent" />
                   </div>
                 </div>
-              </div>
 
-              {/* True OLED Screen with ProMotion feel */}
-              <div className="absolute inset-0 bg-black rounded-[38px] overflow-hidden shadow-[inset_0_0_40px_rgba(0,0,0,0.95)]">
-                {/* Oleophobic coating simulation */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/4 via-transparent to-black/30 pointer-events-none z-30" />
-
-                {/* Native iOS Status Bar */}
-                <div className="absolute top-0 left-0 right-0 h-[54px] z-10 flex items-end justify-between px-8 pb-2">
-                  {/* Left side - Time */}
-                  <div className="text-white text-[15px] font-semibold tracking-tight" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif' }}>
+                {/* iOS status bar — clock centred in the left ear */}
+                <div className="absolute top-0 left-0 right-0 h-[46px] z-10 flex items-center justify-between px-[26px]">
+                  <div className="w-[54px] text-center text-white text-[15px] font-semibold tracking-tight" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif' }}>
                     {statusBarTime || '9:41'}
                   </div>
-                  {/* Right side - Status icons */}
-                  <div className="flex items-center gap-1.5">
+                  <div className="flex items-center gap-[5px]">
                     {/* Cellular signal */}
                     <svg className="w-[17px] h-[11px]" fill="white" viewBox="0 0 24 14">
                       <circle cx="2.5" cy="11.5" r="2" />
@@ -110,129 +94,113 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
                       <path d="M10 13a2 2 0 100 4 2 2 0 000-4zm0-3a5 5 0 00-3.5 1.5l1.4 1.4A3 3 0 0110 12a3 3 0 012.1.9l1.4-1.4A5 5 0 0010 10zm0-3a8 8 0 00-5.7 2.3l1.4 1.4A6 6 0 0110 9a6 6 0 014.3 1.7l1.4-1.4A8 8 0 0010 7z"/>
                     </svg>
                     {/* Battery */}
-                    <div className="flex items-center gap-0.5">
-                      <div className="w-[22px] h-[11px] border-[1.5px] border-white rounded-[3px] flex items-center px-[1.5px] relative">
-                        <div className="w-full h-[6px] bg-white rounded-[1.5px]" />
-                        {/* Battery tip */}
-                        <div className="absolute -right-[3px] top-1/2 -translate-y-1/2 w-[1.5px] h-[5px] bg-white rounded-r-sm" />
-                      </div>
-                      <span className="text-white text-[12px] font-medium ml-0.5">100</span>
+                    <div className="w-[25px] h-[12px] rounded-[3.5px] border-[1px] border-white/40 flex items-center p-[1.5px] relative">
+                      <div className="w-full h-full bg-white rounded-[1.5px]" />
+                      <div className="absolute -right-[3px] top-1/2 -translate-y-1/2 w-[1.5px] h-[4px] bg-white/40 rounded-r-full" />
                     </div>
                   </div>
                 </div>
 
-                {/* Content Area */}
-                <div className="relative h-full pt-[54px] pb-[34px]">
+                {/* Content area, inset past the status bar and home indicator */}
+                <div className="absolute inset-0 pt-[46px] pb-[30px] min-h-0 overflow-hidden">
                   {children}
                 </div>
 
-                {/* Native iOS Home Indicator */}
-                <div className="absolute bottom-[8px] left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-white/90 rounded-full z-10 shadow-sm" />
+                {/* Home indicator */}
+                <div className="absolute bottom-[8px] left-1/2 -translate-x-1/2 w-[104px] h-[5px] bg-white/90 rounded-full z-10" />
               </div>
 
-              {/* Precisely crafted side buttons - iPhone Pro style */}
-              {/* Mute switch */}
-              <div className="absolute -left-[3px] top-[95px] w-[4px] h-[28px] bg-gradient-to-r from-[#141414] via-[#2a2a2a] to-[#1a1a1a] rounded-l shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)]" />
-              {/* Volume Up */}
-              <div className="absolute -left-[3px] top-[155px] w-[4px] h-[50px] bg-gradient-to-r from-[#141414] via-[#2a2a2a] to-[#1a1a1a] rounded-l shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)]" />
-              {/* Volume Down */}
-              <div className="absolute -left-[3px] top-[215px] w-[4px] h-[50px] bg-gradient-to-r from-[#141414] via-[#2a2a2a] to-[#1a1a1a] rounded-l shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)]" />
-              {/* Power button */}
-              <div className="absolute -right-[3px] top-[175px] w-[4px] h-[85px] bg-gradient-to-l from-[#141414] via-[#2a2a2a] to-[#1a1a1a] rounded-r shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)]" />
+              {/* Left rail: Action Button, then the volume pair */}
+              <div className="absolute -left-[2px] top-[118px] w-[3px] h-[24px] bg-gradient-to-r from-[#16202b] via-[#2d3d4e] to-[#1b2733] rounded-l-[2px]" />
+              <div className="absolute -left-[2px] top-[164px] w-[3px] h-[46px] bg-gradient-to-r from-[#16202b] via-[#2d3d4e] to-[#1b2733] rounded-l-[2px]" />
+              <div className="absolute -left-[2px] top-[222px] w-[3px] h-[46px] bg-gradient-to-r from-[#16202b] via-[#2d3d4e] to-[#1b2733] rounded-l-[2px]" />
+
+              {/* Right rail: side button, and the Camera Control below it */}
+              <div className="absolute -right-[2px] top-[176px] w-[3px] h-[78px] bg-gradient-to-l from-[#16202b] via-[#2d3d4e] to-[#1b2733] rounded-r-[2px]" />
+              <div className="absolute -right-[2px] top-[288px] w-[3px] h-[30px] bg-gradient-to-l from-[#0f1620] via-[#3a4d61] to-[#1b2733] rounded-r-[2px] shadow-[0_0_2px_rgba(255,255,255,0.25)]" />
             </div>
 
-            {/* Premium ambient light reflection */}
+            {/* Ambient bounce light */}
             <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[280px] h-[40px] bg-gradient-radial from-slate-400/20 via-slate-600/10 to-transparent blur-3xl rounded-full" />
           </div>
         )}
 
-        {/* Android - Material Design 3 */}
+        {/* Galaxy S25 Ultra — flat titanium frame, near-square corners */}
         {isAndroid && (
-          <div className="relative mx-auto w-[320px] h-[650px]">
-            {/* Material You shadow system */}
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-700/25 to-slate-900/45 rounded-[48px] blur-3xl transform translate-y-6 scale-95" />
+          <div className="relative mx-auto w-[320px] h-[670px]">
+            {/* Contact shadow */}
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-700/25 to-slate-900/45 rounded-[26px] blur-3xl transform translate-y-6 scale-95" />
 
-            {/* Premium Android body - Pixel/Samsung flagship aesthetic */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#0f0f0f] via-[#1a1a1a] to-[#0a0a0a] rounded-[48px] shadow-[0_25px_80px_rgba(0,0,0,0.9),0_0_2px_rgba(255,255,255,0.12)_inset,0_1px_0_rgba(255,255,255,0.08)_inset] border-[12px] border-black">
-              {/* Gorilla Glass effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-white/2 to-transparent rounded-[48px] pointer-events-none opacity-70" />
+            {/* Body: flat titanium rail. The 26px radius is what separates this
+                silhouette from the iPhone's 56px — Samsung's corners are square. */}
+            <div className="absolute inset-0 rounded-[26px] bg-gradient-to-br from-[#33353a] via-[#4a4d54] to-[#212327] shadow-[0_25px_80px_rgba(0,0,0,0.9)]">
+              {/* Brushed titanium highlight */}
+              <div className="absolute inset-0 rounded-[26px] bg-gradient-to-br from-white/20 via-white/[0.04] to-transparent pointer-events-none" />
+              <div className="absolute inset-0 rounded-[26px] bg-gradient-to-tl from-black/45 via-transparent to-transparent pointer-events-none" />
+              {/* Antenna bands on the flat rail */}
+              <div className="absolute left-0 right-0 top-[92px] h-[1.5px] bg-black/30 pointer-events-none" />
+              <div className="absolute left-0 right-0 bottom-[92px] h-[1.5px] bg-black/30 pointer-events-none" />
 
-              {/* AMOLED Screen */}
-              <div className="absolute inset-0 bg-black rounded-[38px] overflow-hidden shadow-[inset_0_0_40px_rgba(0,0,0,0.95)]">
+              {/* Gorilla Armor glass — 6px bezel, uniform on all four sides */}
+              <div className="absolute inset-[6px] bg-black rounded-[20px] overflow-hidden shadow-[inset_0_0_0_1px_rgba(0,0,0,0.9)]">
                 {/* Anti-reflective coating */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/3 via-transparent to-black/25 pointer-events-none z-30" />
+                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.035] via-transparent to-black/20 pointer-events-none z-30" />
 
-                {/* Material You Status Bar */}
-                <div className="absolute top-0 left-0 right-0 h-[36px] z-10 flex items-center justify-between px-6 pt-1">
-                  {/* Left side - Time */}
-                  <div className="flex items-center gap-3">
-                    <div className="text-white text-[14px] font-medium tracking-tight" style={{ fontFamily: 'Roboto, system-ui, sans-serif' }}>
+                {/* Centred punch-hole camera */}
+                <div className="absolute top-[9px] left-1/2 -translate-x-1/2 w-[11px] h-[11px] rounded-full bg-black z-20 ring-[0.5px] ring-white/[0.06]">
+                  <div className="absolute inset-[2px] rounded-full bg-[#05060a]" />
+                  <div className="absolute inset-[3px] rounded-full bg-gradient-to-br from-[#1b3a5c]/60 via-transparent to-transparent" />
+                </div>
+
+                {/* One UI status bar — clock hard left, system icons right */}
+                <div className="absolute top-0 left-0 right-0 h-[34px] z-10 flex items-center justify-between px-[14px]">
+                  <div className="flex items-center gap-2">
+                    <div className="text-white text-[13px] font-medium tracking-tight" style={{ fontFamily: 'Roboto, system-ui, sans-serif' }}>
                       {statusBarTime || '9:41'}
                     </div>
-                    {/* Notification icons */}
-                    <div className="flex items-center gap-1">
-                      <svg className="w-[14px] h-[14px]" fill="white" viewBox="0 0 24 24">
-                        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
-                      </svg>
-                    </div>
+                    <svg className="w-[12px] h-[12px] opacity-90" fill="white" viewBox="0 0 24 24">
+                      <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+                    </svg>
                   </div>
 
-                  {/* Right side - System icons */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-[5px]">
                     {/* WiFi */}
-                    <svg className="w-[16px] h-[12px]" fill="white" viewBox="0 0 24 18">
+                    <svg className="w-[14px] h-[11px]" fill="white" viewBox="0 0 24 18">
                       <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
                     </svg>
                     {/* Mobile signal */}
-                    <svg className="w-[14px] h-[12px]" fill="white" viewBox="0 0 20 16">
+                    <svg className="w-[13px] h-[11px]" fill="white" viewBox="0 0 20 16">
                       <rect x="0" y="10" width="3" height="6" rx="0.5" />
                       <rect x="5" y="7" width="3" height="9" rx="0.5" />
                       <rect x="10" y="4" width="3" height="12" rx="0.5" />
                       <rect x="15" y="1" width="3" height="15" rx="0.5" />
                     </svg>
-                    {/* Battery with Material You style */}
-                    <div className="flex items-center gap-1">
-                      <div className="w-[20px] h-[10px] border-[1.8px] border-white rounded-[2.5px] flex items-center px-[1px] relative">
-                        <div className="w-full h-[5px] bg-white rounded-[1px]" />
-                        {/* Battery terminal */}
-                        <div className="absolute -right-[2.5px] top-1/2 -translate-y-1/2 w-[1.5px] h-[5px] bg-white rounded-r-[1px]" />
-                      </div>
-                      <span className="text-white text-[11px] font-medium">100</span>
+                    {/* Battery — One UI draws the percentage inside the cell */}
+                    <div className="w-[24px] h-[12px] rounded-[3px] border-[1px] border-white/50 flex items-center p-[1.5px] relative">
+                      <div className="w-full h-full bg-white rounded-[1.5px]" />
+                      <div className="absolute -right-[2.5px] top-1/2 -translate-y-1/2 w-[1.5px] h-[4px] bg-white/50 rounded-r-full" />
                     </div>
                   </div>
                 </div>
 
-                {/* Content Area */}
-                <div className="relative h-full pt-[36px] pb-[56px]">
+                {/* Content area */}
+                <div className="absolute inset-0 pt-[34px] pb-[26px] min-h-0 overflow-hidden">
                   {children}
                 </div>
 
-                {/* Material You Navigation Bar (Gesture bar) */}
-                <div className="absolute bottom-0 left-0 right-0 h-[56px] bg-gradient-to-t from-black/95 via-black/80 to-transparent flex items-center justify-center pb-3 z-10">
-                  {/* Pill-shaped gesture indicator */}
-                  <div className="w-[145px] h-[4px] bg-white/80 rounded-full shadow-lg" />
-                </div>
+                {/* One UI gesture bar — a thin pill, no opaque nav bar behind it */}
+                <div className="absolute bottom-[7px] left-1/2 -translate-x-1/2 w-[104px] h-[4px] bg-white/85 rounded-full z-10" />
               </div>
 
-              {/* Front camera with punch-hole design */}
-              <div className="absolute top-[12px] left-1/2 -translate-x-1/2 w-[11px] h-[11px] bg-gradient-radial from-[#0a0a0a] via-[#141414] to-[#1f1f1f] rounded-full border-[0.5px] border-black/50 shadow-[0_2px_8px_rgba(0,0,0,0.9),inset_0_1px_2px_rgba(0,0,0,0.8)] z-20">
-                {/* Camera lens */}
-                <div className="absolute inset-[2px] bg-gradient-to-br from-slate-900 via-black to-black rounded-full" />
-                {/* Lens reflection */}
-                <div className="absolute inset-[3px] bg-gradient-to-br from-blue-500/15 via-transparent to-transparent rounded-full" />
+              {/* Both keys sit on the right on the S25 Ultra: volume rocker above
+                  the side key, and the left rail is left clean. */}
+              <div className="absolute -right-[2px] top-[152px] w-[3px] h-[76px] bg-gradient-to-l from-[#17181b] via-[#3b3e45] to-[#1d1f23] rounded-r-[2px]">
+                <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-black/70" />
               </div>
-
-              {/* Premium side buttons */}
-              {/* Power button with texture */}
-              <div className="absolute -right-[3px] top-[130px] w-[4px] h-[70px] bg-gradient-to-l from-[#0a0a0a] via-[#1a1a1a] to-[#0f0f0f] rounded-r shadow-[inset_0_1px_2px_rgba(0,0,0,0.9)]" />
-              {/* Volume rocker */}
-              <div className="absolute -left-[3px] top-[110px] w-[4px] h-[90px] bg-gradient-to-r from-[#0a0a0a] via-[#1a1a1a] to-[#0f0f0f] rounded-l shadow-[inset_0_1px_2px_rgba(0,0,0,0.9)]">
-                {/* Volume separator line */}
-                <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-black" />
-              </div>
+              <div className="absolute -right-[2px] top-[246px] w-[3px] h-[44px] bg-gradient-to-l from-[#17181b] via-[#3b3e45] to-[#1d1f23] rounded-r-[2px]" />
             </div>
 
-            {/* Material Design ambient lighting */}
+            {/* Ambient bounce light */}
             <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[280px] h-[40px] bg-gradient-radial from-blue-400/15 via-purple-500/8 to-transparent blur-3xl rounded-full" />
           </div>
         )}

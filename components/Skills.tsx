@@ -12,58 +12,54 @@ import {
   SiGit,
   SiSwagger,
   SiGithubactions,
-  SiAndroid,
   SiPostman,
+  SiGnubash,
+  SiSqlite,
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
 import SectionHeading from './SectionHeading';
+import { spokenLanguages } from '@/lib/site';
 import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
 
-/**
- * Grouped chips rather than percentage bars: the old "Flutter 95%" figures were
- * unverifiable and generated twenty near-identical rows of terminal chrome.
- */
+/** Groups mirror the résumé sidebar: Tech Stack, Database, Tools. */
 const skillCategories = [
   {
-    title: 'Languages & frameworks',
+    title: 'Tech stack',
     skills: [
       { name: 'Flutter', icon: SiFlutter, color: '#47C5FB' },
       { name: 'Dart', icon: SiDart, color: '#0175C2' },
       { name: 'Kotlin', icon: SiKotlin, color: '#A97BFF' },
-      { name: 'Kotlin Multiplatform', icon: SiKotlin, color: '#A97BFF' },
       { name: 'Java', icon: FaJava, color: '#E76F00' },
-      { name: 'Android SDK', icon: SiAndroid, color: '#3DDC84' },
+      { name: 'Bash', icon: SiGnubash, color: '#4EAA25' },
+      { name: 'SQL', icon: SiSqlite, color: '#00d9ff' },
     ],
   },
   {
-    title: 'Architecture & state',
+    title: 'Database',
     skills: [
-      { name: 'Bloc', icon: SiFlutter, color: '#47C5FB' },
-      { name: 'Clean Architecture', icon: HiTerminal, color: '#00ff41' },
-      { name: 'SOLID', icon: HiTerminal, color: '#00ff41' },
-    ],
-  },
-  {
-    title: 'Data & networking',
-    skills: [
-      { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
-      { name: 'Firestore', icon: SiFirebase, color: '#FFCA28' },
       { name: 'Drift', icon: HiTerminal, color: '#00d9ff' },
       { name: 'Isar', icon: HiTerminal, color: '#00d9ff' },
-      { name: 'Room', icon: HiTerminal, color: '#A97BFF' },
-      { name: 'Ktor', icon: SiKotlin, color: '#A97BFF' },
-      { name: 'Retrofit', icon: HiTerminal, color: '#00ff41' },
-      { name: 'WorkManager', icon: HiTerminal, color: '#3DDC84' },
+      { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
+      { name: 'Firestore', icon: SiFirebase, color: '#FFCA28' },
     ],
   },
   {
-    title: 'Tooling & delivery',
+    title: 'Tools',
     skills: [
-      { name: 'Git', icon: SiGit, color: '#F05032' },
-      { name: 'GitHub Actions', icon: SiGithubactions, color: '#2088FF' },
+      { name: 'Figma', icon: SiFigma, color: '#F24E1E' },
       { name: 'Postman', icon: SiPostman, color: '#FF6C37' },
       { name: 'Swagger', icon: SiSwagger, color: '#85EA2D' },
-      { name: 'Figma', icon: SiFigma, color: '#F24E1E' },
+      { name: 'Shorebird', icon: HiTerminal, color: '#00ff41' },
+      { name: 'GitHub Actions', icon: SiGithubactions, color: '#2088FF' },
+      { name: 'Retrofit', icon: HiTerminal, color: '#00ff41' },
+      { name: 'Git', icon: SiGit, color: '#F05032' },
+    ],
+  },
+  {
+    title: 'Architecture',
+    skills: [
+      { name: 'Bloc pattern', icon: SiFlutter, color: '#47C5FB' },
+      { name: 'SOLID principles', icon: HiTerminal, color: '#00ff41' },
     ],
   },
 ];
@@ -115,6 +111,13 @@ const Skills = () => (
             </motion.ul>
           </motion.div>
         ))}
+
+        <motion.div variants={fadeUp} className="terminal-window p-5">
+          <h3 className="font-mono text-sm text-[#00ff41] mb-4">Languages</h3>
+          <p className="font-mono text-xs text-[var(--terminal-text)]">
+            {spokenLanguages.join('  ·  ')}
+          </p>
+        </motion.div>
       </div>
     </motion.div>
   </section>

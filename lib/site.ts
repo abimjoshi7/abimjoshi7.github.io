@@ -7,9 +7,9 @@ export const siteConfig = {
   title: "Abim Joshi - Software Engineer",
   shortTitle: "Abim Joshi",
   description:
-    "Portfolio of Abim Joshi, Software Engineer specializing in Flutter, Kotlin Multiplatform (KMP), and native Android development. 5+ years of mobile app development experience.",
+    "Portfolio of Abim Joshi, Software Engineer and Senior Flutter Developer. Five-plus years building production-ready hybrid mobile apps with Flutter, Dart, Kotlin and Java.",
   socialDescription:
-    "Portfolio showcasing mobile development projects with Flutter, KMP, and native Android",
+    "Portfolio showcasing production Flutter apps built with Dart, Kotlin and Java",
   email: "abimjoshi7@gmail.com",
   locality: "Kathmandu",
   country: "NP",
@@ -21,28 +21,30 @@ export const siteConfig = {
   knowsAbout: [
     "Flutter",
     "Dart",
-    "Kotlin Multiplatform",
-    "Android",
-    "iOS",
-    "Room",
-    "Ktor",
-    "WorkManager",
-    "Retrofit",
+    "Kotlin",
+    "Java",
+    "Bash",
+    "SQL",
+    "PostgreSQL",
+    "Firestore",
+    "Drift",
+    "Isar",
     "Bloc Pattern",
+    "SOLID Principles",
   ],
   keywords: [
     "Abim Joshi",
+    "Flutter Developer",
     "Mobile Developer",
     "Software Engineer",
     "Flutter",
+    "Dart",
     "Kotlin",
-    "KMP",
+    "Java",
     "Android",
     "iOS",
-    "Kotlin Multiplatform",
-    "Room",
-    "Ktor",
-    "WorkManager",
+    "PostgreSQL",
+    "Firestore",
   ],
 } as const;
 
@@ -112,6 +114,9 @@ export const contact = {
 /** Headline numbers. Shown once, in the hero — not repeated per section. */
 export const stats = [
   { label: "YEARS", value: "5+" },
-  { label: "APPS SHIPPED", value: "15+" },
-  { label: "CLIENTS", value: "10+" },
+  { label: "PRODUCTION APPS", value: "5" },
+  { label: "COMPANIES", value: "3" },
 ] as const;
+
+/** Spoken languages, from the résumé sidebar. */
+export const spokenLanguages = ["Nepali", "English", "Hindi"] as const;

@@ -52,7 +52,7 @@ export default async function Image() {
             display: "flex",
           }}
         >
-          Flutter · Kotlin Multiplatform · Android · iOS
+          Flutter · Dart · Kotlin · Java
         </div>
       </div>
     ),

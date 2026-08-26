@@ -8,13 +8,13 @@ import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
 const highlights = [
   {
     icon: HiCode,
-    title: 'Full-stack web',
+    title: 'Web & backend',
     description:
       'Next.js and TypeScript on the front, Rust (Axum) and Spring Boot behind it, SQL underneath.',
   },
   {
     icon: HiDeviceMobile,
-    title: 'Native and cross-platform mobile',
+    title: 'Mobile clients',
     description:
       'Flutter, Jetpack Compose and SwiftUI — including native platform channels when a feature needs them.',
   },
@@ -57,15 +57,15 @@ const About = () => (
           className="space-y-4 text-sm sm:text-base leading-relaxed text-[var(--terminal-text)]"
         >
           <p>
-            Software Engineer with 6+ years shipping production-grade software
-            across fintech, ed-tech, ERP and commercial domains — full-stack web
-            platforms as well as Android, iOS and Flutter apps.
+            Full-stack software engineer with 6+ years shipping production-grade
+            products across fintech, ed-tech, ERP and commercial domains — from the
+            database through the API to whatever the user actually touches.
           </p>
           <p className="text-[var(--terminal-text-dim)]">
-            On the web that means Next.js and TypeScript, with Rust (Axum) and
-            Spring Boot services behind them. On mobile it means Flutter, Jetpack
-            Compose and SwiftUI, dropping into native platform channels when a
-            feature calls for it.
+            In practice that is Next.js and TypeScript, Rust (Axum) and Spring
+            Boot services behind them, and Flutter, Jetpack Compose or SwiftUI at
+            the client — dropping into native platform channels when a feature
+            calls for it.
           </p>
           <p className="text-[var(--terminal-text-dim)]">
             I specialise in Clean Architecture, offline-first design and

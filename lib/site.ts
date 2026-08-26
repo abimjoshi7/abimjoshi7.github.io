@@ -3,13 +3,13 @@ export const SITE_URL = "https://abimjoshi7.github.io";
 export const siteConfig = {
   url: SITE_URL,
   name: "Abim Joshi",
-  jobTitle: "Software Engineer",
-  title: "Abim Joshi - Software Engineer",
+  jobTitle: "Full-stack Software Engineer",
+  title: "Abim Joshi - Full-stack Software Engineer",
   shortTitle: "Abim Joshi",
   description:
-    "Portfolio of Abim Joshi, Software Engineer with 6+ years building full-stack web and production-grade mobile apps — Next.js, Rust (Axum), Spring Boot, Flutter, Jetpack Compose and SwiftUI.",
+    "Portfolio of Abim Joshi, full-stack software engineer with 6+ years shipping production software end to end — Next.js, Rust (Axum), Spring Boot, Flutter, Jetpack Compose and SwiftUI.",
   socialDescription:
-    "Full-stack and mobile engineer — Next.js, Rust, Spring Boot, Flutter, Jetpack Compose, SwiftUI",
+    "Full-stack software engineer — Next.js, Rust, Spring Boot, Flutter, Jetpack Compose, SwiftUI",
   email: "abimjoshi7@gmail.com",
   phone: "+977-9860920006",
   locality: "Kathmandu",
@@ -54,7 +54,7 @@ export const siteConfig = {
   ],
 } as const;
 
-/** Full-stack web work. Listed before the mobile showcase. */
+/** Web platforms. Listed before the published-app showcase. */
 export const webProjects = [
   {
     id: "ghumtibags",

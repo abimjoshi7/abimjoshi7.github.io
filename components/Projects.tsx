@@ -8,11 +8,25 @@ import { HiTerminal } from 'react-icons/hi';
 import DeviceShowcase from './DeviceShowcase';
 import PhoneScreen from './PhoneScreen';
 
+interface App {
+  id: string;
+  name: string;
+  icon: string;
+  gradient: string;
+  category: string;
+  description: string;
+  platform: string;
+  tech: string[];
+  github: string;
+  appStore?: string;
+  playStore?: string;
+}
+
 const Projects = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [deviceType, setDeviceType] = useState<'iphone' | 'android' | 'tablet'>('iphone');
-  const [selectedApp, setSelectedApp] = useState<typeof projects[0] | null>(null);
+  const [selectedApp, setSelectedApp] = useState<App | null>(null);
 
   const projects = [
     {
@@ -104,7 +118,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="projects" aria-labelledby="projects-heading" className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <motion.div
         ref={ref}
         variants={containerVariants}
@@ -129,7 +143,7 @@ const Projects = () => {
               <div className="pl-2 sm:pl-4 text-[#00ff41]">
                 <div className="flex items-center gap-2">
                   <HiTerminal className="text-[#00d9ff]" />
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold terminal-glow">
+                  <h2 id="projects-heading" className="text-2xl sm:text-3xl lg:text-4xl font-bold terminal-glow">
                     Mobile Applications
                   </h2>
                 </div>
@@ -277,7 +291,7 @@ const Projects = () => {
                 <div className="font-mono text-sm text-[#00d9ff] py-12 text-center">
                   <div className="text-4xl mb-4">👆</div>
                   <div className="opacity-70">
-                    <span className="text-[#00ff41]">$</span> echo "Tap any app icon to view details"
+                    <span className="text-[#00ff41]">$</span> echo &quot;Tap any app icon to view details&quot;
                     <motion.span
                       className="inline-block ml-1"
                       animate={{ opacity: [1, 0] }}

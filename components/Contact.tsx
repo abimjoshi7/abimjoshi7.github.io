@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { HiMail, HiPhone, HiLocationMarker, HiPaperAirplane, HiTerminal } from 'react-icons/hi';
-import { FaGithub, FaLinkedin, FaTwitter, FaDribbble } from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 const Contact = () => {
   const ref = useRef(null);
@@ -101,7 +101,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="contact" aria-labelledby="contact-heading" className="py-20 px-4 sm:px-6 lg:px-8">
       <motion.div
         ref={ref}
         variants={containerVariants}
@@ -126,7 +126,7 @@ const Contact = () => {
               <div className="pl-4 text-[#00ff41]">
                 <div className="flex items-center gap-2">
                   <HiTerminal className="text-[#00d9ff]" />
-                  <h2 className="text-3xl sm:text-4xl font-bold terminal-glow">
+                  <h2 id="contact-heading" className="text-3xl sm:text-4xl font-bold terminal-glow">
                     Get In Touch
                   </h2>
                 </div>
@@ -153,8 +153,8 @@ const Contact = () => {
                   <span className="text-[#00d9ff]">cat about.txt</span>
                 </div>
                 <p className="text-white opacity-90 text-xs leading-relaxed pl-4">
-                  I'm always open to discussing new projects, creative ideas, or opportunities to be
-                  part of your vision. Whether you have a question or just want to say hi, I'll do my
+                  I&apos;m always open to discussing new projects, creative ideas, or opportunities to be
+                  part of your vision. Whether you have a question or just want to say hi, I&apos;ll do my
                   best to get back to you!
                 </p>
               </div>

@@ -16,7 +16,6 @@ import {
   SiGithubactions,
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
-import { SiIsar } from 'react-icons/si';
 
 const Skills = () => {
   const ref = useRef(null);
@@ -91,7 +90,7 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="skills" aria-labelledby="skills-heading" className="py-20 px-4 sm:px-6 lg:px-8">
       <motion.div
         ref={ref}
         variants={containerVariants}
@@ -116,7 +115,7 @@ const Skills = () => {
               <div className="pl-4 text-[#00ff41]">
                 <div className="flex items-center gap-2">
                   <HiTerminal className="text-[#00d9ff]" />
-                  <h2 className="text-3xl sm:text-4xl font-bold terminal-glow">
+                  <h2 id="skills-heading" className="text-3xl sm:text-4xl font-bold terminal-glow">
                     Skills & Technologies
                   </h2>
                 </div>
@@ -150,7 +149,7 @@ const Skills = () => {
               <div className="mb-4">
                 <div className="flex items-center gap-2 font-mono text-sm">
                   <span className="text-[#00ff41]">❯</span>
-                  <span className="text-[#00d9ff]">echo "${category.title}"</span>
+                  <span className="text-[#00d9ff]">echo &quot;{category.title}&quot;</span>
                 </div>
                 <h3 className="text-xl font-bold font-mono text-[#00ff41] mt-2 terminal-glow">
                   {category.title}

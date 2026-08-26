@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Abim Joshi - Senior Software Engineer - Mobile Technologies";
+export const alt = "Abim Joshi - Software Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -42,7 +42,7 @@ export default async function Image() {
             display: "flex",
           }}
         >
-          Senior Software Engineer — Mobile Technologies
+          Software Engineer
         </div>
         <div
           style={{

@@ -1,257 +1,154 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { HiTerminal } from 'react-icons/hi';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
+import { contact, stats } from '@/lib/site';
+import { fadeUp, stagger, tap } from '@/lib/motion';
+
+const socials = [
+  { Icon: FaGithub, href: contact.github, label: 'GitHub' },
+  { Icon: FaLinkedin, href: contact.linkedin, label: 'LinkedIn' },
+];
 
 const Hero = () => {
+  const reduceMotion = useReducedMotion();
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6 },
-    },
-  };
+  const scrollTo = (selector: string) =>
+    document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="home" aria-label="Introduction" className="relative min-h-screen flex items-center justify-center pt-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Animated Background Grid */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          {[...Array(20)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute h-px bg-[#00ff41]"
-              style={{
-                top: `${i * 5}%`,
-                left: 0,
-                right: 0,
-              }}
-              animate={{
-                opacity: [0.1, 0.3, 0.1],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                delay: i * 0.2,
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
+    <section
+      id="home"
+      aria-label="Introduction"
+      className="relative min-h-[100svh] flex items-center justify-center pt-24 pb-16 px-4 sm:px-6 lg:px-8"
+    >
       <motion.div
-        variants={containerVariants}
+        variants={stagger(0.09)}
         initial="hidden"
         animate="visible"
-        className="relative max-w-6xl mx-auto z-10"
+        className="relative w-full max-w-4xl mx-auto z-10"
       >
-        {/* Main Terminal Window */}
-        <motion.div variants={itemVariants} className="terminal-window p-8 mb-8">
-          {/* Terminal Header */}
-          <div className="flex items-center gap-2 mb-6 pb-4 border-b border-[#30363d]">
-            <HiTerminal className="text-[#00ff41]" size={20} />
-            <div className="flex-1 text-center">
-              <span className="text-[#00d9ff] text-sm font-mono">~/portfolio/about</span>
-            </div>
+        {/* The one full terminal window on the page. Every other section uses a plain heading. */}
+        <motion.div variants={fadeUp} className="terminal-window overflow-hidden mb-8">
+          <div className="flex items-center gap-2 px-4 sm:px-5 py-3 border-b border-[#30363d]">
+            <HiTerminal className="text-[#00ff41] shrink-0" size={16} />
+            <span className="text-[var(--terminal-text-dim)] text-xs font-mono">
+              ~/portfolio
+            </span>
           </div>
 
-          {/* Terminal Content */}
-          <div className="font-mono space-y-3 min-h-[300px]">
-            {/* ASCII Art Name */}
-            <motion.h1
-              variants={itemVariants}
-              className="text-[#00ff41] text-sm sm:text-base mb-6 terminal-glow"
-            >
-              <span className="sr-only">
-                Abim Joshi — Senior Software Engineer, Mobile Technologies
-              </span>
-              <pre className="overflow-x-auto" aria-hidden="true">
-{`╔═══════════════════════════════════════════════════╗
-║   ABIM JOSHI / SOFTWARE ENGINEER - MOBILE TECH    ║
-╚═══════════════════════════════════════════════════╝`}
+          <div className="p-4 sm:p-6 lg:p-8 font-mono">
+            <h1 className="mb-6">
+              <span className="sr-only">Abim Joshi — Software Engineer</span>
+              {/* Banner scales with the viewport instead of forcing a horizontal scroll. */}
+              <pre
+                aria-hidden="true"
+                className="text-[#00ff41] leading-tight text-[clamp(0.44rem,2.35vw,0.95rem)]"
+              >
+{`╔══════════════════════════════════════╗
+║   ABIM JOSHI  ·  SOFTWARE ENGINEER   ║
+╚══════════════════════════════════════╝`}
               </pre>
-            </motion.h1>
+            </h1>
 
-            {/* Typing Effect Lines */}
-            <motion.div variants={itemVariants} className="space-y-2 text-sm sm:text-base">
-              <div className="flex items-start gap-2">
-                <span className="text-[#00ff41] flex-shrink-0">❯</span>
-                <div>
-                  <div className="text-[#00ff41] mb-1">$ whoami</div>
-                  <div className="text-[#00d9ff] pl-4">
-                    &gt; Abim Joshi - Senior Software Engineer - Mobile Technologies
-                  </div>
-                  <div className="text-[#b877db] pl-4">
-                    &gt; 5+ Years of Mobile App Development
-                  </div>
-                  <div className="text-[#00d9ff] pl-4">
-                    &gt; Location: Kathmandu, Nepal
-                  </div>
+            <div className="space-y-4 text-sm sm:text-base">
+              <div>
+                <p className="text-[#00ff41]">$ whoami</p>
+                <div className="pl-4 mt-1 space-y-1 text-[var(--terminal-text)]">
+                  <p>Software Engineer · Mobile</p>
+                  <p className="text-[var(--terminal-text-dim)]">
+                    5+ years shipping Flutter, Kotlin Multiplatform and native Android
+                    to production. Based in Kathmandu, Nepal.
+                  </p>
                 </div>
               </div>
 
-              <div className="flex items-start gap-2 pt-3">
-                <span className="text-[#00ff41] flex-shrink-0">❯</span>
-                <div>
-                  <div className="text-[#00ff41] mb-1">$ cat expertise.txt</div>
-                  <div className="text-[#00d9ff] pl-4 space-y-1">
-                    <div>&gt; Flutter | Dart | Kotlin | Java | KMP</div>
-                    <div>&gt; Room | Ktor | WorkManager | Retrofit</div>
-                    <div>&gt; Bloc Pattern | SOLID Principles</div>
-                    <div>&gt; PostgreSQL | Firestore | Drift | Isar</div>
-                    <div>&gt; GitHub Actions | Figma | Postman</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-2 pt-3">
-                <span className="text-[#00ff41] flex-shrink-0">❯</span>
-                <div className="w-full">
-                  <div className="text-[#00ff41] mb-1">$ echo $MISSION</div>
-                  <div className="text-[#00d9ff] pl-4">
-                    &gt; Delivering on time, meeting client expectations
-                  </div>
-                  <div className="text-[#00d9ff] pl-4">
-                    &gt; Writing clean, maintainable code
-                  </div>
-                  <div className="text-[#b877db] pl-4">
-                    &gt; Creating production-ready apps with seamless performance
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-2 pt-3">
-                <span className="text-[#00ff41] flex-shrink-0">❯</span>
-                <div className="text-[#00ff41]">
-                  $ ./initialize_collaboration.sh
-                  <motion.span
-                    className="inline-block ml-1"
-                    animate={{ opacity: [1, 0] }}
-                    transition={{ duration: 0.8, repeat: Infinity }}
-                  >
-                    ▋
-                  </motion.span>
-                </div>
-              </div>
-            </motion.div>
+              <p className="text-[#00ff41]">
+                $ ./say_hello.sh
+                <span className="terminal-cursor ml-1">▋</span>
+              </p>
+            </div>
           </div>
         </motion.div>
 
-        {/* Action Buttons - Terminal Style */}
+        {/* Actions */}
         <motion.div
-          variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8"
+          variants={fadeUp}
+          className="flex flex-col sm:flex-row gap-3 sm:justify-center mb-8"
         >
           <motion.button
-            whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(0, 255, 65, 0.6)' }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative px-8 py-3 bg-[#00ff41] text-[#0d1117] font-mono font-bold overflow-hidden"
-            onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+            whileTap={tap}
+            onClick={() => scrollTo('#contact')}
+            className="px-6 py-3 bg-[#00ff41] text-[#0d1117] font-mono font-bold text-sm rounded-md transition-colors hover:bg-[#4dff7c]"
           >
-            <div className="flex items-center gap-2">
-              <span>./contact.sh</span>
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </div>
+            Get in touch →
           </motion.button>
 
           <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 border-2 border-[#00ff41] text-[#00ff41] font-mono hover:bg-[#00ff41] hover:text-[#0d1117] transition-all"
-            onClick={() => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' })}
+            whileTap={tap}
+            onClick={() => scrollTo('#projects')}
+            className="px-6 py-3 border border-[#30363d] text-[var(--terminal-text)] font-mono text-sm rounded-md transition-colors hover:border-[#00ff41] hover:text-[#00ff41]"
           >
-            ls -la ./projects/
+            View projects
           </motion.button>
 
           <motion.a
             href="/Resume.pdf"
             download="Abim_Joshi_Resume.pdf"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 border-2 border-[#00d9ff] text-[#00d9ff] font-mono hover:bg-[#00d9ff] hover:text-[#0d1117] transition-all"
+            whileTap={tap}
+            className="px-6 py-3 border border-[#30363d] text-[var(--terminal-text)] font-mono text-sm rounded-md text-center transition-colors hover:border-[#00d9ff] hover:text-[#00d9ff]"
           >
-            wget resume.pdf
+            Download résumé
           </motion.a>
         </motion.div>
 
-        {/* Social Links - Terminal Style */}
-        <motion.div variants={itemVariants} className="flex justify-center gap-6 mb-8">
-          <div className="terminal-window px-6 py-3">
-            <div className="flex items-center gap-6">
-              <span className="text-[#00d9ff] font-mono text-sm">~/social/</span>
-              {[
-                { Icon: FaGithub, href: 'https://github.com/abimjoshi7', label: 'GitHub', color: '#00ff41' },
-                { Icon: FaLinkedin, href: 'https://linkedin.com/in/abimjoshi7', label: 'LinkedIn', color: '#00d9ff' },
-              ].map(({ Icon, href, label, color }) => (
-                <motion.a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.2, y: -3 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="transition-all"
-                  style={{ color }}
-                  aria-label={label}
-                  title={label}
-                >
-                  <Icon size={24} />
-                </motion.a>
-              ))}
-            </div>
-          </div>
-        </motion.div>
-
-        {/* System Stats */}
-        <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { label: 'PROJECTS', value: '15+', color: '#00ff41' },
-            { label: 'EXPERIENCE', value: '5+ YRS', color: '#00d9ff' },
-            { label: 'CLIENTS', value: '10+', color: '#b877db' },
-            { label: 'UPTIME', value: '99.9%', color: '#ffff00' },
-          ].map((stat) => (
-            <div key={stat.label} className="terminal-window p-4 text-center">
-              <div className="font-mono text-xs mb-1" style={{ color: stat.color }}>
-                [{stat.label}]
-              </div>
-              <div className="font-mono text-xl font-bold terminal-glow" style={{ color: stat.color }}>
-                {stat.value}
-              </div>
-            </div>
+        {/* Socials */}
+        <motion.div variants={fadeUp} className="flex justify-center gap-3 mb-10">
+          {socials.map(({ Icon, href, label }) => (
+            <motion.a
+              key={label}
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileTap={tap}
+              aria-label={label}
+              className="w-11 h-11 flex items-center justify-center rounded-md border border-[#30363d] text-[var(--terminal-text-dim)] transition-colors hover:border-[#00ff41] hover:text-[#00ff41]"
+            >
+              <Icon size={18} />
+            </motion.a>
           ))}
         </motion.div>
 
-        {/* Subtle Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0.3, 0.6, 0.3] }}
-          transition={{ delay: 2, duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1"
-        >
-          <div className="text-[#00ff41] font-mono text-[10px] opacity-50">explore</div>
-          <motion.div
-            animate={{ y: [0, 4, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="text-[#00ff41] text-lg opacity-50"
-          >
-            ↓
-          </motion.div>
-        </motion.div>
+        {/* Headline numbers — stated once here, not repeated in About or Projects. */}
+        <motion.dl variants={fadeUp} className="grid grid-cols-3 gap-3 sm:gap-4">
+          {stats.map((stat) => (
+            <div
+              key={stat.label}
+              className="terminal-window px-3 py-4 text-center"
+            >
+              <dd className="font-mono text-xl sm:text-2xl font-bold text-[#00ff41]">
+                {stat.value}
+              </dd>
+              <dt className="font-mono text-[10px] sm:text-xs text-[var(--terminal-text-dim)] mt-1 tracking-wide">
+                {stat.label}
+              </dt>
+            </div>
+          ))}
+        </motion.dl>
       </motion.div>
+
+      {!reduceMotion && (
+        <motion.div
+          aria-hidden="true"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0, 0.5, 0] }}
+          transition={{ delay: 1.5, duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute bottom-5 left-1/2 -translate-x-1/2 text-[#00ff41] text-sm"
+        >
+          ↓
+        </motion.div>
+      )}
     </section>
   );
 };

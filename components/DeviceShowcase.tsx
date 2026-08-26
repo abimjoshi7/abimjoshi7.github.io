@@ -1,7 +1,8 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import { ReactNode, useState, useEffect } from 'react';
+import DeviceFrame from './DeviceFrame';
 
 interface DeviceShowcaseProps {
   deviceType: 'iphone' | 'android' | 'tablet';
@@ -13,6 +14,8 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
   const isIPhone = deviceType === 'iphone';
   const isAndroid = deviceType === 'android';
   const isTablet = deviceType === 'tablet';
+
+  const reduceMotion = useReducedMotion();
 
   const [tabletTime, setTabletTime] = useState<string>('');
   const [tabletDate, setTabletDate] = useState<string>('');
@@ -60,16 +63,22 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
     return () => clearInterval(interval);
   }, []);
 
+  // The intrinsic canvas each mockup is drawn against; DeviceFrame scales it to fit.
+  const intrinsic = isTablet
+    ? { width: 500, height: 650 }
+    : { width: 320, height: 650 };
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
         key={deviceType}
-        initial={{ opacity: 0, scale: 0.9, rotateY: 90 }}
-        animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-        exit={{ opacity: 0, scale: 0.9, rotateY: -90 }}
-        transition={{ duration: 0.5 }}
-        className={`relative ${className}`}
+        initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: 12 }}
+        animate={reduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }}
+        exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: -12 }}
+        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+        className={`relative w-full ${className}`}
       >
+        <DeviceFrame width={intrinsic.width} height={intrinsic.height}>
         {/* iPhone - Native iOS Design */}
         {isIPhone && (
           <div className="relative mx-auto w-[320px] h-[650px]">
@@ -334,6 +343,7 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
             <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 w-[380px] h-[50px] bg-gradient-radial from-slate-300/25 via-slate-500/12 to-transparent blur-3xl rounded-full" />
           </div>
         )}
+        </DeviceFrame>
       </motion.div>
     </AnimatePresence>
   );

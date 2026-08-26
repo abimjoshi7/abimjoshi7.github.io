@@ -3,11 +3,11 @@ export const SITE_URL = "https://abimjoshi7.github.io";
 export const siteConfig = {
   url: SITE_URL,
   name: "Abim Joshi",
-  jobTitle: "Senior Software Engineer",
-  title: "Abim Joshi - Senior Software Engineer - Mobile Technologies",
+  jobTitle: "Software Engineer",
+  title: "Abim Joshi - Software Engineer",
   shortTitle: "Abim Joshi",
   description:
-    "Portfolio of Abim Joshi, Senior Software Engineer specializing in Flutter, Kotlin Multiplatform (KMP), and native Android development. 5+ years of mobile app development experience.",
+    "Portfolio of Abim Joshi, Software Engineer specializing in Flutter, Kotlin Multiplatform (KMP), and native Android development. 5+ years of mobile app development experience.",
   socialDescription:
     "Portfolio showcasing mobile development projects with Flutter, KMP, and native Android",
   email: "abimjoshi7@gmail.com",
@@ -88,4 +88,30 @@ export const featuredApps = [
       "E-commerce platform with push notifications, user engagement analytics, and a streamlined shopping experience.",
     url: "https://play.google.com/store/apps/details?id=com.onecorner",
   },
+] as const;
+
+/** Single source for the section links used by both the header and the footer. */
+export const navItems = [
+  { name: "home", label: "Home", href: "#home" },
+  { name: "about", label: "About", href: "#about" },
+  { name: "skills", label: "Skills", href: "#skills" },
+  { name: "projects", label: "Projects", href: "#projects" },
+  { name: "experience", label: "Experience", href: "#experience" },
+  { name: "contact", label: "Contact", href: "#contact" },
+] as const;
+
+export const contact = {
+  email: "abimjoshi7@gmail.com",
+  phone: "+977 9860920006",
+  phoneHref: "tel:+9779860920006",
+  location: "Shankhamul, Kathmandu 44600",
+  github: "https://github.com/abimjoshi7",
+  linkedin: "https://linkedin.com/in/abimjoshi7",
+} as const;
+
+/** Headline numbers. Shown once, in the hero — not repeated per section. */
+export const stats = [
+  { label: "YEARS", value: "5+" },
+  { label: "APPS SHIPPED", value: "15+" },
+  { label: "CLIENTS", value: "10+" },
 ] as const;

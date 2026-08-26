@@ -28,7 +28,7 @@ interface HomeScreenApp {
 interface PhoneScreenProps<T extends HomeScreenApp> {
   apps: T[];
   onAppSelect?: (app: T) => void;
-  deviceType: 'iphone' | 'android' | 'tablet';
+  deviceType: 'iphone' | 'android';
 }
 
 const PhoneScreen = <T extends HomeScreenApp>({ apps, onAppSelect, deviceType }: PhoneScreenProps<T>) => {
@@ -75,11 +75,10 @@ const PhoneScreen = <T extends HomeScreenApp>({ apps, onAppSelect, deviceType }:
     setTimeout(() => setSelectedApp(null), 1000);
   };
 
-  // Determine grid layout based on device
-  const gridCols = deviceType === 'tablet' ? 'grid-cols-5' : 'grid-cols-4';
+  const gridCols = 'grid-cols-4';
 
   // Native OS-specific wallpapers
-  const isIOS = deviceType === 'iphone' || deviceType === 'tablet';
+  const isIOS = deviceType === 'iphone';
   const wallpaper = isIOS
     ? 'from-slate-900 via-blue-950 to-purple-950' // iOS-style gradient
     : 'from-slate-950 via-slate-900 to-slate-950'; // Material Design 3 dark
@@ -225,14 +224,6 @@ const PhoneScreen = <T extends HomeScreenApp>({ apps, onAppSelect, deviceType }:
             </motion.div>
           ))}
 
-          {/* Add Empty Slots for realistic look */}
-          {deviceType === 'tablet' && apps.length % 5 !== 0 && (
-            <>
-              {[...Array(5 - (apps.length % 5))].map((_, i) => (
-                <div key={`empty-${i}`} className="w-20" />
-              ))}
-            </>
-          )}
         </div>
 
         {/* Native OS Dock */}

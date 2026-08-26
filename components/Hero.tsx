@@ -40,7 +40,9 @@ const Hero = () => {
 
           <div className="p-4 sm:p-6 lg:p-8 font-mono">
             <h1 className="mb-6">
-              <span className="sr-only">Abim Joshi — Software Engineer</span>
+              <span className="sr-only">
+                Abim Joshi — Software Engineer, full-stack and mobile
+              </span>
               {/* Banner scales with the viewport instead of forcing a horizontal scroll. */}
               <pre
                 aria-hidden="true"
@@ -56,11 +58,11 @@ const Hero = () => {
               <div>
                 <p className="text-[#00ff41]">$ whoami</p>
                 <div className="pl-4 mt-1 space-y-1 text-[var(--terminal-text)]">
-                  <p>Software Engineer · Senior Flutter Developer</p>
+                  <p>Software Engineer · Full-stack &amp; Mobile</p>
                   <p className="text-[var(--terminal-text-dim)]">
-                    Five-plus years in hybrid app development, shipping
-                    production-ready apps with Flutter, Dart, Kotlin and Java.
-                    Based in Kathmandu, Nepal.
+                    6+ years building full-stack web platforms with Next.js, Rust
+                    and Spring Boot, and production-grade apps in Flutter, Jetpack
+                    Compose and SwiftUI. Based in Kathmandu, Nepal.
                   </p>
                 </div>
               </div>

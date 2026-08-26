@@ -1,65 +1,81 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { HiTerminal } from 'react-icons/hi';
 import {
   SiFlutter,
   SiDart,
   SiKotlin,
-  SiFirebase,
-  SiPostgresql,
   SiFigma,
-  SiGit,
   SiSwagger,
   SiGithubactions,
   SiPostman,
   SiGnubash,
   SiSqlite,
+  SiNextdotjs,
+  SiTypescript,
+  SiRust,
+  SiSpringboot,
+  SiSwift,
+  SiJetpackcompose,
+  SiFastlane,
+  SiFfmpeg,
+  SiXcode,
 } from 'react-icons/si';
 import { FaJava } from 'react-icons/fa';
 import SectionHeading from './SectionHeading';
 import { spokenLanguages } from '@/lib/site';
 import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
 
-/** Groups mirror the résumé sidebar: Tech Stack, Database, Tools. */
+/**
+ * Grouped as the résumé groups them, but ordered so the full-stack web and
+ * backend work reads before the mobile stack.
+ */
 const skillCategories = [
   {
-    title: 'Tech stack',
+    title: 'Full-stack & backend',
+    skills: [
+      { name: 'Next.js', icon: SiNextdotjs, color: '#ffffff' },
+      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+      { name: 'Rust', icon: SiRust, color: '#DEA584' },
+      { name: 'Axum', icon: SiRust, color: '#DEA584' },
+      { name: 'Spring Boot', icon: SiSpringboot, color: '#6DB33F' },
+      { name: 'SQL', icon: SiSqlite, color: '#00d9ff' },
+      { name: 'Bash', icon: SiGnubash, color: '#4EAA25' },
+    ],
+  },
+  {
+    title: 'Mobile',
     skills: [
       { name: 'Flutter', icon: SiFlutter, color: '#47C5FB' },
       { name: 'Dart', icon: SiDart, color: '#0175C2' },
+      { name: 'Jetpack Compose', icon: SiJetpackcompose, color: '#4285F4' },
       { name: 'Kotlin', icon: SiKotlin, color: '#A97BFF' },
+      { name: 'SwiftUI', icon: SiSwift, color: '#F05138' },
+      { name: 'Swift', icon: SiSwift, color: '#F05138' },
       { name: 'Java', icon: FaJava, color: '#E76F00' },
-      { name: 'Bash', icon: SiGnubash, color: '#4EAA25' },
-      { name: 'SQL', icon: SiSqlite, color: '#00d9ff' },
     ],
   },
   {
-    title: 'Database',
+    title: 'DevOps & tools',
     skills: [
-      { name: 'Drift', icon: HiTerminal, color: '#00d9ff' },
-      { name: 'Isar', icon: HiTerminal, color: '#00d9ff' },
-      { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
-      { name: 'Firestore', icon: SiFirebase, color: '#FFCA28' },
-    ],
-  },
-  {
-    title: 'Tools',
-    skills: [
-      { name: 'Figma', icon: SiFigma, color: '#F24E1E' },
+      { name: 'GitHub Actions', icon: SiGithubactions, color: '#2088FF' },
+      { name: 'Fastlane', icon: SiFastlane, color: '#00F200' },
+      { name: 'Shorebird', icon: SiFlutter, color: '#47C5FB' },
+      { name: 'FFmpeg', icon: SiFfmpeg, color: '#007808' },
+      { name: 'Xcode', icon: SiXcode, color: '#1575F9' },
       { name: 'Postman', icon: SiPostman, color: '#FF6C37' },
       { name: 'Swagger', icon: SiSwagger, color: '#85EA2D' },
-      { name: 'Shorebird', icon: HiTerminal, color: '#00ff41' },
-      { name: 'GitHub Actions', icon: SiGithubactions, color: '#2088FF' },
-      { name: 'Retrofit', icon: HiTerminal, color: '#00ff41' },
-      { name: 'Git', icon: SiGit, color: '#F05032' },
+      { name: 'Figma', icon: SiFigma, color: '#F24E1E' },
     ],
   },
   {
-    title: 'Architecture',
+    title: 'Methodology',
     skills: [
-      { name: 'Bloc pattern', icon: SiFlutter, color: '#47C5FB' },
-      { name: 'SOLID principles', icon: HiTerminal, color: '#00ff41' },
+      { name: 'Clean Architecture', icon: SiFlutter, color: '#47C5FB' },
+      { name: 'SOLID', icon: SiGnubash, color: '#00ff41' },
+      { name: 'TDD', icon: SiGnubash, color: '#00ff41' },
+      { name: 'Agile', icon: SiGnubash, color: '#00ff41' },
+      { name: 'CI/CD', icon: SiGithubactions, color: '#2088FF' },
     ],
   },
 ];

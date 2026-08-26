@@ -3,102 +3,33 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { FaGooglePlay, FaAppStore } from 'react-icons/fa';
+import { HiExternalLink } from 'react-icons/hi';
 import DeviceShowcase from './DeviceShowcase';
 import PhoneScreen from './PhoneScreen';
 import SectionHeading from './SectionHeading';
 import { fadeUp, stagger, tap, viewportOnce } from '@/lib/motion';
 
-export interface App {
-  id: string;
-  name: string;
-  icon: string;
-  gradient: string;
-  category: string;
-  description: string;
-  platform: string;
-  tech: string[];
-  appStore?: string;
-  playStore?: string;
-}
-
-const projects: App[] = [
-  {
-    id: 'meroschool',
-    name: 'Mero School',
-    icon: '🎓',
-    gradient: 'from-blue-500 via-blue-600 to-purple-600',
-    category: 'Education',
-    description:
-      'School management app connecting students, teachers and parents — attendance tracking, grade management, assignment submission and real-time notifications.',
-    platform: 'iOS · Android',
-    tech: ['Flutter', 'Dart', 'Firebase', 'Bloc'],
-    playStore: 'https://play.google.com/store/apps/details?id=school.mero.lms',
-    appStore: 'https://apps.apple.com/np/app/mero-school/id1581089279',
-  },
-  {
-    id: 'merolagani',
-    name: 'Mero Lagani',
-    icon: '📈',
-    gradient: 'from-green-500 via-green-600 to-teal-600',
-    category: 'Finance',
-    description:
-      "Nepal's stock market and investment app. Real-time analytics dashboards, portfolio tracking and compliance monitoring.",
-    platform: 'iOS · Android',
-    tech: ['Flutter', 'Dart', 'PostgreSQL', 'Bloc', 'Retrofit'],
-    playStore: 'https://play.google.com/store/apps/details?id=com.podamibe.merolagani&hl=en-US',
-    appStore: 'https://apps.apple.com/us/app/merolagani-nepse-app/id1583525414',
-  },
-  {
-    id: 'merohealthcare',
-    name: 'Mero Health Care',
-    icon: '🏥',
-    gradient: 'from-red-500 via-pink-500 to-red-600',
-    category: 'Healthcare',
-    description:
-      'Healthcare management platform with offline data sync, appointment scheduling and medical records management.',
-    platform: 'Android',
-    tech: ['Flutter', 'Dart', 'Drift', 'Firestore'],
-    playStore: 'https://play.google.com/store/apps/details?id=com.merohealth&hl=en',
-  },
-  {
-    id: 'homaale',
-    name: 'Homaale',
-    icon: '🏠',
-    gradient: 'from-orange-500 via-amber-500 to-yellow-500',
-    category: 'Real estate',
-    description:
-      'Property listing and management app with location-based services, push notifications and personalised content for buyers and sellers.',
-    platform: 'Android',
-    tech: ['Flutter', 'Dart', 'Firestore', 'Bloc'],
-    playStore: 'https://play.google.com/store/apps/details?id=com.cagtu.cipher&hl=en_US',
-  },
-  {
-    id: 'onecorner',
-    name: 'One Corner',
-    icon: '🛍️',
-    gradient: 'from-purple-500 via-indigo-500 to-blue-500',
-    category: 'E-commerce',
-    description:
-      'E-commerce platform with push notifications, engagement analytics and a streamlined checkout flow.',
-    platform: 'iOS · Android',
-    tech: ['Flutter', 'Dart', 'Isar', 'Retrofit', 'WebEngage'],
-    playStore: 'https://play.google.com/store/apps/details?id=com.onecorner.orderapp',
-    appStore: 'https://apps.apple.com/us/app/one-corner-hospitality/id1580080019',
-  },
-];
+import { publishedApps, webProjects, type PublishedApp } from '@/lib/site';
 
 const deviceOptions = [
-  { type: 'iphone' as const, label: 'iPhone' },
+  { type: 'iphone' as const, label: 'iOS' },
   { type: 'android' as const, label: 'Android' },
-  { type: 'tablet' as const, label: 'Tablet' },
 ];
 
 const Projects = () => {
-  const [deviceType, setDeviceType] = useState<'iphone' | 'android' | 'tablet'>('iphone');
-  const [selectedApp, setSelectedApp] = useState<App | null>(null);
+  const [deviceType, setDeviceType] = useState<'iphone' | 'android'>('iphone');
+  const [selectedApp, setSelectedApp] = useState<PublishedApp | null>(null);
   const detailsRef = useRef<HTMLDivElement>(null);
 
-  const handleSelect = (app: App) => {
+  // Each mockup links only to the store for the platform it represents.
+  const isIOSDevice = deviceType === 'iphone';
+  const storeFor = (app: PublishedApp) => (isIOSDevice ? app.appStore : app.playStore);
+  const platformsFor = (app: PublishedApp) =>
+    [app.appStore ? 'iOS' : null, app.playStore ? 'Android' : null]
+      .filter(Boolean)
+      .join(' · ') || 'Unlisted';
+
+  const handleSelect = (app: PublishedApp) => {
     setSelectedApp(app);
     // Stacked layout on small screens puts the details panel below the fold.
     if (window.matchMedia('(max-width: 1023px)').matches) {
@@ -121,10 +52,75 @@ const Projects = () => {
       >
         <SectionHeading
           id="projects-heading"
-          command="adb devices"
-          title="Shipped apps"
-          subtitle="Pick a device, then tap an app icon to read what went into it."
+          command="ls projects/"
+          title="Projects"
+          subtitle="Full-stack web platforms, plus the apps I've shipped to the stores."
         />
+
+        {/* Full-stack web work leads the section. */}
+        <motion.ul
+          variants={stagger(0.08)}
+          className="grid sm:grid-cols-2 gap-4 sm:gap-5 mb-14 sm:mb-20"
+        >
+          {webProjects.map((project) => (
+            <motion.li
+              key={project.id}
+              variants={fadeUp}
+              className="terminal-window panel-interactive p-5 sm:p-6 flex flex-col"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div
+                  className={`w-11 h-11 shrink-0 rounded-xl bg-gradient-to-br ${project.gradient} flex items-center justify-center text-xl`}
+                >
+                  {project.icon}
+                </div>
+                <div className="min-w-0">
+                  <h3 className="font-mono text-base font-bold text-[#00ff41]">
+                    {project.name}
+                  </h3>
+                  <p className="font-mono text-xs text-[var(--terminal-text-dim)]">
+                    {project.category} · Web
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-sm leading-relaxed text-[var(--terminal-text)] mb-4">
+                {project.description}
+              </p>
+
+              <div className="mt-auto flex flex-wrap items-center gap-3">
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-md border border-[#00ff41] text-[#00ff41] font-mono text-xs transition-colors hover:bg-[#00ff41] hover:text-[#0d1117]"
+                >
+                  <HiExternalLink size={14} />
+                  Visit site
+                </a>
+                {project.appsComingSoon && (
+                  <span className="font-mono text-[11px] text-[var(--terminal-text-dim)]">
+                    iOS &amp; Android apps coming soon
+                  </span>
+                )}
+              </div>
+            </motion.li>
+          ))}
+        </motion.ul>
+
+        <motion.h3
+          variants={fadeUp}
+          className="font-mono text-lg sm:text-xl font-bold text-[#00ff41] mb-2"
+        >
+          Published apps
+        </motion.h3>
+        <motion.p
+          variants={fadeUp}
+          className="text-sm text-[var(--terminal-text-dim)] mb-8"
+        >
+          Pick a platform, then tap an app icon — the link goes straight to that
+          platform&apos;s store.
+        </motion.p>
 
         {/* Device switcher */}
         <motion.div
@@ -165,11 +161,11 @@ const Projects = () => {
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-start">
           {/* min-w-0: grid items default to min-width:auto, which would let the
-              500px tablet mockup dictate the column width instead of shrinking. */}
+              320px mockup dictate the column width instead of shrinking. */}
           <motion.div variants={fadeUp} className="w-full min-w-0">
             <DeviceShowcase deviceType={deviceType}>
               <PhoneScreen
-                apps={projects}
+                apps={publishedApps}
                 deviceType={deviceType}
                 onAppSelect={handleSelect}
               />
@@ -199,7 +195,7 @@ const Projects = () => {
                           {selectedApp.name}
                         </h3>
                         <p className="font-mono text-xs text-[var(--terminal-text-dim)]">
-                          {selectedApp.category} · {selectedApp.platform}
+                          {selectedApp.category} · {platformsFor(selectedApp)}
                         </p>
                       </div>
                     </div>
@@ -220,27 +216,20 @@ const Projects = () => {
                     </ul>
 
                     <div className="flex flex-wrap gap-2 pt-1">
-                      {selectedApp.playStore && (
+                      {storeFor(selectedApp) ? (
                         <a
-                          href={selectedApp.playStore}
+                          href={storeFor(selectedApp)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 px-4 py-2.5 rounded-md border border-[#00ff41] text-[#00ff41] font-mono text-xs transition-colors hover:bg-[#00ff41] hover:text-[#0d1117]"
                         >
-                          <FaGooglePlay size={13} />
-                          Play Store
+                          {isIOSDevice ? <FaAppStore size={13} /> : <FaGooglePlay size={13} />}
+                          {isIOSDevice ? 'View on App Store' : 'View on Play Store'}
                         </a>
-                      )}
-                      {selectedApp.appStore && (
-                        <a
-                          href={selectedApp.appStore}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2.5 rounded-md border border-[#00d9ff] text-[#00d9ff] font-mono text-xs transition-colors hover:bg-[#00d9ff] hover:text-[#0d1117]"
-                        >
-                          <FaAppStore size={13} />
-                          App Store
-                        </a>
+                      ) : (
+                        <p className="font-mono text-xs text-[var(--terminal-text-dim)]">
+                          Not published on {isIOSDevice ? 'iOS' : 'Android'}.
+                        </p>
                       )}
                     </div>
                   </motion.div>

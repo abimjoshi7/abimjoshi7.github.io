@@ -1,34 +1,34 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { HiCode, HiDeviceMobile, HiLightningBolt, HiUserGroup } from 'react-icons/hi';
+import { HiCode, HiDeviceMobile, HiLightningBolt, HiSparkles } from 'react-icons/hi';
 import SectionHeading from './SectionHeading';
 import { fadeUp, stagger, viewportOnce } from '@/lib/motion';
 
 const highlights = [
   {
-    icon: HiDeviceMobile,
-    title: 'Hybrid app development',
+    icon: HiCode,
+    title: 'Full-stack web',
     description:
-      'Production Flutter apps shipped to Google Play and the App Store from one codebase.',
+      'Next.js and TypeScript on the front, Rust (Axum) and Spring Boot behind it, SQL underneath.',
   },
   {
-    icon: HiCode,
-    title: 'Clean, maintainable code',
+    icon: HiDeviceMobile,
+    title: 'Native and cross-platform mobile',
     description:
-      'Bloc to separate business logic from UI, and SOLID principles to keep it easy to scale.',
+      'Flutter, Jetpack Compose and SwiftUI — including native platform channels when a feature needs them.',
+  },
+  {
+    icon: HiSparkles,
+    title: 'AI-integrated products',
+    description:
+      'Computer-vision measurement, a 600+ species compatibility engine and in-app AI chat support.',
   },
   {
     icon: HiLightningBolt,
-    title: 'Offline-first data',
+    title: 'Offline-first & real-time',
     description:
-      'Drift, Isar, PostgreSQL and Firestore, with sync built for low-connectivity environments.',
-  },
-  {
-    icon: HiUserGroup,
-    title: 'User satisfaction',
-    description:
-      'Engagement analytics and store feedback drive what gets built next — and it shows in the ratings.',
+      'Resumable background transfers, offline sync and WebSocket chat with delivery and read receipts.',
   },
 ];
 
@@ -57,19 +57,20 @@ const About = () => (
           className="space-y-4 text-sm sm:text-base leading-relaxed text-[var(--terminal-text)]"
         >
           <p>
-            Seasoned software engineer with more than five years in hybrid app
-            development. I&apos;ve crafted several production-ready apps, focusing on
-            user satisfaction and seamless performance.
+            Software Engineer with 6+ years shipping production-grade software
+            across fintech, ed-tech, ERP and commercial domains — full-stack web
+            platforms as well as Android, iOS and Flutter apps.
           </p>
           <p className="text-[var(--terminal-text-dim)]">
-            I&apos;m all about delivering on time, meeting client expectations and
-            writing clean code — school portals, trading apps and healthcare records,
-            where correctness and offline resilience matter more than novelty.
+            On the web that means Next.js and TypeScript, with Rust (Axum) and
+            Spring Boot services behind them. On mobile it means Flutter, Jetpack
+            Compose and SwiftUI, dropping into native platform channels when a
+            feature calls for it.
           </p>
           <p className="text-[var(--terminal-text-dim)]">
-            Currently Senior Flutter Developer at Raindrop Inc. in Kathmandu, working
-            on financial applications with real-time analytics, offline
-            synchronisation and compliance monitoring.
+            I specialise in Clean Architecture, offline-first design and
+            AI-integrated experiences. Currently at Shrig Solutions in Kathmandu,
+            building AI-powered consumer apps.
           </p>
         </motion.div>
 

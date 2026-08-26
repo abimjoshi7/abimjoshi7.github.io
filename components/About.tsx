@@ -65,7 +65,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="about" aria-labelledby="about-heading" className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <motion.div
         ref={ref}
         variants={containerVariants}
@@ -89,7 +89,7 @@ const About = () => {
                 <span className="text-[#b877db]">profile.md</span>
               </div>
               <div className="pl-4 text-[#00ff41]">
-                <h2 className="text-3xl sm:text-4xl font-bold terminal-glow mb-2">
+                <h2 id="about-heading" className="text-3xl sm:text-4xl font-bold terminal-glow mb-2">
                   About Me
                 </h2>
                 <div className="text-[#00d9ff] text-sm">
@@ -204,9 +204,9 @@ const About = () => {
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-[#00ff41] font-mono text-xs">./</span>
-                      <h4 className="text-[#00ff41] font-mono font-bold">
+                      <span className="text-[#00ff41] font-mono font-bold">
                         {command}
-                      </h4>
+                      </span>
                     </div>
                     <h3 className="text-[#00d9ff] font-mono text-sm mb-1">{title}</h3>
                     <p className="text-[#00d9ff] text-xs opacity-80 leading-relaxed">

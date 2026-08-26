@@ -118,7 +118,7 @@ const Projects = () => {
   };
 
   return (
-    <section id="projects" className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section id="projects" aria-labelledby="projects-heading" className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
       <motion.div
         ref={ref}
         variants={containerVariants}
@@ -143,7 +143,7 @@ const Projects = () => {
               <div className="pl-2 sm:pl-4 text-[#00ff41]">
                 <div className="flex items-center gap-2">
                   <HiTerminal className="text-[#00d9ff]" />
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold terminal-glow">
+                  <h2 id="projects-heading" className="text-2xl sm:text-3xl lg:text-4xl font-bold terminal-glow">
                     Mobile Applications
                   </h2>
                 </div>

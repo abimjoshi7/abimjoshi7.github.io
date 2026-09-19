@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { ReactNode } from 'react';
 import DeviceFrame from './DeviceFrame';
 import { useKathmanduClock } from '@/lib/useKathmanduClock';
@@ -29,8 +29,6 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
   const isIPhone = deviceType === 'iphone';
   const isAndroid = deviceType === 'android';
 
-  const reduceMotion = useReducedMotion();
-
   // Shared with the home-screen widgets so every clock on the mockup agrees.
   const { time: statusBarTime } = useKathmanduClock();
 
@@ -38,9 +36,12 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
     <AnimatePresence mode="wait">
       <motion.div
         key={deviceType}
-        initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: 12 }}
-        animate={reduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }}
-        exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: -12 }}
+        // Constant across server and client: branching on useReducedMotion here
+        // rendered a different `initial` style on each side and failed hydration.
+        // MotionConfig reducedMotion="user" already drops the scale and y.
+        initial={{ opacity: 0, scale: 0.96, y: 12 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.96, y: -12 }}
         transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
         className={`relative w-full ${className}`}
       >

@@ -141,17 +141,23 @@ const Hero = () => {
         </motion.dl>
       </motion.div>
 
-      {!reduceMotion && (
-        <motion.div
-          aria-hidden="true"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.5, 0] }}
-          transition={{ delay: 1.5, duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute bottom-5 left-1/2 -translate-x-1/2 text-[#00ff41] text-sm"
-        >
-          ↓
-        </motion.div>
-      )}
+      {/* Always rendered: dropping it on the client for reduced-motion users
+          left the server HTML with an element the client did not have, which
+          fails hydration. Only the pulse is conditional, and `initial` is the
+          same either way, so the server and client markup match. */}
+      <motion.div
+        aria-hidden="true"
+        initial={{ opacity: 0 }}
+        animate={reduceMotion ? { opacity: 0.45 } : { opacity: [0, 0.5, 0] }}
+        transition={
+          reduceMotion
+            ? { duration: 0 }
+            : { delay: 1.5, duration: 2.4, repeat: Infinity, ease: 'easeInOut' }
+        }
+        className="absolute bottom-5 left-1/2 -translate-x-1/2 text-[#00ff41] text-sm"
+      >
+        ↓
+      </motion.div>
     </section>
   );
 };

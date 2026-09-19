@@ -9,7 +9,7 @@ A terminal/hacker-themed portfolio website for software engineers, built with Ne
 - **Fully Responsive**: Optimized for all devices (mobile, tablet, desktop)
 - **Terminal Commands**: Interactive navigation styled as command-line interface
 - **Smooth Animations**: Beautiful animations powered by Framer Motion
-- **SEO Optimized**: Proper meta tags and semantic HTML
+- **SEO Optimized**: Meta tags, Open Graph image, JSON-LD structured data, sitemap and robots (see `docs/SEO.md`)
 - **Performance Optimized**: Built with Next.js 15 for optimal performance
 - **TypeScript**: Type-safe codebase for better development experience
 - **Hacker Vibe**: Green terminal glow effects, monospace fonts, and retro aesthetics
@@ -21,7 +21,7 @@ A terminal/hacker-themed portfolio website for software engineers, built with Ne
 3. **Skills** - Showcase of technical skills (terminal themed)
 4. **Projects** - Featured projects with realistic iPhone/Android device mockups
 5. **Experience** - Timeline of work experience and education (terminal themed)
-6. **Contact** - Contact form styled as terminal input
+6. **Contact** - Direct email, phone and social links (no form: the site is a static export with no backend)
 
 ## Tech Stack
 
@@ -30,9 +30,22 @@ A terminal/hacker-themed portfolio website for software engineers, built with Ne
 - **Styling**: Tailwind CSS v4
 - **Animations**: Framer Motion
 - **Icons**: React Icons + Simple Icons
-- **Font**: Courier New (monospace) for terminal aesthetic
+- **Font**: Geist Mono (`next/font`), falling back to Courier New
 - **Theme**: Custom terminal/hacker theme with Matrix-style green (#00ff41)
+
+## Deployment
+
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the static
+export into `out/` and publishes it to GitHub Pages at
+https://abimjoshi7.github.io.
+
+## Icons
+
+`public/icon-192.png`, `public/icon-512.png` and `public/apple-touch-icon.png`
+are generated from a single SVG source by `node scripts/generate-icons.mjs`.
+They are committed, so the build itself stays a plain static export.
 
 ## License
 
-MIT License - feel free to use this template for your own portfolio!
+MIT License - see [LICENSE](LICENSE). Feel free to use this template for your
+own portfolio.

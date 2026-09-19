@@ -1,6 +1,13 @@
+import path from "node:path";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // A stray lockfile in a parent directory makes Turbopack infer the wrong
+  // workspace root; pin it to this repo.
+  turbopack: {
+    root: path.resolve(__dirname),
+  },
+
   // Emit a fully static site into ./out — GitHub Pages serves files, not a Node server.
   output: "export",
 

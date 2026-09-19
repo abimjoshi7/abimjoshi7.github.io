@@ -1,5 +1,12 @@
 export const SITE_URL = "https://abimjoshi7.github.io";
 
+/**
+ * The date the page content last changed, not the date it was last built.
+ * `new Date()` in the sitemap churned `lastmod` on every deploy, which teaches
+ * crawlers to ignore the field. Bump this when the copy actually changes.
+ */
+export const CONTENT_LAST_MODIFIED = "2026-09-19";
+
 export const siteConfig = {
   url: SITE_URL,
   name: "Abim Joshi",

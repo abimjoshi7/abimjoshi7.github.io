@@ -30,6 +30,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Reuse the compiler cache between runs; keyed on the lockfile and sources
+      # so a dependency or code change still produces a cold, correct build.
+      - name: Restore Next.js build cache
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-next-${{ hashFiles('package-lock.json') }}-${{ hashFiles('app/**', 'components/**', 'lib/**') }}
+          restore-keys: |
+            ${{ runner.os }}-next-${{ hashFiles('package-lock.json') }}-
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
         # Note: no `static_site_generator: next` here — that injects its own

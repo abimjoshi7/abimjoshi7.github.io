@@ -1,14 +1,15 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useSyncExternalStore } from 'react';
 
 const TIME_ZONE = 'Asia/Kathmandu';
+const MINUTE = 60_000;
 
 /**
  * Placeholders rendered on the server and on the first client paint. Anything
  * derived from `new Date()` during render would differ between the two and trip
- * a hydration mismatch, so the real time only arrives in an effect. 9:41 is the
- * time Apple ships in its own device mockups.
+ * a hydration mismatch, so the real time only arrives after hydration. 9:41 is
+ * the time Apple ships in its own device mockups.
  */
 const PLACEHOLDER = {
   time: '9:41',
@@ -26,33 +27,50 @@ export interface KathmanduClock {
 }
 
 /**
+ * The wall clock is state owned outside React, so it is read through
+ * `useSyncExternalStore` rather than an effect that calls `setState`.
+ * Land the first tick on the minute boundary, then stay on it, so the displayed
+ * minute flips when the real one does.
+ */
+function subscribe(onStoreChange: () => void) {
+  let interval: ReturnType<typeof setInterval> | undefined;
+  const timeout = setTimeout(() => {
+    onStoreChange();
+    interval = setInterval(onStoreChange, MINUTE);
+  }, MINUTE - (Date.now() % MINUTE));
+
+  return () => {
+    clearTimeout(timeout);
+    if (interval) clearInterval(interval);
+  };
+}
+
+/**
+ * The current minute, not the current millisecond: the snapshot has to be
+ * referentially stable between renders within the same tick or React would
+ * re-render in a loop.
+ */
+const getSnapshot = () => Math.floor(Date.now() / MINUTE);
+
+/** No clock on the server — the placeholder renders instead. */
+const getServerSnapshot = (): number | null => null;
+
+/**
  * Kathmandu wall-clock time, shared by the status bars and the home-screen
  * widgets so every clock on the mockup agrees. Nepal runs UTC+05:45, so the
  * offset is deliberately delegated to Intl rather than computed.
  */
 export function useKathmanduClock(): KathmanduClock {
-  const [now, setNow] = useState<Date | null>(null);
-
-  useEffect(() => {
-    setNow(new Date());
-
-    let interval: ReturnType<typeof setInterval> | undefined;
-    // Land the first tick on the minute boundary, then stay on it, so the
-    // displayed minute flips when the real one does.
-    const msToNextMinute = 60_000 - (Date.now() % 60_000);
-    const timeout = setTimeout(() => {
-      setNow(new Date());
-      interval = setInterval(() => setNow(new Date()), 60_000);
-    }, msToNextMinute);
-
-    return () => {
-      clearTimeout(timeout);
-      if (interval) clearInterval(interval);
-    };
-  }, []);
+  const minute = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot,
+  );
 
   return useMemo(() => {
-    if (!now) return PLACEHOLDER;
+    if (minute === null) return PLACEHOLDER;
+
+    const now = new Date(minute * MINUTE);
     return {
       time: now.toLocaleTimeString('en-US', {
         timeZone: TIME_ZONE,
@@ -73,5 +91,5 @@ export function useKathmanduClock(): KathmanduClock {
         day: 'numeric',
       }),
     };
-  }, [now]);
+  }, [minute]);
 }

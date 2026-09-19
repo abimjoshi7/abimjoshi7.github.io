@@ -1,6 +1,6 @@
 # Portfolio Website - Terminal Theme
 
-A terminal/hacker-themed portfolio website for software engineers, built with Next.js 15, TypeScript, Tailwind CSS, and Framer Motion. Features realistic mobile device mockups for showcasing mobile applications.
+A terminal/hacker-themed portfolio website for software engineers, built with Next.js 16, TypeScript, Tailwind CSS, and Framer Motion. Features realistic mobile device mockups for showcasing mobile applications.
 
 ## Features
 
@@ -10,7 +10,7 @@ A terminal/hacker-themed portfolio website for software engineers, built with Ne
 - **Terminal Commands**: Interactive navigation styled as command-line interface
 - **Smooth Animations**: Beautiful animations powered by Framer Motion
 - **SEO Optimized**: Meta tags, Open Graph image, JSON-LD structured data, sitemap and robots (see `docs/SEO.md`)
-- **Performance Optimized**: Built with Next.js 15 for optimal performance
+- **Performance Optimized**: Built with Next.js 16 for optimal performance
 - **TypeScript**: Type-safe codebase for better development experience
 - **Hacker Vibe**: Green terminal glow effects, monospace fonts, and retro aesthetics
 
@@ -25,7 +25,7 @@ A terminal/hacker-themed portfolio website for software engineers, built with Ne
 
 ## Tech Stack
 
-- **Framework**: Next.js 15 (App Router with Turbopack)
+- **Framework**: Next.js 16 (App Router with Turbopack)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
 - **Animations**: Framer Motion

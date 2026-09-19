@@ -118,11 +118,12 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: { userAgent: "*", allow: "/" },
     sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
   };
 }
 ```
 Generates the static `/robots.txt` file at build time. Tells all crawlers (`userAgent: "*"`) they may crawl the entire site (`allow: "/"`), and points them to the sitemap for URL discovery. This is the first file most crawlers fetch before requesting any page.
+
+There is no `host` directive: it is a Yandex-only extension that Google and Bing ignore, and the canonical link tag already states the preferred host.
 
 ## `app/sitemap.ts`
 
@@ -130,8 +131,8 @@ Generates the static `/robots.txt` file at build time. Tells all crawlers (`user
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: SITE_URL,
-      lastModified: new Date(),
+      url: `${SITE_URL}/`,
+      lastModified: CONTENT_LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 1,
     },
@@ -182,7 +183,7 @@ Error: export const dynamic = "force-static"/export const revalidate not configu
 on route "/sitemap.xml" with "output: export".
 ```
 
-Each of those files therefore declares `export const dynamic = "force-static"`. Practical consequence: `sitemap.ts`'s `lastModified: new Date()` is frozen at build time — which is the correct semantic anyway, since a rebuild is the only thing that changes the content.
+Each of those files therefore declares `export const dynamic = "force-static"`. `sitemap.ts` takes its `lastModified` from `CONTENT_LAST_MODIFIED` in `lib/site.ts` rather than `new Date()`: build time is not content time, and a `lastmod` that moved on every deploy would train crawlers to disregard the field. Bump that constant when the copy changes.
 
 ### `public/.nojekyll`
 

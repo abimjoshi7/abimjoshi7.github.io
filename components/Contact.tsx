@@ -18,21 +18,21 @@ const methods = [
     label: 'Email',
     value: contact.email,
     href: `mailto:${contact.email}?subject=${encodeURIComponent('Hello Abim')}`,
-    accent: '#00ff41',
+    accent: 'var(--terminal-green)',
   },
   {
     icon: HiPhone,
     label: 'Phone',
     value: contact.phone,
     href: contact.phoneHref,
-    accent: '#00d9ff',
+    accent: 'var(--terminal-blue)',
   },
   {
     icon: HiLocationMarker,
     label: 'Location',
     value: contact.location,
     href: null,
-    accent: '#b877db',
+    accent: 'var(--terminal-purple)',
   },
 ];
 
@@ -56,9 +56,9 @@ const Contact = () => (
     >
       <SectionHeading
         id="contact-heading"
-        command="mail -s 'hello'"
+        command="printf 'Hi Abim\\n' | mail -s 'hello' abimjoshi7@gmail.com"
         title="Get in touch"
-        subtitle="Open to new projects and roles. Email is the fastest way to reach me."
+        subtitle="If you need someone who profiles before guessing and still hits the date — email is fastest."
       />
 
       <motion.ul variants={stagger(0.06)} className="space-y-3 mb-6">
@@ -67,10 +67,10 @@ const Contact = () => (
             <>
               <Icon size={20} style={{ color: accent }} className="shrink-0" />
               <span className="min-w-0">
-                <span className="block font-mono text-[11px] uppercase tracking-wider text-[var(--terminal-text-dim)]">
+                <span className="block font-mono text-[11px] uppercase tracking-wider text-terminal-text-dim">
                   {label}
                 </span>
-                <span className="block text-sm text-[var(--terminal-text)] break-words">
+                <span className="block text-sm text-terminal-text break-words">
                   {value}
                 </span>
               </span>
@@ -100,7 +100,7 @@ const Contact = () => (
       <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3">
         <a
           href={`mailto:${contact.email}?subject=${encodeURIComponent('Hello Abim')}`}
-          className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-[#00ff41] text-[#0d1117] font-mono font-bold text-sm transition-colors hover:bg-[#4dff7c]"
+          className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-terminal-green text-terminal-on-accent font-mono font-bold text-sm transition-colors hover:bg-terminal-green-hover"
         >
           <HiMail size={16} />
           Send an email
@@ -111,7 +111,7 @@ const Contact = () => (
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-md border border-[#30363d] text-[var(--terminal-text)] font-mono text-sm transition-colors hover:border-[#00ff41] hover:text-[#00ff41]"
+            className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-md border border-terminal-border text-terminal-text font-mono text-sm transition-colors hover:border-terminal-green hover:text-terminal-green"
           >
             <Icon size={16} />
             {label}

@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { HiMenu, HiX, HiTerminal } from 'react-icons/hi';
 import { navItems } from '@/lib/site';
 import { tap } from '@/lib/motion';
+import ThemeToggle from './ThemeToggle';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -58,7 +59,7 @@ const Navigation = () => {
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
         isScrolled || isMobileMenuOpen
-          ? 'bg-[#0d1117]/95 backdrop-blur-md border-b border-[#30363d]'
+          ? 'bg-terminal-bg/95 backdrop-blur-md border-b border-terminal-border'
           : 'bg-transparent border-b border-transparent'
       }`}
     >
@@ -66,12 +67,12 @@ const Navigation = () => {
         <div className="flex justify-between items-center h-16">
           <button
             onClick={() => scrollToSection('#home')}
-            className="flex items-center gap-2 font-mono text-[#00ff41]"
+            className="flex items-center gap-2 font-mono text-terminal-green"
             aria-label="Back to top"
           >
             <HiTerminal size={20} />
             <span className="text-base font-bold">
-              <span className="text-[#00d9ff]">~/</span>abim
+              <span className="text-terminal-blue">~/</span>abim
             </span>
           </button>
 
@@ -86,8 +87,8 @@ const Navigation = () => {
                   aria-current={isActive ? 'true' : undefined}
                   className={`relative px-3 py-2 font-mono text-sm transition-colors ${
                     isActive
-                      ? 'text-[#00ff41]'
-                      : 'text-[var(--terminal-text-dim)] hover:text-[var(--terminal-text)]'
+                      ? 'text-terminal-green'
+                      : 'text-terminal-text-dim hover:text-terminal-text'
                   }`}
                 >
                   {item.name}
@@ -95,32 +96,36 @@ const Navigation = () => {
                     <motion.span
                       layoutId="nav-active"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                      className="absolute inset-x-2 -bottom-px h-px bg-[#00ff41]"
+                      className="absolute inset-x-2 -bottom-px h-px bg-terminal-green"
                     />
                   )}
                 </button>
               );
             })}
+            <ThemeToggle className="ml-2" />
           </div>
 
-          {/* Mobile trigger */}
-          <motion.button
-            whileTap={tap}
-            onClick={() => setIsMobileMenuOpen((open) => !open)}
-            className="md:hidden -mr-2 p-2 text-[#00ff41]"
-            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={isMobileMenuOpen}
-          >
-            <motion.span
-              key={isMobileMenuOpen ? 'close' : 'open'}
-              initial={{ rotate: -90, opacity: 0 }}
-              animate={{ rotate: 0, opacity: 1 }}
-              transition={{ duration: 0.18 }}
-              className="block"
+          {/* Mobile: theme + menu */}
+          <div className="flex md:hidden items-center gap-1">
+            <ThemeToggle />
+            <motion.button
+              whileTap={tap}
+              onClick={() => setIsMobileMenuOpen((open) => !open)}
+              className="-mr-2 p-2 text-terminal-green"
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMobileMenuOpen}
             >
-              {isMobileMenuOpen ? <HiX size={24} /> : <HiMenu size={24} />}
-            </motion.span>
-          </motion.button>
+              <motion.span
+                key={isMobileMenuOpen ? 'close' : 'open'}
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                transition={{ duration: 0.18 }}
+                className="block"
+              >
+                {isMobileMenuOpen ? <HiX size={24} /> : <HiMenu size={24} />}
+              </motion.span>
+            </motion.button>
+          </div>
         </div>
       </div>
 
@@ -133,7 +138,7 @@ const Navigation = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="md:hidden overflow-hidden border-t border-[#30363d] bg-[#0d1117]"
+            className="md:hidden overflow-hidden border-t border-terminal-border bg-terminal-bg"
           >
             <motion.ul
               initial="hidden"
@@ -153,11 +158,11 @@ const Navigation = () => {
                     onClick={() => scrollToSection(item.href)}
                     className={`flex items-center gap-3 w-full text-left px-2 py-3 font-mono text-sm rounded transition-colors ${
                       activeSection === item.name
-                        ? 'text-[#00ff41]'
-                        : 'text-[var(--terminal-text-dim)]'
+                        ? 'text-terminal-green'
+                        : 'text-terminal-text-dim'
                     }`}
                   >
-                    <span className="text-[#00ff41] opacity-70">❯</span>
+                    <span className="text-terminal-green opacity-70">❯</span>
                     {item.label}
                   </button>
                 </motion.li>

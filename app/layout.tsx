@@ -3,6 +3,7 @@ import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE_URL, siteConfig, publishedApps, webProjects } from "@/lib/site";
 import MotionProvider from "@/components/MotionProvider";
+import { ThemeProvider, themeInitScript } from "@/lib/theme";
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -68,8 +69,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#0d1117",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f4f6f8" },
+    { media: "(prefers-color-scheme: dark)", color: "#0d1117" },
+  ],
+  colorScheme: "dark light",
 };
 
 const person = {
@@ -134,7 +138,7 @@ const jsonLd = {
             ]
               .filter(Boolean)
               .join(", "),
-            description: app.description,
+            description: `${app.outcome} ${app.description}`,
             url: app.appStore ?? app.playStore,
             author: { "@id": `${SITE_URL}/#person` },
           },
@@ -147,7 +151,7 @@ const jsonLd = {
             name: project.name,
             applicationCategory: "BusinessApplication",
             operatingSystem: "Web",
-            description: project.description,
+            description: `${project.outcome} ${project.description}`,
             url: project.url,
             author: { "@id": `${SITE_URL}/#person` },
           },
@@ -163,17 +167,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
-      <body
-        className={`${geistMono.variable} antialiased`}
-      >
-        <MotionProvider>{children}</MotionProvider>
+      <body className={`${geistMono.variable} antialiased`}>
+        <ThemeProvider>
+          <MotionProvider>{children}</MotionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

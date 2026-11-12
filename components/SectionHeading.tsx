@@ -17,17 +17,17 @@ interface SectionHeadingProps {
  */
 const SectionHeading = ({ command, id, title, subtitle }: SectionHeadingProps) => (
   <motion.header variants={fadeUp} className="mb-10 sm:mb-14 max-w-3xl">
-    <p className="font-mono text-xs sm:text-sm text-[var(--terminal-text-dim)] mb-3">
-      <span className="text-[#00ff41]">❯</span> {command}
+    <p className="font-mono text-xs sm:text-sm text-terminal-text-dim mb-3">
+      <span className="text-terminal-green">❯</span> {command}
     </p>
     <h2
       id={id}
-      className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#00ff41] terminal-glow"
+      className="text-2xl sm:text-3xl lg:text-4xl font-bold text-terminal-green terminal-glow"
     >
       {title}
     </h2>
     {subtitle && (
-      <p className="mt-3 text-sm text-[var(--terminal-text-dim)] leading-relaxed">
+      <p className="mt-3 text-sm text-terminal-text-dim leading-relaxed">
         {subtitle}
       </p>
     )}

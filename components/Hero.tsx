@@ -31,9 +31,9 @@ const Hero = () => {
       >
         {/* The one full terminal window on the page. Every other section uses a plain heading. */}
         <motion.div variants={fadeUp} className="terminal-window overflow-hidden mb-8">
-          <div className="flex items-center gap-2 px-4 sm:px-5 py-3 border-b border-[#30363d]">
-            <HiTerminal className="text-[#00ff41] shrink-0" size={16} />
-            <span className="text-[var(--terminal-text-dim)] text-xs font-mono">
+          <div className="flex items-center gap-2 px-4 sm:px-5 py-3 border-b border-terminal-border">
+            <HiTerminal className="text-terminal-green shrink-0" size={16} />
+            <span className="text-terminal-text-dim text-xs font-mono">
               ~/portfolio
             </span>
           </div>
@@ -41,33 +41,42 @@ const Hero = () => {
           <div className="p-4 sm:p-6 lg:p-8 font-mono">
             <h1 className="mb-6">
               <span className="sr-only">
-                Abim Joshi — Full-stack Software Engineer
+                Abim Joshi — Software Engineer
               </span>
               {/* Banner scales with the viewport instead of forcing a horizontal scroll. */}
               <pre
                 aria-hidden="true"
-                className="text-[#00ff41] leading-tight text-[clamp(0.44rem,2.35vw,0.95rem)]"
+                className="text-terminal-green leading-tight text-[clamp(0.44rem,2.35vw,0.95rem)]"
               >
 {`╔══════════════════════════════════════╗
-║  ABIM JOSHI · FULL-STACK ENGINEER    ║
+║  ABIM JOSHI · SOFTWARE ENGINEER      ║
 ╚══════════════════════════════════════╝`}
               </pre>
             </h1>
 
             <div className="space-y-4 text-sm sm:text-base">
               <div>
-                <p className="text-[#00ff41]">$ whoami</p>
-                <div className="pl-4 mt-1 space-y-1 text-[var(--terminal-text)]">
-                  <p>Full-stack Software Engineer</p>
-                  <p className="text-[var(--terminal-text-dim)]">
-                    6+ years shipping production software end to end — Next.js,
-                    Rust, Spring Boot, Flutter, Jetpack Compose and SwiftUI. Based
-                    in Kathmandu, Nepal.
+                <p className="text-terminal-green">$ whoami --verbose</p>
+                <div className="pl-4 mt-1 space-y-1 text-terminal-text">
+                  <p>Software Engineer</p>
+                  <p className="text-terminal-text-dim">
+                    I build for habits, not demos — products people open again
+                    tomorrow, and backends that stay calm when usage climbs. I
+                    profile before I guess, cover risk with tests, and still hit
+                    the date that was agreed. Founder of Attatva Systems in
+                    Kathmandu.
                   </p>
                 </div>
               </div>
 
-              <p className="text-[#00ff41]">
+              <div>
+                <p className="text-terminal-green">$ git remote get-url origin</p>
+                <p className="pl-4 mt-1 text-terminal-text-dim">
+                  https://attatva.web.app
+                </p>
+              </div>
+
+              <p className="text-terminal-green">
                 $ ./say_hello.sh
                 <span className="terminal-cursor ml-1">▋</span>
               </p>
@@ -83,7 +92,7 @@ const Hero = () => {
           <motion.button
             whileTap={tap}
             onClick={() => scrollTo('#contact')}
-            className="px-6 py-3 bg-[#00ff41] text-[#0d1117] font-mono font-bold text-sm rounded-md transition-colors hover:bg-[#4dff7c]"
+            className="px-6 py-3 bg-terminal-green text-terminal-on-accent font-mono font-bold text-sm rounded-md transition-colors hover:bg-terminal-green-hover"
           >
             Get in touch →
           </motion.button>
@@ -91,7 +100,7 @@ const Hero = () => {
           <motion.button
             whileTap={tap}
             onClick={() => scrollTo('#projects')}
-            className="px-6 py-3 border border-[#30363d] text-[var(--terminal-text)] font-mono text-sm rounded-md transition-colors hover:border-[#00ff41] hover:text-[#00ff41]"
+            className="px-6 py-3 border border-terminal-border text-terminal-text font-mono text-sm rounded-md transition-colors hover:border-terminal-green hover:text-terminal-green"
           >
             View projects
           </motion.button>
@@ -100,7 +109,7 @@ const Hero = () => {
             href="/Resume.pdf"
             download="Abim_Joshi_Resume.pdf"
             whileTap={tap}
-            className="px-6 py-3 border border-[#30363d] text-[var(--terminal-text)] font-mono text-sm rounded-md text-center transition-colors hover:border-[#00d9ff] hover:text-[#00d9ff]"
+            className="px-6 py-3 border border-terminal-border text-terminal-text font-mono text-sm rounded-md text-center transition-colors hover:border-terminal-blue hover:text-terminal-blue"
           >
             Download résumé
           </motion.a>
@@ -116,7 +125,7 @@ const Hero = () => {
               rel="noopener noreferrer"
               whileTap={tap}
               aria-label={label}
-              className="w-11 h-11 flex items-center justify-center rounded-md border border-[#30363d] text-[var(--terminal-text-dim)] transition-colors hover:border-[#00ff41] hover:text-[#00ff41]"
+              className="w-11 h-11 flex items-center justify-center rounded-md border border-terminal-border text-terminal-text-dim transition-colors hover:border-terminal-green hover:text-terminal-green"
             >
               <Icon size={18} />
             </motion.a>
@@ -124,16 +133,16 @@ const Hero = () => {
         </motion.div>
 
         {/* Headline numbers — stated once here, not repeated in About or Projects. */}
-        <motion.dl variants={fadeUp} className="grid grid-cols-3 gap-3 sm:gap-4">
+        <motion.dl variants={fadeUp} className="grid grid-cols-2 gap-3 sm:gap-4 max-w-md mx-auto">
           {stats.map((stat) => (
             <div
               key={stat.label}
               className="terminal-window px-3 py-4 text-center"
             >
-              <dd className="font-mono text-xl sm:text-2xl font-bold text-[#00ff41]">
+              <dd className="font-mono text-xl sm:text-2xl font-bold text-terminal-green">
                 {stat.value}
               </dd>
-              <dt className="font-mono text-[10px] sm:text-xs text-[var(--terminal-text-dim)] mt-1 tracking-wide">
+              <dt className="font-mono text-[10px] sm:text-xs text-terminal-text-dim mt-1 tracking-wide">
                 {stat.label}
               </dt>
             </div>
@@ -154,7 +163,7 @@ const Hero = () => {
             ? { duration: 0 }
             : { delay: 1.5, duration: 2.4, repeat: Infinity, ease: 'easeInOut' }
         }
-        className="absolute bottom-5 left-1/2 -translate-x-1/2 text-[#00ff41] text-sm"
+        className="absolute bottom-5 left-1/2 -translate-x-1/2 text-terminal-green text-sm"
       >
         ↓
       </motion.div>

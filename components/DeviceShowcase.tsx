@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { ReactNode } from 'react';
 import DeviceFrame from './DeviceFrame';
 import { useKathmanduClock } from '@/lib/useKathmanduClock';
+import { useTheme } from '@/lib/theme';
 
 interface DeviceShowcaseProps {
   deviceType: 'iphone' | 'android';
@@ -28,6 +29,14 @@ const CANVAS = { width: 320, height: 670 };
 const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcaseProps) => {
   const isIPhone = deviceType === 'iphone';
   const isAndroid = deviceType === 'android';
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
+  const statusFg = isLight ? 'text-black' : 'text-white';
+  const statusFill = isLight ? 'black' : 'white';
+  const statusBorder = isLight ? 'border-black/35' : 'border-white/40';
+  const statusCap = isLight ? 'bg-black/35' : 'bg-white/40';
+  const statusBattery = isLight ? 'bg-black' : 'bg-white';
+  const homeIndicator = isLight ? 'bg-black/45' : 'bg-white/90';
 
   // Shared with the home-screen widgets so every clock on the mockup agrees.
   const { time: statusBarTime } = useKathmanduClock();
@@ -79,25 +88,25 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
 
                 {/* iOS status bar — clock centred in the left ear */}
                 <div className="absolute top-0 left-0 right-0 h-[46px] z-10 flex items-center justify-between px-[26px]">
-                  <div className="w-[54px] text-center text-white text-[15px] font-semibold tracking-tight" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif' }}>
+                  <div className={`w-[54px] text-center text-[15px] font-semibold tracking-tight ${statusFg}`} style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif' }}>
                     {statusBarTime || '9:41'}
                   </div>
                   <div className="flex items-center gap-[5px]">
                     {/* Cellular signal */}
-                    <svg className="w-[17px] h-[11px]" fill="white" viewBox="0 0 24 14">
+                    <svg className="w-[17px] h-[11px]" fill={statusFill} viewBox="0 0 24 14">
                       <circle cx="2.5" cy="11.5" r="2" />
                       <circle cx="8" cy="9" r="2.5" />
                       <circle cx="14" cy="6" r="3" />
                       <circle cx="20.5" cy="2.5" r="3.5" />
                     </svg>
                     {/* WiFi */}
-                    <svg className="w-[15px] h-[11px]" fill="white" viewBox="0 0 20 15">
+                    <svg className="w-[15px] h-[11px]" fill={statusFill} viewBox="0 0 20 15">
                       <path d="M10 13a2 2 0 100 4 2 2 0 000-4zm0-3a5 5 0 00-3.5 1.5l1.4 1.4A3 3 0 0110 12a3 3 0 012.1.9l1.4-1.4A5 5 0 0010 10zm0-3a8 8 0 00-5.7 2.3l1.4 1.4A6 6 0 0110 9a6 6 0 014.3 1.7l1.4-1.4A8 8 0 0010 7z"/>
                     </svg>
                     {/* Battery */}
-                    <div className="w-[25px] h-[12px] rounded-[3.5px] border-[1px] border-white/40 flex items-center p-[1.5px] relative">
-                      <div className="w-full h-full bg-white rounded-[1.5px]" />
-                      <div className="absolute -right-[3px] top-1/2 -translate-y-1/2 w-[1.5px] h-[4px] bg-white/40 rounded-r-full" />
+                    <div className={`w-[25px] h-[12px] rounded-[3.5px] border-[1px] flex items-center p-[1.5px] relative ${statusBorder}`}>
+                      <div className={`w-full h-full rounded-[1.5px] ${statusBattery}`} />
+                      <div className={`absolute -right-[3px] top-1/2 -translate-y-1/2 w-[1.5px] h-[4px] rounded-r-full ${statusCap}`} />
                     </div>
                   </div>
                 </div>
@@ -108,7 +117,7 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
                 </div>
 
                 {/* Home indicator */}
-                <div className="absolute bottom-[8px] left-1/2 -translate-x-1/2 w-[104px] h-[5px] bg-white/90 rounded-full z-10" />
+                <div className={`absolute bottom-[8px] left-1/2 -translate-x-1/2 w-[104px] h-[5px] rounded-full z-10 ${homeIndicator}`} />
               </div>
 
               {/* Left rail: Action Button, then the volume pair */}
@@ -156,30 +165,30 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
                 {/* One UI status bar — clock hard left, system icons right */}
                 <div className="absolute top-0 left-0 right-0 h-[34px] z-10 flex items-center justify-between px-[14px]">
                   <div className="flex items-center gap-2">
-                    <div className="text-white text-[13px] font-medium tracking-tight" style={{ fontFamily: 'Roboto, system-ui, sans-serif' }}>
+                    <div className={`text-[13px] font-medium tracking-tight ${statusFg}`} style={{ fontFamily: 'Roboto, system-ui, sans-serif' }}>
                       {statusBarTime || '9:41'}
                     </div>
-                    <svg className="w-[12px] h-[12px] opacity-90" fill="white" viewBox="0 0 24 24">
+                    <svg className="w-[12px] h-[12px] opacity-90" fill={statusFill} viewBox="0 0 24 24">
                       <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
                     </svg>
                   </div>
 
                   <div className="flex items-center gap-[5px]">
                     {/* WiFi */}
-                    <svg className="w-[14px] h-[11px]" fill="white" viewBox="0 0 24 18">
+                    <svg className="w-[14px] h-[11px]" fill={statusFill} viewBox="0 0 24 18">
                       <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
                     </svg>
                     {/* Mobile signal */}
-                    <svg className="w-[13px] h-[11px]" fill="white" viewBox="0 0 20 16">
+                    <svg className="w-[13px] h-[11px]" fill={statusFill} viewBox="0 0 20 16">
                       <rect x="0" y="10" width="3" height="6" rx="0.5" />
                       <rect x="5" y="7" width="3" height="9" rx="0.5" />
                       <rect x="10" y="4" width="3" height="12" rx="0.5" />
                       <rect x="15" y="1" width="3" height="15" rx="0.5" />
                     </svg>
                     {/* Battery — One UI draws the percentage inside the cell */}
-                    <div className="w-[24px] h-[12px] rounded-[3px] border-[1px] border-white/50 flex items-center p-[1.5px] relative">
-                      <div className="w-full h-full bg-white rounded-[1.5px]" />
-                      <div className="absolute -right-[2.5px] top-1/2 -translate-y-1/2 w-[1.5px] h-[4px] bg-white/50 rounded-r-full" />
+                    <div className={`w-[24px] h-[12px] rounded-[3px] border-[1px] flex items-center p-[1.5px] relative ${isLight ? 'border-black/40' : 'border-white/50'}`}>
+                      <div className={`w-full h-full rounded-[1.5px] ${statusBattery}`} />
+                      <div className={`absolute -right-[2.5px] top-1/2 -translate-y-1/2 w-[1.5px] h-[4px] rounded-r-full ${isLight ? 'bg-black/40' : 'bg-white/50'}`} />
                     </div>
                   </div>
                 </div>
@@ -190,7 +199,7 @@ const DeviceShowcase = ({ deviceType, children, className = '' }: DeviceShowcase
                 </div>
 
                 {/* One UI gesture bar — a thin pill, no opaque nav bar behind it */}
-                <div className="absolute bottom-[7px] left-1/2 -translate-x-1/2 w-[104px] h-[4px] bg-white/85 rounded-full z-10" />
+                <div className={`absolute bottom-[7px] left-1/2 -translate-x-1/2 w-[104px] h-[4px] rounded-full z-10 ${isLight ? 'bg-black/40' : 'bg-white/85'}`} />
               </div>
 
               {/* Both keys sit on the right on the S25 Ultra: volume rocker above

@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
-:root {
+:root,
+[data-theme="dark"] {
   --background: #0d1117;
   --foreground: #c9d1d9;
   --terminal-green: #00ff41;
+  --terminal-green-hover: #4dff7c;
   --terminal-blue: #00d9ff;
   --terminal-purple: #b877db;
   --terminal-yellow: #ffff00;
@@ -14,11 +16,48 @@
   /* Muted body copy — reserve the saturated greens for accents, not paragraphs. */
   --terminal-text: #b6c2cf;
   --terminal-text-dim: #8b96a3;
+  --terminal-on-accent: #0d1117;
+  --grid-line: rgba(0, 255, 65, 0.015);
+  --selection-bg: rgba(0, 255, 65, 0.25);
+  --selection-fg: #ffffff;
+  --scrollbar-thumb: #2f3b45;
+}
+
+/* Cool light terminal — keeps the mono / green accent language without a cream paper look. */
+[data-theme="light"] {
+  --background: #f4f6f8;
+  --foreground: #1f2328;
+  --terminal-green: #0a7a2f;
+  --terminal-green-hover: #0d9440;
+  --terminal-blue: #0550ae;
+  --terminal-purple: #8250df;
+  --terminal-yellow: #9a6700;
+  --terminal-red: #cf222e;
+  --terminal-bg: #f4f6f8;
+  --terminal-bg-alt: #ffffff;
+  --terminal-border: #d0d7de;
+  --terminal-text: #1f2328;
+  --terminal-text-dim: #656d76;
+  --terminal-on-accent: #ffffff;
+  --grid-line: rgba(10, 122, 47, 0.06);
+  --selection-bg: rgba(10, 122, 47, 0.22);
+  --selection-fg: #0d1117;
+  --scrollbar-thumb: #afb8c1;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-terminal-bg: var(--terminal-bg);
+  --color-terminal-bg-alt: var(--terminal-bg-alt);
+  --color-terminal-border: var(--terminal-border);
+  --color-terminal-green: var(--terminal-green);
+  --color-terminal-green-hover: var(--terminal-green-hover);
+  --color-terminal-blue: var(--terminal-blue);
+  --color-terminal-purple: var(--terminal-purple);
+  --color-terminal-text: var(--terminal-text);
+  --color-terminal-text-dim: var(--terminal-text-dim);
+  --color-terminal-on-accent: var(--terminal-on-accent);
   --font-mono: var(--font-geist-mono);
 }
 
@@ -31,6 +70,7 @@ body {
   color: var(--terminal-text);
   font-family: var(--font-geist-mono), 'Courier New', monospace;
   position: relative;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* Single, very faint grid. No scanline overlay — it added motion without meaning. */
@@ -39,8 +79,8 @@ body::before {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(0, 255, 65, 0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 65, 0.015) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 32px 32px;
   pointer-events: none;
   z-index: 0;
@@ -56,7 +96,7 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2f3b45;
+  background: var(--scrollbar-thumb);
   border: 2px solid var(--terminal-bg-alt);
   border-radius: 6px;
 }
@@ -83,6 +123,10 @@ body::before {
 /* Glow is now an accent for headings only, and far softer than before. */
 .terminal-glow {
   text-shadow: 0 0 12px color-mix(in srgb, currentColor 45%, transparent);
+}
+
+[data-theme="light"] .terminal-glow {
+  text-shadow: none;
 }
 
 @keyframes blink {
@@ -112,8 +156,8 @@ body::before {
 }
 
 ::selection {
-  background: rgba(0, 255, 65, 0.25);
-  color: #ffffff;
+  background: var(--selection-bg);
+  color: var(--selection-fg);
 }
 
 /*

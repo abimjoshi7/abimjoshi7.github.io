@@ -5,6 +5,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { useCallback, useState } from 'react';
 import AppIcon from './AppIcon';
 import { useKathmanduClock } from '@/lib/useKathmanduClock';
+import { useTheme } from '@/lib/theme';
 import {
   IOSPhoneIcon,
   IOSMessagesIcon,
@@ -42,6 +43,8 @@ const PhoneScreen = <T extends HomeScreenApp>({
   deviceType,
 }: PhoneScreenProps<T>) => {
   const isIOS = deviceType === 'iphone';
+  const { theme } = useTheme();
+  const isLight = theme === 'light';
   const clock = useKathmanduClock();
   const [selectedApp, setSelectedApp] = useState<string | null>(null);
 
@@ -55,26 +58,36 @@ const PhoneScreen = <T extends HomeScreenApp>({
   );
 
   const wallpaper = isIOS
-    ? 'from-[#101a33] via-[#1b2450] to-[#2c1a45]'
-    : 'from-[#070a12] via-[#0d1220] to-[#05070d]';
+    ? isLight
+      ? 'from-[#c9daf2] via-[#d7cceb] to-[#e9d6e4]'
+      : 'from-[#101a33] via-[#1b2450] to-[#2c1a45]'
+    : isLight
+      ? 'from-[#e8eef8] via-[#dde5f5] to-[#eef1f7]'
+      : 'from-[#070a12] via-[#0d1220] to-[#05070d]';
+  // Three icon rows (9+) need a tighter grid so the dock still clears.
+  const compact = apps.length > 8;
 
   return (
     <div
       className={`w-full h-full bg-gradient-to-br ${wallpaper} relative overflow-hidden select-none`}
     >
-      {/* Wallpaper — iOS soft two-lobe gradient; One UI darker Material You wash. */}
+      {/* Wallpaper — iOS soft two-lobe gradient; One UI Material You wash. */}
       {isIOS ? (
         <>
           <div
             className="absolute inset-0 opacity-70"
             style={{
-              backgroundImage: `radial-gradient(ellipse 70% 55% at 18% 22%, rgba(56,132,255,0.38) 0%, transparent 60%),
-                                radial-gradient(ellipse 75% 60% at 82% 78%, rgba(168,85,247,0.34) 0%, transparent 62%)`,
+              backgroundImage: isLight
+                ? `radial-gradient(ellipse 70% 55% at 18% 22%, rgba(96,165,250,0.45) 0%, transparent 60%),
+                   radial-gradient(ellipse 75% 60% at 82% 78%, rgba(192,132,252,0.38) 0%, transparent 62%)`
+                : `radial-gradient(ellipse 70% 55% at 18% 22%, rgba(56,132,255,0.38) 0%, transparent 60%),
+                   radial-gradient(ellipse 75% 60% at 82% 78%, rgba(168,85,247,0.34) 0%, transparent 62%)`,
             }}
           />
           <div
-            className="absolute inset-0 opacity-[0.06]"
+            className="absolute inset-0"
             style={{
+              opacity: isLight ? 0.04 : 0.06,
               backgroundImage:
                 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.35) 1px, transparent 0)',
               backgroundSize: '48px 48px',
@@ -86,13 +99,17 @@ const PhoneScreen = <T extends HomeScreenApp>({
           <div
             className="absolute inset-0 opacity-60"
             style={{
-              backgroundImage: `radial-gradient(ellipse 65% 50% at 28% 16%, rgba(99,102,241,0.40) 0%, transparent 58%),
-                                radial-gradient(ellipse 70% 55% at 74% 84%, rgba(217,70,239,0.30) 0%, transparent 60%)`,
+              backgroundImage: isLight
+                ? `radial-gradient(ellipse 65% 50% at 28% 16%, rgba(129,140,248,0.35) 0%, transparent 58%),
+                   radial-gradient(ellipse 70% 55% at 74% 84%, rgba(244,114,182,0.22) 0%, transparent 60%)`
+                : `radial-gradient(ellipse 65% 50% at 28% 16%, rgba(99,102,241,0.40) 0%, transparent 58%),
+                   radial-gradient(ellipse 70% 55% at 74% 84%, rgba(217,70,239,0.30) 0%, transparent 60%)`,
             }}
           />
           <div
-            className="absolute inset-0 opacity-[0.05]"
+            className="absolute inset-0"
             style={{
+              opacity: isLight ? 0.035 : 0.05,
               backgroundImage:
                 'linear-gradient(45deg, rgba(255,255,255,0.25) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.25) 75%)',
               backgroundSize: '56px 56px',
@@ -109,14 +126,30 @@ const PhoneScreen = <T extends HomeScreenApp>({
           }`}
         >
           {isIOS ? (
-            <IOSClockWidget time={clock.time} date={clock.dateLong} />
+            <IOSClockWidget
+              time={clock.time}
+              date={clock.dateLong}
+              compact={compact}
+              isLight={isLight}
+            />
           ) : (
-            <OneUIClockWidget time={clock.time} date={clock.dateShort} />
+            <OneUIClockWidget
+              time={clock.time}
+              date={clock.dateShort}
+              compact={compact}
+              isLight={isLight}
+            />
           )}
 
           <div
             className={`grid grid-cols-4 min-w-0 ${
-              isIOS ? 'gap-x-2 gap-y-3.5' : 'gap-x-1.5 gap-y-3'
+              compact
+                ? isIOS
+                  ? 'gap-x-1.5 gap-y-2'
+                  : 'gap-x-1 gap-y-1.5'
+                : isIOS
+                  ? 'gap-x-2 gap-y-3.5'
+                  : 'gap-x-1.5 gap-y-3'
             }`}
           >
             {apps.map((app, index) => (
@@ -137,6 +170,7 @@ const PhoneScreen = <T extends HomeScreenApp>({
                   icon={app.icon}
                   gradient={app.gradient}
                   deviceType={deviceType}
+                  compact={compact}
                   onClick={() => handleAppClick(app)}
                   isSelected={selectedApp === app.id}
                 />
@@ -151,10 +185,14 @@ const PhoneScreen = <T extends HomeScreenApp>({
               <div className="flex justify-center mt-2">
                 <div
                   aria-hidden="true"
-                  className="flex items-center gap-1.5 rounded-full bg-black/30 backdrop-blur-xl px-3.5 py-1"
+                  className={`flex items-center gap-1.5 rounded-full backdrop-blur-xl px-3.5 py-1 ${
+                    isLight
+                      ? 'bg-white/55 border border-black/8'
+                      : 'bg-black/30'
+                  }`}
                 >
                   <svg
-                    className="w-2.5 h-2.5 text-white/85"
+                    className={`w-2.5 h-2.5 ${isLight ? 'text-black/55' : 'text-white/85'}`}
                     fill="none"
                     stroke="currentColor"
                     strokeWidth={2.6}
@@ -162,7 +200,10 @@ const PhoneScreen = <T extends HomeScreenApp>({
                   >
                     <path strokeLinecap="round" d="M21 21l-5.2-5.2m2.2-4.8a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
-                  <span className="text-white/90 text-[11px]" style={{ fontFamily: IOS_FONT }}>
+                  <span
+                    className={`text-[11px] ${isLight ? 'text-black/65' : 'text-white/90'}`}
+                    style={{ fontFamily: IOS_FONT }}
+                  >
                     Search
                   </span>
                 </div>
@@ -170,7 +211,11 @@ const PhoneScreen = <T extends HomeScreenApp>({
 
               <div
                 aria-hidden="true"
-                className="mx-2.5 mt-2 mb-1 rounded-3xl bg-white/[0.16] backdrop-blur-2xl border border-white/15 px-2.5 py-2 shadow-[0_8px_28px_rgba(0,0,0,0.35)]"
+                className={`mx-2.5 mt-2 mb-1 rounded-3xl backdrop-blur-2xl px-2.5 py-2 ${
+                  isLight
+                    ? 'bg-white/70 border border-black/8 shadow-[0_8px_28px_rgba(0,0,0,0.12)]'
+                    : 'bg-white/[0.16] border border-white/15 shadow-[0_8px_28px_rgba(0,0,0,0.35)]'
+                }`}
               >
                 <div className="flex items-center justify-around">
                   <IOSPhoneIcon className="w-11 h-11 drop-shadow-[0_3px_8px_rgba(0,0,0,0.35)]" />
@@ -183,15 +228,25 @@ const PhoneScreen = <T extends HomeScreenApp>({
           ) : (
             <>
               <div aria-hidden="true" className="mx-3.5 mt-1.5">
-                <div className="flex items-center gap-2.5 h-8 rounded-full bg-white/[0.13] backdrop-blur-xl border border-white/10 px-3.5">
+                <div
+                  className={`flex items-center gap-2.5 h-8 rounded-full backdrop-blur-xl px-3.5 ${
+                    isLight
+                      ? 'bg-white/70 border border-black/8'
+                      : 'bg-white/[0.13] border border-white/10'
+                  }`}
+                >
                   <FcGoogle className="w-3.5 h-3.5 shrink-0" />
                   <span
-                    className="flex-1 text-white/55 text-xs"
+                    className={`flex-1 text-xs ${isLight ? 'text-black/45' : 'text-white/55'}`}
                     style={{ fontFamily: ONE_UI_FONT }}
                   >
                     Search
                   </span>
-                  <svg className="w-3 h-3 text-white/70 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className={`w-3 h-3 shrink-0 ${isLight ? 'text-black/55' : 'text-white/70'}`}
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
                     <path d="M12 14a3 3 0 003-3V6a3 3 0 10-6 0v5a3 3 0 003 3zm5-3a5 5 0 01-10 0H5a7 7 0 006 6.92V21h2v-3.08A7 7 0 0019 11h-2z" />
                   </svg>
                 </div>
@@ -216,50 +271,108 @@ const PhoneScreen = <T extends HomeScreenApp>({
 
 /**
  * iOS medium clock widget — full content width inside the screen padding,
- * height kept tight so two icon rows still clear the dock.
+ * height kept tight so the icon grid still clears the dock.
  */
-const IOSClockWidget = ({ time, date }: { time: string; date: string }) => (
+const IOSClockWidget = ({
+  time,
+  date,
+  compact = false,
+  isLight,
+}: {
+  time: string;
+  date: string;
+  compact?: boolean;
+  isLight: boolean;
+}) => (
   <motion.div
     initial={{ opacity: 0, scale: 0.96 }}
     animate={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     aria-hidden="true"
-    className="w-full min-w-0 max-w-full box-border shrink-0 mb-3 rounded-[20px] bg-white/[0.14] backdrop-blur-2xl border border-white/15 shadow-[0_8px_24px_rgba(0,0,0,0.3)] px-3.5 py-2.5 flex flex-col gap-1"
+    className={`w-full min-w-0 max-w-full box-border shrink-0 rounded-[20px] backdrop-blur-2xl flex flex-col ${
+      isLight
+        ? 'bg-white/55 border border-black/8 shadow-[0_8px_24px_rgba(0,0,0,0.1)]'
+        : 'bg-white/[0.14] border border-white/15 shadow-[0_8px_24px_rgba(0,0,0,0.3)]'
+    } ${compact ? 'mb-2 px-3 py-2 gap-0.5' : 'mb-3 px-3.5 py-2.5 gap-1'}`}
     style={{ fontFamily: IOS_FONT }}
   >
     <div className="flex items-start justify-between gap-2 min-w-0">
-      <span className="text-white/60 text-[10px] font-semibold tracking-[0.08em] uppercase truncate">
+      <span
+        className={`text-[10px] font-semibold tracking-[0.08em] uppercase truncate ${
+          isLight ? 'text-black/45' : 'text-white/60'
+        }`}
+      >
         Kathmandu
       </span>
-      <span className="text-white/60 text-[10px] font-semibold shrink-0">+05:45</span>
+      <span
+        className={`text-[10px] font-semibold shrink-0 ${
+          isLight ? 'text-black/45' : 'text-white/60'
+        }`}
+      >
+        +05:45
+      </span>
     </div>
 
-    <div className="text-white text-[32px] font-light leading-none tracking-tight tabular-nums truncate">
+    <div
+      className={`font-light leading-none tracking-tight tabular-nums truncate ${
+        isLight ? 'text-black/90' : 'text-white'
+      } ${compact ? 'text-[28px]' : 'text-[32px]'}`}
+    >
       {time}
     </div>
 
-    <div className="text-white/70 text-[11px] font-medium truncate">{date}</div>
+    <div
+      className={`text-[11px] font-medium truncate ${
+        isLight ? 'text-black/55' : 'text-white/70'
+      }`}
+    >
+      {date}
+    </div>
   </motion.div>
 );
 
 /**
  * One UI clock — text on the wallpaper, constrained to the padded content width.
  */
-const OneUIClockWidget = ({ time, date }: { time: string; date: string }) => (
+const OneUIClockWidget = ({
+  time,
+  date,
+  compact = false,
+  isLight,
+}: {
+  time: string;
+  date: string;
+  compact?: boolean;
+  isLight: boolean;
+}) => (
   <motion.div
     initial={{ opacity: 0, y: -8 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
     aria-hidden="true"
-    className="w-full min-w-0 max-w-full shrink-0 px-1 pt-1 pb-3"
+    className={`w-full min-w-0 max-w-full shrink-0 px-1 ${
+      compact ? 'pt-0.5 pb-2' : 'pt-1 pb-3'
+    }`}
     style={{ fontFamily: ONE_UI_FONT }}
   >
-    <div className="text-white text-[36px] font-extralight leading-none tracking-tight tabular-nums drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)] truncate">
+    <div
+      className={`font-extralight leading-none tracking-tight tabular-nums truncate ${
+        isLight
+          ? 'text-black/90 drop-shadow-[0_1px_2px_rgba(255,255,255,0.5)]'
+          : 'text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.5)]'
+      } ${compact ? 'text-[32px]' : 'text-[36px]'}`}
+    >
       {time}
     </div>
-    <div className="mt-1 flex items-center gap-1.5 min-w-0 text-white/80 text-[11px] font-medium drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+    <div
+      className={`mt-1 flex items-center gap-1.5 min-w-0 text-[11px] font-medium ${
+        isLight
+          ? 'text-black/65 drop-shadow-[0_1px_1px_rgba(255,255,255,0.4)]'
+          : 'text-white/80 drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]'
+      }`}
+    >
       <span className="truncate min-w-0">{date}</span>
-      <span className="text-white/35 shrink-0">|</span>
+      <span className={`shrink-0 ${isLight ? 'text-black/25' : 'text-white/35'}`}>|</span>
       <span className="flex items-center gap-1 shrink-0">
         <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
           <circle cx="12" cy="12" r="4" />

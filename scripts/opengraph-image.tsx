@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Abim Joshi - Full-stack Software Engineer";
+export const alt =
+  "Abim Joshi — apps and platforms people use for fishing, markets, schools and shops";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -42,7 +43,7 @@ export default async function Image() {
             display: "flex",
           }}
         >
-          Full-stack Software Engineer
+          Software Engineer
         </div>
         <div
           style={{
@@ -52,7 +53,7 @@ export default async function Image() {
             display: "flex",
           }}
         >
-          Next.js · Rust · Flutter · Compose · SwiftUI
+          Fishing · Aquariums · NEPSE · Learning · Shops
         </div>
       </div>
     ),
